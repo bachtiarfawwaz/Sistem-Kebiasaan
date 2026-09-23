@@ -140,7 +140,8 @@ onMounted(async () => {
         class="mobile-nav-item"
         exact-active-class="active"
       >
-        <Icon name="ph:house" />
+        <Icon name="ph:house" class="nav-icon-mobile" />
+        <span class="nav-label">Home</span>
       </NuxtLink>
 
       <NuxtLink
@@ -148,7 +149,8 @@ onMounted(async () => {
         class="mobile-nav-item"
         exact-active-class="active"
       >
-        <Icon name="ph:calendar-blank" />
+        <Icon name="ph:calendar-blank" class="nav-icon-mobile" />
+        <span class="nav-label">Laporan</span>
       </NuxtLink>
 
       <NuxtLink
@@ -156,7 +158,8 @@ onMounted(async () => {
         class="mobile-nav-item"
         exact-active-class="active"
       >
-        <Icon name="ph:user" />
+        <Icon name="ph:user" class="nav-icon-mobile" />
+        <span class="nav-label">Profil</span>
       </NuxtLink>
 
       <button
@@ -164,7 +167,8 @@ onMounted(async () => {
         title="Keluar"
         @click="handleLogout"
       >
-        <Icon name="ph:sign-out" />
+        <Icon name="ph:sign-out" class="nav-icon-mobile" />
+        <span class="nav-label">Keluar</span>
       </button>
     </nav>
     <LogoutModal
@@ -366,33 +370,35 @@ body.dark-theme .profile-name {
 
 .mobile-nav-item {
   color: #94a3b8;
-  font-size: 1.6rem;
   text-decoration: none;
   display: flex;
+  flex-direction: column;
   align-items: center;
   justify-content: center;
   background: none;
   border: none;
   cursor: pointer;
-  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
-  padding: 0.4rem;
-  border-radius: 50%;
+  transition: all 0.2s ease;
+  padding: 0.3rem 0.5rem;
+  gap: 0.25rem;
 }
 
-.mobile-nav-item:hover {
-  transform: translateY(-3px) scale(1.1);
-  color: #10b981;
+.nav-icon-mobile {
+  font-size: 1.4rem;
 }
 
-.mobile-nav-item.active {
+.nav-label {
+  font-size: 0.7rem;
+  font-weight: 700;
+}
+
+.mobile-nav-item:hover, .mobile-nav-item.active {
   color: #10b981;
-  background: #ecfdf5;
   transform: translateY(-2px);
 }
 
 .logout-mobile:hover {
   color: #ef4444;
-  background: #fef2f2;
 }
 
 @media (min-width: 769px) {

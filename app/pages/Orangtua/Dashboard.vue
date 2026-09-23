@@ -22,12 +22,15 @@
         :class="{ completed: isCompleted('Bangun Pagi') }"
       >
         <div v-if="isCompleted('Bangun Pagi')" class="completed-badge">
-          <Icon name="ph:check-circle-fill" /> Sudah Terisi
+          <Icon name="ph:check-circle-fill" />
         </div>
         <div class="card-icon-wrapper">
-          <Icon name="ph:sun-dim-duotone" class="card-icon" />
+          <Icon name="ph:sun-dim-bold" class="card-icon" />
         </div>
-        <h3 class="card-title">Bangun Pagi</h3>
+        <div class="card-text">
+          <h3 class="card-title">Bangun Pagi</h3>
+          <p class="card-desc">Catat waktu anak bangun tidur.</p>
+        </div>
       </NuxtLink>
 
       <!-- Beribadah (Dinamis sesuai agama) -->
@@ -37,12 +40,15 @@
         :class="{ completed: isCompleted('Beribadah') }"
       >
         <div v-if="isCompleted('Beribadah')" class="completed-badge">
-          <Icon name="ph:check-circle-fill" /> Sudah Terisi
+          <Icon name="ph:check-circle-fill" />
         </div>
         <div class="card-icon-wrapper">
-          <Icon name="ph:hands-praying-duotone" class="card-icon" />
+          <Icon name="ph:hands-praying-bold" class="card-icon" />
         </div>
-        <h3 class="card-title">Beribadah</h3>
+        <div class="card-text">
+          <h3 class="card-title">Beribadah</h3>
+          <p class="card-desc">Pencatatan ibadah harian.</p>
+        </div>
       </NuxtLink>
 
       <!-- Berolahraga -->
@@ -52,12 +58,15 @@
         :class="{ completed: isCompleted('Berolahraga') }"
       >
         <div v-if="isCompleted('Berolahraga')" class="completed-badge">
-          <Icon name="ph:check-circle-fill" /> Sudah Terisi
+          <Icon name="ph:check-circle-fill" />
         </div>
         <div class="card-icon-wrapper">
-          <Icon name="ph:person-simple-run-duotone" class="card-icon" />
+          <Icon name="ph:person-simple-run-bold" class="card-icon" />
         </div>
-        <h3 class="card-title">Berolahraga</h3>
+        <div class="card-text">
+          <h3 class="card-title">Berolahraga</h3>
+          <p class="card-desc">Catat aktivitas fisik anak.</p>
+        </div>
       </NuxtLink>
 
       <!-- Makan Sehat -->
@@ -70,12 +79,15 @@
           v-if="isCompleted('Makan sehat & Bergizi')"
           class="completed-badge"
         >
-          <Icon name="ph:check-circle-fill" /> Sudah Terisi
+          <Icon name="ph:check-circle-fill" />
         </div>
         <div class="card-icon-wrapper">
-          <Icon name="ph:bowl-food-duotone" class="card-icon" />
+          <Icon name="ph:bowl-food-bold" class="card-icon" />
         </div>
-        <h3 class="card-title">Makan Sehat & Bergizi</h3>
+        <div class="card-text">
+          <h3 class="card-title">Makan Sehat & Bergizi</h3>
+          <p class="card-desc">Menu sehat yang dikonsumsi.</p>
+        </div>
       </NuxtLink>
 
       <!-- Gemar Belajar -->
@@ -85,12 +97,15 @@
         :class="{ completed: isCompleted('Gemar Belajar') }"
       >
         <div v-if="isCompleted('Gemar Belajar')" class="completed-badge">
-          <Icon name="ph:check-circle-fill" /> Sudah Terisi
+          <Icon name="ph:check-circle-fill" />
         </div>
         <div class="card-icon-wrapper">
-          <Icon name="ph:book-open-user-duotone" class="card-icon" />
+          <Icon name="ph:book-open-user-bold" class="card-icon" />
         </div>
-        <h3 class="card-title">Gemar Belajar</h3>
+        <div class="card-text">
+          <h3 class="card-title">Gemar Belajar</h3>
+          <p class="card-desc">Catat kegiatan belajar mandiri.</p>
+        </div>
       </NuxtLink>
 
       <!-- Bermasyarakat -->
@@ -100,12 +115,15 @@
         :class="{ completed: isCompleted('Bermasyarakat') }"
       >
         <div v-if="isCompleted('Bermasyarakat')" class="completed-badge">
-          <Icon name="ph:check-circle-fill" /> Sudah Terisi
+          <Icon name="ph:check-circle-fill" />
         </div>
         <div class="card-icon-wrapper">
-          <Icon name="ph:users-three-duotone" class="card-icon" />
+          <Icon name="ph:users-three-bold" class="card-icon" />
         </div>
-        <h3 class="card-title">Bermasyarakat</h3>
+        <div class="card-text">
+          <h3 class="card-title">Bermasyarakat</h3>
+          <p class="card-desc">Interaksi sosial dan lingkungan.</p>
+        </div>
       </NuxtLink>
 
       <!-- Tidur Tepat Waktu -->
@@ -115,12 +133,15 @@
         :class="{ completed: isCompleted('Tidur Tepat Waktu') }"
       >
         <div v-if="isCompleted('Tidur Tepat Waktu')" class="completed-badge">
-          <Icon name="ph:check-circle-fill" /> Sudah Terisi
+          <Icon name="ph:check-circle-fill" />
         </div>
         <div class="card-icon-wrapper">
-          <Icon name="ph:moon-stars-duotone" class="card-icon" />
+          <Icon name="ph:moon-stars-bold" class="card-icon" />
         </div>
-        <h3 class="card-title">Tidur Tepat Waktu</h3>
+        <div class="card-text">
+          <h3 class="card-title">Tidur Tepat Waktu</h3>
+          <p class="card-desc">Catat jam istirahat malam.</p>
+        </div>
       </NuxtLink>
     </div>
   </div>
@@ -302,146 +323,91 @@ body.dark-theme .role-badge {
 /* Individual Card Styling */
 .activity-card {
   position: relative;
-  background: white;
-  border-radius: 16px;
-  padding: 2rem 1.5rem;
+  background: #ffffff;
+  border-radius: 12px;
+  padding: 1.5rem;
   display: flex;
   flex-direction: column;
   align-items: center;
   justify-content: center;
+  text-align: center;
   text-decoration: none;
-  transition: all 0.3s ease;
-  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.02);
+  transition: all 0.2s ease;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.05), 0 1px 2px rgba(0, 0, 0, 0.03);
   border: 1px solid #e2e8f0;
 }
 
 .activity-card:hover {
   transform: translateY(-3px);
-  box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.05);
+  box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
   border-color: #cbd5e1;
 }
 
 .activity-card.completed {
-  border: 2px solid #22c55e;
+  border: 1px solid #22c55e;
 }
 
 .completed-badge {
   position: absolute;
-  top: 1rem;
-  right: 1rem;
-  background: #dcfce7;
-  color: #166534;
-  padding: 0.4rem 0.8rem;
-  border-radius: 20px;
-  font-size: 0.85rem;
-  font-weight: 700;
-  display: flex;
-  align-items: center;
-  gap: 0.4rem;
+  top: 0.75rem;
+  right: 0.75rem;
+  color: #22c55e;
+  font-size: 1.25rem;
   z-index: 2;
-  box-shadow: 0 4px 10px rgba(34, 197, 94, 0.15);
 }
 
 body.dark-theme .activity-card.completed {
   border-color: #16a34a;
 }
 body.dark-theme .completed-badge {
-  background: rgba(22, 163, 74, 0.2);
   color: #4ade80;
 }
 
-.activity-card:hover {
-  transform: translateY(-8px);
-  box-shadow: 0 20px 40px -10px rgba(0, 0, 0, 0.1);
-}
-
-/* Kotak untuk Icon dengan Bayangan Lembut */
+/* Kotak untuk Icon */
 .card-icon-wrapper {
-  width: 60px;
-  height: 60px;
-  border-radius: 50%;
+  width: 56px;
+  height: 56px;
+  border-radius: 14px;
   display: flex;
   align-items: center;
   justify-content: center;
-  margin-bottom: 1rem;
+  margin-bottom: 1.25rem;
   z-index: 1;
-  background: white;
-  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.06);
-  transition: transform 0.3s ease;
-}
-
-.activity-card:hover .card-icon-wrapper {
-  transform: scale(1.1);
 }
 
 .card-icon {
   font-size: 1.8rem;
+  color: #ffffff;
+}
+
+.card-text {
+  display: flex;
+  flex-direction: column;
+  gap: 0.25rem;
 }
 
 .card-title {
-  font-size: 1.15rem;
+  font-size: 1.05rem;
   font-weight: 700;
-  color: #334155;
-  z-index: 1;
+  color: #1e293b;
   margin: 0;
 }
 
-/* Variasi Warna Cantik untuk Setiap Card */
-.morning {
-  background: linear-gradient(135deg, #ffffff 0%, #fffbeb 100%);
-  border-top: 4px solid #f59e0b; /* Amber */
-}
-.morning .card-icon {
-  color: #f59e0b;
+.card-desc {
+  font-size: 0.85rem;
+  color: #64748b;
+  margin: 0;
+  line-height: 1.4;
 }
 
-.worship {
-  background: linear-gradient(135deg, #ffffff 0%, #f5f3ff 100%);
-  border-top: 4px solid #8b5cf6; /* Violet */
-}
-.worship .card-icon {
-  color: #8b5cf6;
-}
-
-.sports {
-  background: linear-gradient(135deg, #ffffff 0%, #ecfdf5 100%);
-  border-top: 4px solid #10b981; /* Emerald */
-}
-.sports .card-icon {
-  color: #10b981;
-}
-
-.food {
-  background: linear-gradient(135deg, #ffffff 0%, #fff1f2 100%);
-  border-top: 4px solid #f43f5e; /* Rose */
-}
-.food .card-icon {
-  color: #f43f5e;
-}
-
-.study {
-  background: linear-gradient(135deg, #ffffff 0%, #eff6ff 100%);
-  border-top: 4px solid #3b82f6; /* Blue */
-}
-.study .card-icon {
-  color: #3b82f6;
-}
-
-.social {
-  background: linear-gradient(135deg, #ffffff 0%, #fff7ed 100%);
-  border-top: 4px solid #f97316; /* Orange */
-}
-.social .card-icon {
-  color: #f97316;
-}
-
-.sleep {
-  background: linear-gradient(135deg, #ffffff 0%, #f0fdfa 100%);
-  border-top: 4px solid #14b8a6; /* Teal */
-}
-.sleep .card-icon {
-  color: #14b8a6;
-}
+/* Variasi Warna Solid untuk Icon Box */
+.morning .card-icon-wrapper { background: #3b82f6; } /* Blue */
+.worship .card-icon-wrapper { background: #8b5cf6; } /* Violet */
+.sports .card-icon-wrapper { background: #f59e0b; } /* Amber */
+.food .card-icon-wrapper { background: #f43f5e; } /* Rose */
+.study .card-icon-wrapper { background: #0ea5e9; } /* Sky Blue */
+.social .card-icon-wrapper { background: #10b981; } /* Emerald */
+.sleep .card-icon-wrapper { background: #14b8a6; } /* Teal */
 
 /* Notes Section */
 .notes-section {
@@ -591,9 +557,7 @@ body.dark-theme .dashboard-content .activity-card:hover .card-title {
   color: #f8fafc;
 }
 
-body.dark-theme .dashboard-content .card-icon-wrapper {
-  background: #0f172a;
-}
+
 
 body.dark-theme .dashboard-content .notes-section {
   background: #1e293b;
