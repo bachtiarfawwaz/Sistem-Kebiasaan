@@ -606,10 +606,10 @@ const goToCurrentMonth = () => {
 
 /* Hero Section */
 .hero-card {
-  background: linear-gradient(135deg, #ffffff 0%, #fffbeb 100%);
+  background: linear-gradient(135deg, #ffffff 0%, #eff6ff 100%);
   border-radius: 28px;
   padding: 3rem;
-  box-shadow: 0 20px 40px -15px rgba(245, 158, 11, 0.15);
+  box-shadow: 0 20px 40px -15px rgba(59, 130, 246, 0.15);
   border: 1px solid rgba(255, 255, 255, 0.8);
   display: flex;
   flex-direction: column;
@@ -627,7 +627,7 @@ const goToCurrentMonth = () => {
   height: 300px;
   background: radial-gradient(
     circle,
-    rgba(245, 158, 11, 0.1) 0%,
+    rgba(59, 130, 246, 0.1) 0%,
     rgba(255, 255, 255, 0) 70%
   );
   border-radius: 50%;
@@ -649,13 +649,13 @@ const goToCurrentMonth = () => {
   display: flex;
   align-items: center;
   justify-content: center;
-  box-shadow: 0 10px 25px rgba(245, 158, 11, 0.2);
+  box-shadow: 0 10px 25px rgba(59, 130, 246, 0.2);
   flex-shrink: 0;
 }
 
 .hero-icon {
   font-size: 3.5rem;
-  color: #f59e0b;
+  color: #3b82f6;
 }
 
 .hero-text {
@@ -868,7 +868,7 @@ const goToCurrentMonth = () => {
   border-color: #fde68a;
 }
 .success-badge.warning .success-icon {
-  color: #f59e0b;
+  color: #3b82f6;
 }
 .success-badge.warning .success-text {
   color: #92400e;
@@ -1054,7 +1054,7 @@ const goToCurrentMonth = () => {
 .day-label {
   font-size: 0.75rem;
   font-weight: 800;
-  background: #f59e0b;
+  background: #3b82f6;
   color: white;
   padding: 0.2rem 0.5rem;
   border-radius: 6px;
@@ -1118,7 +1118,7 @@ const goToCurrentMonth = () => {
   color: #10b981;
 }
 .status-paraf.warning {
-  color: #f59e0b;
+  color: #3b82f6;
 }
 .status-paraf.danger {
   color: #ef4444;
@@ -1131,7 +1131,7 @@ const goToCurrentMonth = () => {
   color: #10b981;
 }
 .status-icon.waiting {
-  color: #f59e0b;
+  color: #3b82f6;
 }
 .status-icon.missed {
   color: #ef4444;
@@ -1142,7 +1142,7 @@ const goToCurrentMonth = () => {
 
 /* Day Card Variants */
 .day-card.is-today {
-  border: 2px solid #f59e0b;
+  border: 2px solid #3b82f6;
   background: #fffbeb;
 }
 .day-card.is-today .day-number {

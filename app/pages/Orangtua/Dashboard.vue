@@ -401,12 +401,12 @@ body.dark-theme .completed-badge {
 }
 
 /* Variasi Warna Solid untuk Icon Box */
-.morning .card-icon-wrapper { background: #f59e0b; } /* Amber */
+.morning .card-icon-wrapper { background: #3b82f6; } /* Blue */
 .worship .card-icon-wrapper { background: #8b5cf6; } /* Violet */
-.sports .card-icon-wrapper { background: #10b981; } /* Emerald */
+.sports .card-icon-wrapper { background: #f59e0b; } /* Amber */
 .food .card-icon-wrapper { background: #f43f5e; } /* Rose */
-.study .card-icon-wrapper { background: #3b82f6; } /* Blue */
-.social .card-icon-wrapper { background: #f97316; } /* Orange */
+.study .card-icon-wrapper { background: #0ea5e9; } /* Sky Blue */
+.social .card-icon-wrapper { background: #10b981; } /* Emerald */
 .sleep .card-icon-wrapper { background: #14b8a6; } /* Teal */
 
 /* Notes Section */

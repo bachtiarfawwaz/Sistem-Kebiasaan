@@ -541,10 +541,10 @@ const goToCurrentMonth = () => {
 
 /* Hero Section */
 .hero-card {
-  background: linear-gradient(135deg, #ffffff 0%, #ecfdf5 100%);
+  background: linear-gradient(135deg, #ffffff 0%, #fffbeb 100%);
   border-radius: 28px;
   padding: 3rem;
-  box-shadow: 0 20px 40px -15px rgba(16, 185, 129, 0.15);
+  box-shadow: 0 20px 40px -15px rgba(245, 158, 11, 0.15);
   border: 1px solid rgba(255, 255, 255, 0.8);
   display: flex;
   flex-direction: column;
@@ -562,7 +562,7 @@ const goToCurrentMonth = () => {
   height: 300px;
   background: radial-gradient(
     circle,
-    rgba(16, 185, 129, 0.1) 0%,
+    rgba(245, 158, 11, 0.1) 0%,
     rgba(255, 255, 255, 0) 70%
   );
   border-radius: 50%;
@@ -584,13 +584,13 @@ const goToCurrentMonth = () => {
   display: flex;
   align-items: center;
   justify-content: center;
-  box-shadow: 0 10px 25px rgba(16, 185, 129, 0.2);
+  box-shadow: 0 10px 25px rgba(245, 158, 11, 0.2);
   flex-shrink: 0;
 }
 
 .hero-icon {
   font-size: 3.5rem;
-  color: #10b981;
+  color: #f59e0b;
 }
 
 .hero-text {
@@ -683,9 +683,9 @@ const goToCurrentMonth = () => {
 }
 
 .input-group:focus-within {
-  border-color: #10b981;
+  border-color: #f59e0b;
   background: white;
-  box-shadow: 0 0 0 4px rgba(16, 185, 129, 0.1);
+  box-shadow: 0 0 0 4px rgba(245, 158, 11, 0.1);
 }
 
 .input-icon {
@@ -735,7 +735,7 @@ const goToCurrentMonth = () => {
 }
 
 .btn-primary {
-  background: linear-gradient(135deg, #10b981 0%, #059669 100%);
+  background: linear-gradient(135deg, #f59e0b 0%, #059669 100%);
   color: white;
   border: none;
   padding: 1rem 2rem;
@@ -748,14 +748,14 @@ const goToCurrentMonth = () => {
   gap: 0.6rem;
   transition: all 0.3s ease;
   height: 60px;
-  box-shadow: 0 10px 20px -10px rgba(16, 185, 129, 0.5);
+  box-shadow: 0 10px 20px -10px rgba(245, 158, 11, 0.5);
   width: 100%;
   justify-content: center;
 }
 
 .btn-primary:hover {
   transform: translateY(-3px);
-  box-shadow: 0 15px 25px -10px rgba(16, 185, 129, 0.6);
+  box-shadow: 0 15px 25px -10px rgba(245, 158, 11, 0.6);
 }
 
 .btn-icon {
@@ -780,7 +780,7 @@ const goToCurrentMonth = () => {
 
 .success-icon {
   font-size: 3rem;
-  color: #10b981;
+  color: #f59e0b;
   flex-shrink: 0;
 }
 
@@ -868,7 +868,7 @@ const goToCurrentMonth = () => {
   display: flex;
   align-items: center;
   justify-content: center;
-  color: #10b981;
+  color: #f59e0b;
 }
 
 .section-icon {
@@ -913,8 +913,8 @@ const goToCurrentMonth = () => {
 }
 
 .modern-select:focus {
-  border-color: #10b981;
-  box-shadow: 0 0 0 3px rgba(16, 185, 129, 0.15);
+  border-color: #f59e0b;
+  box-shadow: 0 0 0 3px rgba(245, 158, 11, 0.15);
   background-color: white;
 }
 
@@ -1026,7 +1026,7 @@ const goToCurrentMonth = () => {
 
 .status-paraf.good {
   background: #ecfdf5;
-  color: #10b981;
+  color: #f59e0b;
 }
 
 .status-icon {
@@ -1048,7 +1048,7 @@ const goToCurrentMonth = () => {
   background: #fffbeb;
 }
 .day-row.is-filled {
-  border-left: 6px solid #10b981;
+  border-left: 6px solid #f59e0b;
 }
 .day-row.is-missed {
   background: #fef2f2;
