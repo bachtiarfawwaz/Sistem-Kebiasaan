@@ -1,0 +1,27 @@
+{
+  "name": "Monitoring-7Kaih-Skripsi",
+  "type": "module",
+  "private": true,
+  "scripts": {
+    "build": "nuxt build",
+    "dev": "nuxt dev",
+    "generate": "nuxt generate",
+    "preview": "nuxt preview",
+    "postinstall": "nuxt prepare"
+  },
+  "dependencies": {
+    "@supabase/supabase-js": "^2.108.2",
+    "chart.js": "^4.5.1",
+    "exceljs": "^4.4.0",
+    "file-saver": "^2.0.5",
+    "nuxt": "^4.4.8",
+    "sweetalert2": "^11.26.25",
+    "vue": "^3.5.33",
+    "vue-chartjs": "^5.3.3",
+    "vue-router": "^5.0.6"
+  },
+  "devDependencies": {
+    "@iconify-json/ph": "^1.2.2",
+    "@nuxt/icon": "^2.2.1"
+  }
+}
