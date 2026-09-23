@@ -76,7 +76,6 @@
           <div class="action-footer">
             <button class="btn-primary" @click="saveToday">
               <Icon name="ph:check-circle-bold" class="btn-icon" /> Simpan
-              Catatan Hari Ini
             </button>
           </div>
         </div>
