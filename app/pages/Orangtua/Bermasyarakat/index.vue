@@ -72,7 +72,7 @@
                 class="btn-icon"
                 :class="{ 'spin-icon': isSaving }"
               />
-              {{ isSaving ? "Menyimpan..." : "Simpan Catatan Hari Ini" }}
+              {{ isSaving ? "Menyimpan..." : "Simpan" }}
             </button>
           </div>
         </div>
@@ -224,7 +224,7 @@
               class="btn-icon"
               :class="{ 'spin-icon': isSavingCatatan }"
             />
-            {{ isSavingCatatan ? "Menyimpan..." : "Simpan Catatan" }}
+            {{ isSavingCatatan ? "Menyimpan..." : "Simpan" }}
           </button>
         </div>
       </div>

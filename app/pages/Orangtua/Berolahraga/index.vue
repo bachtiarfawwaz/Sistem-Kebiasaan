@@ -101,7 +101,7 @@
                 class="btn-icon"
                 :class="{ 'spin-icon': isSaving }"
               />
-              {{ isSaving ? "Menyimpan..." : "Simpan Catatan" }}
+              {{ isSaving ? "Menyimpan..." : "Simpan" }}
             </button>
           </div>
         </div>
