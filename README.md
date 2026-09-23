@@ -1,75 +1,88 @@
-# Nuxt Minimal Starter
+<div align="center">
+  <h1>KAIH (Sistem Monitoring 7 Kebiasaan Anak)</h1>
+  <p>Platform progresif untuk menjembatani evaluasi karakter siswa antara Orang Tua dan Guru secara real-time.</p>
+</div>
 
-Look at the [Nuxt documentation](https://nuxt.com/docs/getting-started/introduction) to learn more.
+<br />
 
-## Setup
+## 📖 Tentang Proyek
 
-Make sure to install dependencies:
+**Sistem Monitoring 7 Kebiasaan Anak (KAIH)** adalah aplikasi berbasis web yang dirancang untuk memonitor, mencatat, dan mengevaluasi aktivitas sehari-hari siswa di rumah. Aplikasi ini dibangun dengan paradigma *Mobile-First* untuk memudahkan orang tua dalam mengisi jurnal harian anak.
 
-```bash
-# npm
-npm install
+Sistem ini melacak 7 pilar kebiasaan utama:
+1. 🌅 **Bangun Pagi**
+2. 🕌 **Ibadah** (Disesuaikan untuk Islam dan Non-Islam)
+3. 🏃 **Berolahraga**
+4. 🥗 **Makan Sehat**
+5. 📚 **Gemar Belajar**
+6. 🤝 **Bermasyarakat** (Interaksi Sosial)
+7. 😴 **Tidur Tepat Waktu**
 
-# pnpm
-pnpm install
+Melalui KAIH, guru dapat melihat rekapitulasi data afektif siswa secara *real-time* yang direpresentasikan menggunakan visualisasi indikator (Heatmap/Titik Warna), sehingga evaluasi karakter dapat dilakukan dengan presisi berbasis data.
 
-# yarn
-yarn install
+---
 
-# bun
-bun install
-```
+## 🚀 Fitur Utama
 
-## Development Server
+### 👨‍👩‍👦 Untuk Orang Tua
+- **Smart Dashboard:** Tampilan ringkasan pengisian harian dan sisa jurnal yang belum terisi.
+- **Form Interaktif:** Antarmuka pencatatan harian yang responsif, dilengkapi animasi transisi dan *state* pemrosesan (loading) yang jelas.
+- **Riwayat Kalender:** Meninjau catatan historis di hari-hari sebelumnya.
 
-Start the development server on `http://localhost:3000`:
+### 👨‍🏫 Untuk Guru & Admin
+- **Visualisasi Rekapitulasi:** Pemantauan kelengkapan pengisian jurnal siswa menggunakan indikator warna (Hijau = Tuntas, Kuning = Parsial, Merah = Kosong).
+- **Manajemen Kelas:** Memantau siswa secara agregat berdasarkan kelas.
+- **Evaluasi & Laporan:** Memberikan umpan balik terhadap perkembangan kebiasaan siswa.
 
-```bash
-# npm
-npm run dev
+---
 
-# pnpm
-pnpm dev
+## 🛠️ Stack Teknologi
 
-# yarn
-yarn dev
+Aplikasi ini dibangun menggunakan arsitektur modern (*3-Tier Architecture*):
 
-# bun
-bun run dev
-```
+- **Frontend Framework:** [Nuxt 4](https://nuxt.com/) (Vue.js 3)
+- **Styling:** Vanilla CSS & Tailwind CSS (*Glassmorphism & Flat Design*)
+- **Backend & Database:** [Supabase](https://supabase.com/) (PostgreSQL)
+- **Otentikasi:** Supabase Auth
+- **Deployment:** Cloudflare Pages (Nitro Preset)
 
-## Production
+---
 
-Build the application for production:
+## 🛡️ Keamanan (Security)
 
-```bash
-# npm
-npm run build
+Sistem ini telah dikonfigurasi untuk memenuhi standar keamanan data privasi siswa:
+- **Row Level Security (RLS):** Diaktifkan di seluruh tabel Supabase untuk memastikan data hanya bisa ditulis oleh *role* yang diotorisasi (Authenticated).
+- **GraphQL Omission:** Skema *public* database disembunyikan dari *endpoint* GraphQL publik untuk menghindari pengeksposan data yang tidak disengaja.
+- **Security Invoker:** Fungsi-fungsi kritikal (seperti RPC) dijalankan menggunakan izin eksekutor (Invoker).
 
-# pnpm
-pnpm build
+---
 
-# yarn
-yarn build
+## 💻 Cara Menjalankan di Lokal (Local Setup)
 
-# bun
-bun run build
-```
+### Prasyarat
+Pastikan Anda telah menginstal Node.js (Versi 18+ disarankan), PNPM (atau NPM/Yarn), dan memiliki kredensial Supabase.
 
-Locally preview production build:
+### Langkah-langkah
 
-```bash
-# npm
-npm run preview
+1. **Instalasi Dependensi**
+   ```bash
+   pnpm install
+   ```
 
-# pnpm
-pnpm preview
+2. **Konfigurasi Environment Variable**
+   Buat file `.env` di root direktori proyek Anda:
+   ```env
+   SUPABASE_URL=https://<project-id>.supabase.co
+   SUPABASE_KEY=<anon-public-key>
+   ```
 
-# yarn
-yarn preview
+3. **Jalankan Development Server**
+   ```bash
+   pnpm run dev
+   ```
 
-# bun
-bun run preview
-```
+---
 
-Check out the [deployment documentation](https://nuxt.com/docs/getting-started/deployment) for more information.
+<div align="center">
+  Dibuat dengan ❤️ untuk kemajuan pendidikan anak Indonesia.
+</div>
