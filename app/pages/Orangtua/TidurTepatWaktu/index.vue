@@ -794,32 +794,6 @@ const goToCurrentMonth = () => {
   outline: none;
 }
 
-.btn-primary {
-  background: linear-gradient(135deg, #4f46e5 0%, #3730a3 100%);
-  color: white;
-  border: none;
-  padding: 1rem 2rem;
-  border-radius: 14px;
-  font-size: 1.1rem;
-  font-weight: 800;
-  cursor: pointer;
-  display: inline-flex;
-  align-items: center;
-  gap: 0.6rem;
-  transition: all 0.3s ease;
-  height: 60px;
-  box-shadow: 0 10px 20px -10px rgba(79, 70, 229, 0.5);
-}
-
-.btn-primary:hover {
-  transform: translateY(-3px);
-  box-shadow: 0 15px 25px -10px rgba(79, 70, 229, 0.6);
-}
-
-.btn-icon {
-  font-size: 1.4rem;
-}
-
 .today-success-section {
   display: flex;
   align-items: center;
@@ -895,27 +869,6 @@ const goToCurrentMonth = () => {
   border-radius: 8px;
   margin: 0 0.2rem;
   box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
-}
-
-.btn-outline {
-  background: white;
-  color: #64748b;
-  border: 2px solid #e2e8f0;
-  padding: 0.8rem 1.5rem;
-  border-radius: 12px;
-  font-size: 1rem;
-  font-weight: 700;
-  cursor: pointer;
-  display: inline-flex;
-  align-items: center;
-  gap: 0.5rem;
-  transition: all 0.2s ease;
-}
-
-.btn-outline:hover {
-  background: #f8fafc;
-  color: #0f172a;
-  border-color: #cbd5e1;
 }
 
 /* History Section */
@@ -1209,26 +1162,6 @@ const goToCurrentMonth = () => {
   justify-content: flex-end;
 }
 
-.btn-secondary {
-  background: #f1f5f9;
-  color: #475569;
-  border: none;
-  padding: 0.8rem 1.5rem;
-  border-radius: 12px;
-  font-size: 1rem;
-  font-weight: 700;
-  cursor: pointer;
-  display: inline-flex;
-  align-items: center;
-  gap: 0.5rem;
-  transition: all 0.2s ease;
-}
-
-.btn-secondary:hover {
-  background: #e2e8f0;
-  color: #0f172a;
-}
-
 @media (max-width: 768px) {
   .hero-card {
     padding: 2rem 1.5rem;
@@ -1248,10 +1181,6 @@ const goToCurrentMonth = () => {
     align-items: stretch;
   }
 
-  .btn-primary {
-    justify-content: center;
-  }
-
   .section-header {
     flex-direction: column;
     align-items: stretch;
@@ -1264,5 +1193,80 @@ const goToCurrentMonth = () => {
   .days-grid {
     grid-template-columns: repeat(auto-fill, minmax(110px, 1fr));
   }
+}
+
+/* Standardized Buttons */
+.btn-primary {
+  background: linear-gradient(135deg, #14b8a6 0%, #0d9488 100%);
+  color: white;
+  border: none;
+  padding: 0.8rem 1.5rem;
+  border-radius: 12px;
+  font-size: 1.05rem;
+  font-weight: 800;
+  cursor: pointer;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.6rem;
+  transition: all 0.3s ease;
+  min-height: 50px;
+  box-shadow: 0 8px 15px -8px rgba(20, 184, 166, 0.5);
+  width: 100%;
+}
+
+@media (min-width: 640px) {
+  .btn-primary {
+    width: auto;
+    padding: 0.8rem 2rem;
+  }
+}
+
+.btn-primary:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 12px 20px -8px rgba(20, 184, 166, 0.6);
+}
+
+.btn-icon {
+  font-size: 1.3rem;
+}
+
+.btn-outline {
+  background: transparent;
+  color: #14b8a6;
+  border: 2px solid #14b8a6;
+  padding: 0.6rem 1.2rem;
+  border-radius: 12px;
+  font-size: 0.95rem;
+  font-weight: 700;
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+.btn-outline:hover {
+  background: #14b8a6;
+  color: white;
+}
+
+.btn-secondary {
+  background: #f1f5f9;
+  color: #475569;
+  border: none;
+  padding: 0.8rem 1.5rem;
+  border-radius: 12px;
+  font-size: 1.05rem;
+  font-weight: 700;
+  cursor: pointer;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5rem;
+  transition: all 0.2s ease;
+  min-height: 50px;
+}
+
+.btn-secondary:hover:not(:disabled) {
+  background: #14b8a6;
+  color: white;
 }
 </style>

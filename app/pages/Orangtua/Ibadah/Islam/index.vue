@@ -870,34 +870,6 @@ onMounted(async () => {
   margin-top: 0.5rem;
 }
 
-.btn-primary {
-  background: linear-gradient(135deg, #10b981 0%, #059669 100%);
-  color: white;
-  border: none;
-  padding: 1rem 2rem;
-  border-radius: 14px;
-  font-size: 1.1rem;
-  font-weight: 800;
-  cursor: pointer;
-  display: inline-flex;
-  align-items: center;
-  gap: 0.6rem;
-  transition: all 0.3s ease;
-  height: 60px;
-  box-shadow: 0 10px 20px -10px rgba(16, 185, 129, 0.5);
-  width: 100%;
-  justify-content: center;
-}
-
-.btn-primary:hover {
-  transform: translateY(-3px);
-  box-shadow: 0 15px 25px -10px rgba(16, 185, 129, 0.6);
-}
-
-.btn-icon {
-  font-size: 1.4rem;
-}
-
 .today-success-section {
   display: flex;
   flex-direction: column;
@@ -924,27 +896,6 @@ onMounted(async () => {
   font-size: 1.15rem;
   color: #065f46;
   line-height: 1.5;
-}
-
-.btn-outline {
-  background: white;
-  color: #64748b;
-  border: 2px solid #e2e8f0;
-  padding: 0.8rem 1.5rem;
-  border-radius: 12px;
-  font-size: 1rem;
-  font-weight: 700;
-  cursor: pointer;
-  display: inline-flex;
-  align-items: center;
-  gap: 0.5rem;
-  transition: all 0.2s ease;
-}
-
-.btn-outline:hover {
-  background: #f8fafc;
-  color: #0f172a;
-  border-color: #cbd5e1;
 }
 
 /* ===== HISTORY SECTION ===== */
@@ -1327,5 +1278,80 @@ onMounted(async () => {
   .prayer-checkboxes {
     grid-template-columns: 1fr;
   }
+}
+
+/* Standardized Buttons */
+.btn-primary {
+  background: linear-gradient(135deg, #8b5cf6 0%, #7c3aed 100%);
+  color: white;
+  border: none;
+  padding: 0.8rem 1.5rem;
+  border-radius: 12px;
+  font-size: 1.05rem;
+  font-weight: 800;
+  cursor: pointer;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.6rem;
+  transition: all 0.3s ease;
+  min-height: 50px;
+  box-shadow: 0 8px 15px -8px rgba(139, 92, 246, 0.5);
+  width: 100%;
+}
+
+@media (min-width: 640px) {
+  .btn-primary {
+    width: auto;
+    padding: 0.8rem 2rem;
+  }
+}
+
+.btn-primary:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 12px 20px -8px rgba(139, 92, 246, 0.6);
+}
+
+.btn-icon {
+  font-size: 1.3rem;
+}
+
+.btn-outline {
+  background: transparent;
+  color: #8b5cf6;
+  border: 2px solid #8b5cf6;
+  padding: 0.6rem 1.2rem;
+  border-radius: 12px;
+  font-size: 0.95rem;
+  font-weight: 700;
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+.btn-outline:hover {
+  background: #8b5cf6;
+  color: white;
+}
+
+.btn-secondary {
+  background: #f1f5f9;
+  color: #475569;
+  border: none;
+  padding: 0.8rem 1.5rem;
+  border-radius: 12px;
+  font-size: 1.05rem;
+  font-weight: 700;
+  cursor: pointer;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5rem;
+  transition: all 0.2s ease;
+  min-height: 50px;
+}
+
+.btn-secondary:hover:not(:disabled) {
+  background: #8b5cf6;
+  color: white;
 }
 </style>
