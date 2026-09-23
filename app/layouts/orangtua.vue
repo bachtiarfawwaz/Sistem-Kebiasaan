@@ -137,7 +137,7 @@ onMounted(async () => {
     <nav class="mobile-bottom-nav">
       <NuxtLink
         to="/Orangtua/Dashboard"
-        class="mobile-nav-item"
+        class="mobile-nav-item nav-home"
         exact-active-class="active"
       >
         <Icon name="ph:house" class="nav-icon-mobile" />
@@ -146,7 +146,7 @@ onMounted(async () => {
 
       <NuxtLink
         to="/Orangtua/Laporan"
-        class="mobile-nav-item"
+        class="mobile-nav-item nav-laporan"
         exact-active-class="active"
       >
         <Icon name="ph:calendar-blank" class="nav-icon-mobile" />
@@ -155,7 +155,7 @@ onMounted(async () => {
 
       <NuxtLink
         to="/Orangtua/Akun"
-        class="mobile-nav-item"
+        class="mobile-nav-item nav-profil"
         exact-active-class="active"
       >
         <Icon name="ph:user" class="nav-icon-mobile" />
@@ -393,12 +393,23 @@ body.dark-theme .profile-name {
 }
 
 .mobile-nav-item:hover, .mobile-nav-item.active {
-  color: #10b981;
   transform: translateY(-2px);
 }
 
+.nav-home:hover, .nav-home.active {
+  color: #3b82f6; /* Blue */
+}
+
+.nav-laporan:hover, .nav-laporan.active {
+  color: #8b5cf6; /* Violet */
+}
+
+.nav-profil:hover, .nav-profil.active {
+  color: #f59e0b; /* Amber */
+}
+
 .logout-mobile:hover {
-  color: #ef4444;
+  color: #ef4444; /* Red */
 }
 
 @media (min-width: 769px) {
