@@ -25,3 +25,6 @@ logs
 
 # Cloudflare Pages
 .wrangler
+
+# Antigravity AI
+.agents
