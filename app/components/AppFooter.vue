@@ -7,25 +7,27 @@
         <span class="footer-divider">|</span>
         <span class="footer-tagline">Membangun Karakter Hebat</span>
       </div>
-      
+
       <div class="footer-right">
-        <p class="copyright">© {{ new Date().getFullYear() }} bachtiarfawwaz. Hak Cipta Dilindungi.</p>
+        <p class="copyright">
+          © {{ new Date().getFullYear() }} bachtiarfawwaz. Hak Cipta Dilindungi.
+        </p>
       </div>
     </div>
   </footer>
 </template>
 
 <style scoped>
-@import url('https://fonts.googleapis.com/css2?family=Nunito:wght@400;500;600;700;800&display=swap');
+@import url("https://fonts.googleapis.com/css2?family=Nunito:wght@400;500;600;700;800&display=swap");
 
 .app-footer {
-  font-family: 'Nunito', sans-serif;
+  font-family: "Nunito", sans-serif;
   background-color: #ffffff;
   border-top: 1px solid #e2e8f0;
   padding: 1.25rem 2rem;
   width: 100%;
   margin-top: auto;
-  box-shadow: 0 -10px 30px -10px rgba(0,0,0,0.03);
+  box-shadow: 0 -10px 30px -10px rgba(0, 0, 0, 0.03);
   box-sizing: border-box;
 }
 
@@ -94,22 +96,22 @@
   .app-footer {
     padding: 1.25rem 1rem;
   }
-  
+
   .footer-container {
     flex-direction: column;
     text-align: center;
     gap: 0.75rem;
   }
-  
+
   .footer-left {
     flex-direction: column;
     gap: 0.5rem;
   }
-  
+
   .footer-divider {
     display: none;
   }
-  
+
   .footer-logo {
     height: 36px;
     margin-bottom: 0.25rem;
@@ -122,7 +124,7 @@
 body.dark-theme .app-footer {
   background-color: #0f172a;
   border-top-color: #334155;
-  box-shadow: 0 -10px 30px -10px rgba(0,0,0,0.5);
+  box-shadow: 0 -10px 30px -10px rgba(0, 0, 0, 0.5);
 }
 
 body.dark-theme .footer-brand {

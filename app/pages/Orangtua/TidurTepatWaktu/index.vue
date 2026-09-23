@@ -8,7 +8,10 @@
         </div>
         <div class="hero-text">
           <h1 class="hero-title">Tidur Lebih Awal</h1>
-          <p class="hero-subtitle">Bantu anak mendapatkan istirahat yang cukup dengan mencatat jam tidurnya malam ini.</p>
+          <p class="hero-subtitle">
+            Bantu anak mendapatkan istirahat yang cukup dengan mencatat jam
+            tidurnya malam ini.
+          </p>
         </div>
       </div>
 
@@ -19,18 +22,31 @@
               <Icon name="ph:lock-key-duotone" class="locked-icon" />
             </div>
             <div class="locked-text">
-               <h3>Belum Waktunya Mengisi</h3>
-               <p>Penginputan jurnal <strong>Tidur Tepat Waktu</strong> hanya bisa dilakukan pada malam hari mulai pukul <strong>18:00 hingga 23:59</strong>. Hal ini untuk memastikan kedisiplinan dan keakuratan data.</p>
+              <h3>Belum Waktunya Mengisi</h3>
+              <p>
+                Penginputan jurnal <strong>Tidur Tepat Waktu</strong> hanya bisa
+                dilakukan pada malam hari mulai pukul
+                <strong>18:00 hingga 23:59</strong>. Hal ini untuk memastikan
+                kedisiplinan dan keakuratan data.
+              </p>
             </div>
           </div>
         </template>
         <template v-else>
           <div class="today-input-section" v-if="!todayData.saved">
             <div class="time-input-wrapper">
-              <label class="time-label">Tuliskan jam berapa murid tidur hari ini ({{ todayFormatted }})</label>
+              <label class="time-label"
+                >Tuliskan jam berapa murid tidur hari ini ({{
+                  todayFormatted
+                }})</label
+              >
               <div class="input-group">
                 <Icon name="ph:clock-duotone" class="input-icon" />
-                <select v-model="todayTime" class="time-input modern-select" required>
+                <select
+                  v-model="todayTime"
+                  class="time-input modern-select"
+                  required
+                >
                   <option value="" disabled selected>Pilih Jam Tidur...</option>
                   <option value="19:00">19:00</option>
                   <option value="19:15">19:15</option>
@@ -50,32 +66,45 @@
               </div>
             </div>
             <button class="btn-primary" @click="saveToday">
-              <Icon name="ph:check-circle-bold" class="btn-icon" /> Simpan Catatan Malam Ini
+              <Icon name="ph:check-circle-bold" class="btn-icon" /> Simpan
+              Catatan Malam Ini
             </button>
           </div>
-        
-        <div class="today-success-section" v-else>
-          <div class="success-badge" :class="getTimeStatus(todayData.time)">
-            <Icon :name="getIconName(getTimeStatus(todayData.time))" class="success-icon" />
-            <div class="success-text">
-              <strong>Tersimpan!</strong> Anda telah mengisi catatan malam ini pada pukul <span class="highlight-time">{{ todayData.time }}</span>.
+
+          <div class="today-success-section" v-else>
+            <div class="success-badge" :class="getTimeStatus(todayData.time)">
+              <Icon
+                :name="getIconName(getTimeStatus(todayData.time))"
+                class="success-icon"
+              />
+              <div class="success-text">
+                <strong>Tersimpan!</strong> Anda telah mengisi catatan malam ini
+                pada pukul
+                <span class="highlight-time">{{ todayData.time }}</span
+                >.
+              </div>
             </div>
           </div>
-        </div>
         </template>
       </div>
       <div v-else class="today-action-area not-current-month">
         <Icon name="ph:calendar-duotone" class="calendar-icon-large" />
-        <p>Anda sedang melihat riwayat bulan <strong>{{ months[selectedMonth] }} {{ selectedYear }}</strong>.</p>
-        <button class="btn-outline" @click="goToCurrentMonth">Kembali ke Bulan Ini</button>
+        <p>
+          Anda sedang melihat riwayat bulan
+          <strong>{{ months[selectedMonth] }} {{ selectedYear }}</strong
+          >.
+        </p>
+        <button class="btn-outline" @click="goToCurrentMonth">
+          Kembali ke Bulan Ini
+        </button>
       </div>
     </div>
 
-    <LinearNavigation 
-      prevLink="/Orangtua/Bermasyarakat" 
-      prevText="Sebelumnya (Sosial)" 
-      nextLink="/Orangtua/Dashboard" 
-      nextText="Selesai (Ke Dashboard)" 
+    <LinearNavigation
+      prevLink="/Orangtua/Bermasyarakat"
+      prevText="Sebelumnya (Sosial)"
+      nextLink="/Orangtua/Dashboard"
+      nextText="Selesai (Ke Dashboard)"
     />
 
     <!-- History / Book View Section -->
@@ -88,33 +117,54 @@
           <h2 class="section-title">Riwayat {{ months[selectedMonth] }}</h2>
         </div>
         <div class="filter-group">
-          <select v-model="selectedMonth" class="modern-select" @change="generateDays">
-            <option v-for="(month, index) in months" :key="index" :value="index">{{ month }}</option>
+          <select
+            v-model="selectedMonth"
+            class="modern-select"
+            @change="generateDays"
+          >
+            <option
+              v-for="(month, index) in months"
+              :key="index"
+              :value="index"
+            >
+              {{ month }}
+            </option>
           </select>
-          <select v-model="selectedYear" class="modern-select" @change="generateDays">
-            <option v-for="year in years" :key="year" :value="year">{{ year }}</option>
+          <select
+            v-model="selectedYear"
+            class="modern-select"
+            @change="generateDays"
+          >
+            <option v-for="year in years" :key="year" :value="year">
+              {{ year }}
+            </option>
           </select>
         </div>
       </div>
 
       <!-- Modern Grid Layout for Days (Habit Tracker Style) -->
       <div class="days-grid">
-        <div v-for="day in days" :key="day.date" 
-             class="day-card" 
-             :class="{ 
-               'is-today': isToday(day.date), 
-               'is-filled': day.saved, 
-               'is-missed': isPastDate(day.date) && !day.saved,
-               'is-future': isFutureDate(day.date)
-             }">
+        <div
+          v-for="day in days"
+          :key="day.date"
+          class="day-card"
+          :class="{
+            'is-today': isToday(day.date),
+            'is-filled': day.saved,
+            'is-missed': isPastDate(day.date) && !day.saved,
+            'is-future': isFutureDate(day.date),
+          }"
+        >
           <div class="day-header">
             <span class="day-number">{{ day.date }}</span>
             <span class="day-label" v-if="isToday(day.date)">Hari Ini</span>
           </div>
-          
+
           <div class="day-content">
             <template v-if="day.saved">
-              <div class="time-badge filled" :class="getTimeStatus(day.time)">{{ day.time }}</div>
+              <div class="time-badge filled" :class="getTimeStatus(day.time)">
+                {{ day.time }}
+              </div>
               <div class="status-paraf" :class="getTimeStatus(day.time)">
                 <Icon name="ph:check-circle" /> Terisi
               </div>
@@ -129,7 +179,11 @@
             </template>
             <template v-else>
               <div class="time-badge future">-</div>
-              <Icon name="ph:lock-key" class="status-icon locked" title="Belum waktunya" />
+              <Icon
+                name="ph:lock-key"
+                class="status-icon locked"
+                title="Belum waktunya"
+              />
             </template>
           </div>
         </div>
@@ -141,16 +195,26 @@
           <Icon name="ph:notebook-duotone" class="catatan-icon" />
           <h3>Catatan Orang Tua</h3>
         </div>
-        <textarea 
-          class="modern-textarea" 
-          rows="4" 
-          v-model="catatan" 
+        <textarea
+          class="modern-textarea"
+          rows="4"
+          v-model="catatan"
           placeholder="Tuliskan catatan atau observasi terkait kebiasaan tidur anak di bulan ini..."
         ></textarea>
         <div class="catatan-footer">
-          <button class="btn-secondary" @click="saveCatatanBulanan" :disabled="isSavingCatatan">
-            <Icon :name="isSavingCatatan ? 'ph:spinner-gap-bold' : 'ph:floppy-disk-back'" class="btn-icon" :class="{'spin-icon': isSavingCatatan}" /> 
-            {{ isSavingCatatan ? 'Menyimpan...' : 'Simpan Catatan' }}
+          <button
+            class="btn-secondary"
+            @click="saveCatatanBulanan"
+            :disabled="isSavingCatatan"
+          >
+            <Icon
+              :name="
+                isSavingCatatan ? 'ph:spinner-gap-bold' : 'ph:floppy-disk-back'
+              "
+              class="btn-icon"
+              :class="{ 'spin-icon': isSavingCatatan }"
+            />
+            {{ isSavingCatatan ? "Menyimpan..." : "Simpan Catatan" }}
           </button>
         </div>
       </div>
@@ -159,290 +223,366 @@
 </template>
 
 <script setup>
-import { ref, computed, onMounted, watch } from 'vue'
+import { ref, computed, onMounted, watch } from "vue";
 
 definePageMeta({
-  layout: 'orangtua'
-})
+  layout: "orangtua",
+});
 
-const supabase = useSupabase()
-const pesertaDidikId = ref(null)
-const kebiasaanId = ref(null)
+const supabase = useSupabase();
+const pesertaDidikId = ref(null);
+const kebiasaanId = ref(null);
 
 const months = [
-  'Januari', 'Februari', 'Maret', 'April', 'Mei', 'Juni',
-  'Juli', 'Agustus', 'September', 'Oktober', 'November', 'Desember'
-]
+  "Januari",
+  "Februari",
+  "Maret",
+  "April",
+  "Mei",
+  "Juni",
+  "Juli",
+  "Agustus",
+  "September",
+  "Oktober",
+  "November",
+  "Desember",
+];
 
-const currentActualDate = new Date()
-const selectedMonth = ref(currentActualDate.getMonth())
-const selectedYear = ref(currentActualDate.getFullYear())
+const currentActualDate = new Date();
+const selectedMonth = ref(currentActualDate.getMonth());
+const selectedYear = ref(currentActualDate.getFullYear());
 const years = computed(() => {
-  const current = new Date().getFullYear()
-  return [current - 1, current, current + 1]
-})
+  const current = new Date().getFullYear();
+  return [current - 1, current, current + 1];
+});
 
-const days = ref([])
-const catatan = ref('')
-const isSavingCatatan = ref(false)
+const days = ref([]);
+const catatan = ref("");
+const isSavingCatatan = ref(false);
 
 const loadCatatanBulanan = async () => {
-  if (!pesertaDidikId.value) return
+  if (!pesertaDidikId.value) return;
   try {
-    const { data } = await supabase.from('catatan_orang_tua')
-      .select('catatan')
-      .eq('peserta_didik_id', pesertaDidikId.value)
-      .eq('jenis_jurnal', 'Tidur Tepat Waktu')
-      .eq('bulan', selectedMonth.value + 1)
-      .eq('tahun', selectedYear.value)
-      .maybeSingle()
-    
-    catatan.value = data ? data.catatan : ''
+    const { data } = await supabase
+      .from("catatan_orang_tua")
+      .select("catatan")
+      .eq("peserta_didik_id", pesertaDidikId.value)
+      .eq("jenis_jurnal", "Tidur Tepat Waktu")
+      .eq("bulan", selectedMonth.value + 1)
+      .eq("tahun", selectedYear.value)
+      .maybeSingle();
+
+    catatan.value = data ? data.catatan : "";
   } catch (err) {
-    console.error(err)
+    console.error(err);
   }
-}
+};
 
 const saveCatatanBulanan = async () => {
-  if (!pesertaDidikId.value) return
-  isSavingCatatan.value = true
+  if (!pesertaDidikId.value) return;
+  isSavingCatatan.value = true;
   try {
-    const { data: existing } = await supabase.from('catatan_orang_tua')
-      .select('id')
-      .eq('peserta_didik_id', pesertaDidikId.value)
-      .eq('jenis_jurnal', 'Tidur Tepat Waktu')
-      .eq('bulan', selectedMonth.value + 1)
-      .eq('tahun', selectedYear.value)
-      .maybeSingle()
+    const { data: existing } = await supabase
+      .from("catatan_orang_tua")
+      .select("id")
+      .eq("peserta_didik_id", pesertaDidikId.value)
+      .eq("jenis_jurnal", "Tidur Tepat Waktu")
+      .eq("bulan", selectedMonth.value + 1)
+      .eq("tahun", selectedYear.value)
+      .maybeSingle();
 
     if (existing) {
-      await supabase.from('catatan_orang_tua').update({ catatan: catatan.value }).eq('id', existing.id)
+      await supabase
+        .from("catatan_orang_tua")
+        .update({ catatan: catatan.value })
+        .eq("id", existing.id);
     } else {
-      await supabase.from('catatan_orang_tua').insert({
+      await supabase.from("catatan_orang_tua").insert({
         peserta_didik_id: pesertaDidikId.value,
-        jenis_jurnal: 'Tidur Tepat Waktu',
+        jenis_jurnal: "Tidur Tepat Waktu",
         bulan: selectedMonth.value + 1,
         tahun: selectedYear.value,
-        catatan: catatan.value
-      })
+        catatan: catatan.value,
+      });
     }
-    alert('Catatan bulanan berhasil disimpan!')
+    alert("Catatan bulanan berhasil disimpan!");
   } catch (err) {
-    console.error(err)
-    alert('Gagal menyimpan catatan bulanan.')
+    console.error(err);
+    alert("Gagal menyimpan catatan bulanan.");
   } finally {
-    isSavingCatatan.value = false
+    isSavingCatatan.value = false;
   }
-}
+};
 
-const todayTime = ref('')
+const todayTime = ref("");
 
 const getTimeStatus = (timeStr) => {
-  if (!timeStr) return ''
-  const [hours, minutes] = timeStr.split(':').map(Number)
-  const totalMinutes = hours * 60 + minutes
-  
+  if (!timeStr) return "";
+  const [hours, minutes] = timeStr.split(":").map(Number);
+  const totalMinutes = hours * 60 + minutes;
+
   // Tidur awal: sebelum jam 21:30 (good), 21:30 - 23:00 (warning), lebih dari 23:00 (danger)
   if (totalMinutes >= 18 * 60 && totalMinutes <= 21 * 60 + 30) {
-    return 'good'
+    return "good";
   } else if (totalMinutes > 21 * 60 + 30 && totalMinutes <= 23 * 60) {
-    return 'warning'
+    return "warning";
   } else {
-    return 'danger'
+    return "danger";
   }
-}
+};
 
 const getIconName = (status) => {
-  if (status === 'good') return 'ph:seal-check-fill'
-  if (status === 'warning') return 'ph:warning-circle-fill'
-  return 'ph:x-circle-fill'
-}
+  if (status === "good") return "ph:seal-check-fill";
+  if (status === "warning") return "ph:warning-circle-fill";
+  return "ph:x-circle-fill";
+};
 
 const isCurrentMonthView = computed(() => {
-  const today = new Date()
-  return selectedMonth.value === today.getMonth() && selectedYear.value === today.getFullYear()
-})
+  const today = new Date();
+  return (
+    selectedMonth.value === today.getMonth() &&
+    selectedYear.value === today.getFullYear()
+  );
+});
 
 const todayFormatted = computed(() => {
-  const options = { weekday: 'long', day: 'numeric', month: 'long', year: 'numeric' }
-  return new Date().toLocaleDateString('id-ID', options)
-})
+  const options = {
+    weekday: "long",
+    day: "numeric",
+    month: "long",
+    year: "numeric",
+  };
+  return new Date().toLocaleDateString("id-ID", options);
+});
 
 const isTimeWindowValid = computed(() => {
-  return true // Batasan waktu dihilangkan sementara
-})
+  return true; // Batasan waktu dihilangkan sementara
+});
 
 const todayData = computed(() => {
-  const today = new Date().getDate()
+  const today = new Date().getDate();
   if (isCurrentMonthView.value) {
-    const dayObj = days.value.find(d => d.date === today)
-    return dayObj || { saved: false, time: '' }
+    const dayObj = days.value.find((d) => d.date === today);
+    return dayObj || { saved: false, time: "" };
   }
-  return { saved: false, time: '' }
-})
+  return { saved: false, time: "" };
+});
 
 const generateDays = async () => {
-  if (!pesertaDidikId.value || !kebiasaanId.value) return
-  const daysInMonth = new Date(selectedYear.value, selectedMonth.value + 1, 0).getDate()
-  const startDate = `${selectedYear.value}-${String(selectedMonth.value + 1).padStart(2, '0')}-01`
-  const endDate = `${selectedYear.value}-${String(selectedMonth.value + 1).padStart(2, '0')}-${daysInMonth}`
+  if (!pesertaDidikId.value || !kebiasaanId.value) return;
+  const daysInMonth = new Date(
+    selectedYear.value,
+    selectedMonth.value + 1,
+    0,
+  ).getDate();
+  const startDate = `${selectedYear.value}-${String(selectedMonth.value + 1).padStart(2, "0")}-01`;
+  const endDate = `${selectedYear.value}-${String(selectedMonth.value + 1).padStart(2, "0")}-${daysInMonth}`;
 
-  const { data: listJurnalHarian } = await supabase.from('jurnal_harian').select('id, tanggal').eq('peserta_didik_id', pesertaDidikId.value).gte('tanggal', startDate).lte('tanggal', endDate)
-  
-  let listJurnalKebiasaan = []
+  const { data: listJurnalHarian } = await supabase
+    .from("jurnal_harian")
+    .select("id, tanggal")
+    .eq("peserta_didik_id", pesertaDidikId.value)
+    .gte("tanggal", startDate)
+    .lte("tanggal", endDate);
+
+  let listJurnalKebiasaan = [];
   if (listJurnalHarian && listJurnalHarian.length > 0) {
-    const harianIds = listJurnalHarian.map(jh => jh.id)
-    const { data: listJK } = await supabase.from('jurnal_kebiasaan').select('*').in('jurnal_harian_id', harianIds).eq('kebiasaan_id', kebiasaanId.value).eq('status', true)
-    if (listJK) listJurnalKebiasaan = listJK
+    const harianIds = listJurnalHarian.map((jh) => jh.id);
+    const { data: listJK } = await supabase
+      .from("jurnal_kebiasaan")
+      .select("*")
+      .in("jurnal_harian_id", harianIds)
+      .eq("kebiasaan_id", kebiasaanId.value)
+      .eq("status", true);
+    if (listJK) listJurnalKebiasaan = listJK;
   }
 
-  const newDays = []
+  const newDays = [];
   for (let i = 1; i <= daysInMonth; i++) {
-    const dateString = `${selectedYear.value}-${String(selectedMonth.value + 1).padStart(2, '0')}-${String(i).padStart(2, '0')}`
-    const harian = (listJurnalHarian || []).find(jh => jh.tanggal === dateString)
-    
-    let saved = false
-    let time = ''
-    
+    const dateString = `${selectedYear.value}-${String(selectedMonth.value + 1).padStart(2, "0")}-${String(i).padStart(2, "0")}`;
+    const harian = (listJurnalHarian || []).find(
+      (jh) => jh.tanggal === dateString,
+    );
+
+    let saved = false;
+    let time = "";
+
     if (harian) {
-      const jk = listJurnalKebiasaan.find(k => k.jurnal_harian_id === harian.id)
+      const jk = listJurnalKebiasaan.find(
+        (k) => k.jurnal_harian_id === harian.id,
+      );
       if (jk) {
-        saved = true
-        time = jk.keterangan || ''
+        saved = true;
+        time = jk.keterangan || "";
       }
     }
-    
+
     newDays.push({
       date: i,
       time: time,
       saved: saved,
       harianId: harian ? harian.id : null,
-      jurnalKebiasaanId: saved ? listJurnalKebiasaan.find(k => k.jurnal_harian_id === harian?.id)?.id : null
-    })
+      jurnalKebiasaanId: saved
+        ? listJurnalKebiasaan.find((k) => k.jurnal_harian_id === harian?.id)?.id
+        : null,
+    });
   }
 
-  days.value = newDays
-  
-  await loadCatatanBulanan()
-}
+  days.value = newDays;
+
+  await loadCatatanBulanan();
+};
 
 const getPesertaDidikId = async () => {
-  const { data: { user } } = await supabase.auth.getUser()
-  if (!user) return null
-  const userRole = user.user_metadata?.role || 'orangtua'
-  if (userRole === 'siswa') {
-    const { data: pdData } = await supabase.from('peserta_didik').select('id').eq('user_id', user.id).single()
-    return pdData ? pdData.id : null
+  const {
+    data: { user },
+  } = await supabase.auth.getUser();
+  if (!user) return null;
+  const userRole = user.user_metadata?.role || "orangtua";
+  if (userRole === "siswa") {
+    const { data: pdData } = await supabase
+      .from("peserta_didik")
+      .select("id")
+      .eq("user_id", user.id)
+      .single();
+    return pdData ? pdData.id : null;
   } else {
-    const { data: otData } = await supabase.from('orang_tua').select('id').eq('user_id', user.id).single()
+    const { data: otData } = await supabase
+      .from("orang_tua")
+      .select("id")
+      .eq("user_id", user.id)
+      .single();
     if (otData) {
-      const { data: pdData } = await supabase.from('peserta_didik').select('id').eq('orang_tua_id', otData.id).single()
-      return pdData ? pdData.id : null
+      const { data: pdData } = await supabase
+        .from("peserta_didik")
+        .select("id")
+        .eq("orang_tua_id", otData.id)
+        .single();
+      return pdData ? pdData.id : null;
     }
   }
-  return null
-}
+  return null;
+};
 
 onMounted(async () => {
-  pesertaDidikId.value = await getPesertaDidikId()
-  let { data: masterKebiasaan } = await supabase.from('kebiasaan').select('id').ilike('nama_kebiasaan', '%tidur%').single()
+  pesertaDidikId.value = await getPesertaDidikId();
+  let { data: masterKebiasaan } = await supabase
+    .from("kebiasaan")
+    .select("id")
+    .ilike("nama_kebiasaan", "%tidur%")
+    .single();
   if (!masterKebiasaan) {
-    const { data: newK } = await supabase.from('kebiasaan').insert({ nama_kebiasaan: 'Tidur Tepat Waktu' }).select('id').single()
-    if (newK) masterKebiasaan = newK
+    const { data: newK } = await supabase
+      .from("kebiasaan")
+      .insert({ nama_kebiasaan: "Tidur Tepat Waktu" })
+      .select("id")
+      .single();
+    if (newK) masterKebiasaan = newK;
   }
-  if (masterKebiasaan) kebiasaanId.value = masterKebiasaan.id
-  await generateDays()
-})
+  if (masterKebiasaan) kebiasaanId.value = masterKebiasaan.id;
+  await generateDays();
+});
 
 watch([selectedMonth, selectedYear], () => {
-  generateDays()
-})
+  generateDays();
+});
 
 const isToday = (date) => {
-  const today = new Date()
-  return date === today.getDate() && 
-         selectedMonth.value === today.getMonth() && 
-         selectedYear.value === today.getFullYear()
-}
+  const today = new Date();
+  return (
+    date === today.getDate() &&
+    selectedMonth.value === today.getMonth() &&
+    selectedYear.value === today.getFullYear()
+  );
+};
 
 const isPastDate = (date) => {
-  const today = new Date()
-  const checkDate = new Date(selectedYear.value, selectedMonth.value, date)
-  today.setHours(0,0,0,0)
-  return checkDate < today
-}
+  const today = new Date();
+  const checkDate = new Date(selectedYear.value, selectedMonth.value, date);
+  today.setHours(0, 0, 0, 0);
+  return checkDate < today;
+};
 
 const isFutureDate = (date) => {
-  const today = new Date()
-  const checkDate = new Date(selectedYear.value, selectedMonth.value, date)
-  today.setHours(0,0,0,0)
-  return checkDate > today
-}
+  const today = new Date();
+  const checkDate = new Date(selectedYear.value, selectedMonth.value, date);
+  today.setHours(0, 0, 0, 0);
+  return checkDate > today;
+};
 
 const saveToday = async () => {
-
-
   if (!todayTime.value) {
-    alert('Mohon isi jam tidur terlebih dahulu.')
-    return
+    alert("Mohon isi jam tidur terlebih dahulu.");
+    return;
   }
-  if (!pesertaDidikId.value || !kebiasaanId.value) return
+  if (!pesertaDidikId.value || !kebiasaanId.value) return;
 
-  const today = new Date().getDate()
-  const dateString = `${selectedYear.value}-${String(selectedMonth.value + 1).padStart(2, '0')}-${String(today).padStart(2, '0')}`
-  let dayObj = days.value.find(d => d.date === today)
-  if (!dayObj) return
-  
+  const today = new Date().getDate();
+  const dateString = `${selectedYear.value}-${String(selectedMonth.value + 1).padStart(2, "0")}-${String(today).padStart(2, "0")}`;
+  let dayObj = days.value.find((d) => d.date === today);
+  if (!dayObj) return;
+
   try {
-    let harianId = dayObj.harianId
+    let harianId = dayObj.harianId;
     if (!harianId) {
-      const { data: newHarian, error } = await supabase.from('jurnal_harian').insert({
-        peserta_didik_id: pesertaDidikId.value,
-        tanggal: dateString
-      }).select('id').single()
-      if (error) throw error
-      harianId = newHarian.id
-      dayObj.harianId = harianId
+      const { data: newHarian, error } = await supabase
+        .from("jurnal_harian")
+        .insert({
+          peserta_didik_id: pesertaDidikId.value,
+          tanggal: dateString,
+        })
+        .select("id")
+        .single();
+      if (error) throw error;
+      harianId = newHarian.id;
+      dayObj.harianId = harianId;
     }
 
     if (dayObj.jurnalKebiasaanId) {
-      await supabase.from('jurnal_kebiasaan').update({
-        status: true,
-        keterangan: todayTime.value
-      }).eq('id', dayObj.jurnalKebiasaanId)
+      await supabase
+        .from("jurnal_kebiasaan")
+        .update({
+          status: true,
+          keterangan: todayTime.value,
+        })
+        .eq("id", dayObj.jurnalKebiasaanId);
     } else {
-      const { data: newJk, error } = await supabase.from('jurnal_kebiasaan').insert({
-        jurnal_harian_id: harianId,
-        kebiasaan_id: kebiasaanId.value,
-        status: true,
-        keterangan: todayTime.value
-      }).select('id').single()
-      if (error) throw error
-      if (newJk) dayObj.jurnalKebiasaanId = newJk.id
+      const { data: newJk, error } = await supabase
+        .from("jurnal_kebiasaan")
+        .insert({
+          jurnal_harian_id: harianId,
+          kebiasaan_id: kebiasaanId.value,
+          status: true,
+          keterangan: todayTime.value,
+        })
+        .select("id")
+        .single();
+      if (error) throw error;
+      if (newJk) dayObj.jurnalKebiasaanId = newJk.id;
     }
-    
-    dayObj.time = todayTime.value
-    dayObj.saved = true
-    alert('Data Tidur Tepat Waktu berhasil disimpan!')
-    await generateDays()
+
+    dayObj.time = todayTime.value;
+    dayObj.saved = true;
+    alert("Data Tidur Tepat Waktu berhasil disimpan!");
+    await generateDays();
   } catch (err) {
-    console.error(err)
-    alert('Gagal menyimpan data')
+    console.error(err);
+    alert("Gagal menyimpan data");
   }
-}
+};
 
 const goToCurrentMonth = () => {
-  selectedMonth.value = new Date().getMonth()
-  selectedYear.value = new Date().getFullYear()
-  generateDays()
-}
+  selectedMonth.value = new Date().getMonth();
+  selectedYear.value = new Date().getFullYear();
+  generateDays();
+};
 </script>
 
 <style scoped>
-@import url('https://fonts.googleapis.com/css2?family=Nunito:wght@400;500;600;700;800;900&display=swap');
+@import url("https://fonts.googleapis.com/css2?family=Nunito:wght@400;500;600;700;800;900&display=swap");
 
 .page-container {
-  font-family: 'Nunito', sans-serif;
+  font-family: "Nunito", sans-serif;
   max-width: 1100px;
   margin: 0 auto;
   padding: 1.5rem 0 4rem 0;
@@ -467,11 +607,17 @@ const goToCurrentMonth = () => {
 }
 
 .hero-card::before {
-  content: '';
+  content: "";
   position: absolute;
-  top: 0; right: 0;
-  width: 300px; height: 300px;
-  background: radial-gradient(circle, rgba(79, 70, 229, 0.08) 0%, rgba(255,255,255,0) 70%);
+  top: 0;
+  right: 0;
+  width: 300px;
+  height: 300px;
+  background: radial-gradient(
+    circle,
+    rgba(79, 70, 229, 0.08) 0%,
+    rgba(255, 255, 255, 0) 70%
+  );
   border-radius: 50%;
   transform: translate(30%, -30%);
 }
@@ -691,20 +837,47 @@ const goToCurrentMonth = () => {
   border: 1px solid transparent;
 }
 
-.success-badge.good { background: #ecfdf5; border-color: #a7f3d0; }
-.success-badge.good .success-icon { color: #10b981; }
-.success-badge.good .success-text { color: #065f46; }
-.success-badge.good .highlight-time { color: #047857; }
+.success-badge.good {
+  background: #ecfdf5;
+  border-color: #a7f3d0;
+}
+.success-badge.good .success-icon {
+  color: #10b981;
+}
+.success-badge.good .success-text {
+  color: #065f46;
+}
+.success-badge.good .highlight-time {
+  color: #047857;
+}
 
-.success-badge.warning { background: #fffbeb; border-color: #fde68a; }
-.success-badge.warning .success-icon { color: #f59e0b; }
-.success-badge.warning .success-text { color: #92400e; }
-.success-badge.warning .highlight-time { color: #b45309; }
+.success-badge.warning {
+  background: #fffbeb;
+  border-color: #fde68a;
+}
+.success-badge.warning .success-icon {
+  color: #f59e0b;
+}
+.success-badge.warning .success-text {
+  color: #92400e;
+}
+.success-badge.warning .highlight-time {
+  color: #b45309;
+}
 
-.success-badge.danger { background: #fef2f2; border-color: #fecaca; }
-.success-badge.danger .success-icon { color: #ef4444; }
-.success-badge.danger .success-text { color: #991b1b; }
-.success-badge.danger .highlight-time { color: #b91c1c; }
+.success-badge.danger {
+  background: #fef2f2;
+  border-color: #fecaca;
+}
+.success-badge.danger .success-icon {
+  color: #ef4444;
+}
+.success-badge.danger .success-text {
+  color: #991b1b;
+}
+.success-badge.danger .highlight-time {
+  color: #b91c1c;
+}
 
 .success-icon {
   font-size: 2.5rem;
@@ -721,7 +894,7 @@ const goToCurrentMonth = () => {
   padding: 0.2rem 0.6rem;
   border-radius: 8px;
   margin: 0 0.2rem;
-  box-shadow: 0 2px 4px rgba(0,0,0,0.05);
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
 }
 
 .btn-outline {
@@ -761,7 +934,7 @@ const goToCurrentMonth = () => {
   background: white;
   padding: 1.5rem 2rem;
   border-radius: 20px;
-  box-shadow: 0 10px 30px -10px rgba(0,0,0,0.05);
+  box-shadow: 0 10px 30px -10px rgba(0, 0, 0, 0.05);
 }
 
 .header-left {
@@ -843,7 +1016,7 @@ const goToCurrentMonth = () => {
   flex-direction: column;
   gap: 1rem;
   border: 1px solid #e2e8f0;
-  box-shadow: 0 4px 6px -1px rgba(0,0,0,0.02);
+  box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.02);
   transition: all 0.2s ease;
   position: relative;
   overflow: hidden;
@@ -851,7 +1024,7 @@ const goToCurrentMonth = () => {
 
 .day-card:hover {
   transform: translateY(-3px);
-  box-shadow: 0 10px 15px -3px rgba(0,0,0,0.08);
+  box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.08);
 }
 
 .day-header {
@@ -895,12 +1068,32 @@ const goToCurrentMonth = () => {
   text-align: center;
 }
 
-.time-badge.filled.good { background: #ecfdf5; color: #047857; }
-.time-badge.filled.warning { background: #fffbeb; color: #b45309; }
-.time-badge.filled.danger { background: #fef2f2; color: #b91c1c; }
-.time-badge.empty { background: #eef2ff; color: #4f46e5; font-size: 0.9rem;}
-.time-badge.missed { background: #fef2f2; color: #b91c1c; font-size: 0.9rem;}
-.time-badge.future { background: #f8fafc; color: #cbd5e1; }
+.time-badge.filled.good {
+  background: #ecfdf5;
+  color: #047857;
+}
+.time-badge.filled.warning {
+  background: #fffbeb;
+  color: #b45309;
+}
+.time-badge.filled.danger {
+  background: #fef2f2;
+  color: #b91c1c;
+}
+.time-badge.empty {
+  background: #eef2ff;
+  color: #4f46e5;
+  font-size: 0.9rem;
+}
+.time-badge.missed {
+  background: #fef2f2;
+  color: #b91c1c;
+  font-size: 0.9rem;
+}
+.time-badge.future {
+  background: #f8fafc;
+  color: #cbd5e1;
+}
 
 .status-paraf {
   font-size: 0.8rem;
@@ -909,35 +1102,63 @@ const goToCurrentMonth = () => {
   align-items: center;
   gap: 0.3rem;
 }
-.status-paraf.good { color: #10b981; }
-.status-paraf.warning { color: #f59e0b; }
-.status-paraf.danger { color: #ef4444; }
+.status-paraf.good {
+  color: #10b981;
+}
+.status-paraf.warning {
+  color: #f59e0b;
+}
+.status-paraf.danger {
+  color: #ef4444;
+}
 
-.status-icon { font-size: 1.5rem; }
-.status-icon.filled { color: #10b981; }
-.status-icon.waiting { color: #4f46e5; }
-.status-icon.missed { color: #ef4444; }
-.status-icon.locked { color: #cbd5e1; }
+.status-icon {
+  font-size: 1.5rem;
+}
+.status-icon.filled {
+  color: #10b981;
+}
+.status-icon.waiting {
+  color: #4f46e5;
+}
+.status-icon.missed {
+  color: #ef4444;
+}
+.status-icon.locked {
+  color: #cbd5e1;
+}
 
 /* Day Card Variants */
 .day-card.is-today {
   border: 2px solid #4f46e5;
   background: #eef2ff;
 }
-.day-card.is-today .day-number { color: #3730a3; }
+.day-card.is-today .day-number {
+  color: #3730a3;
+}
 
-.day-card.is-filled { border-color: #a7f3d0; }
-.day-card.is-filled .day-number { color: #059669; }
+.day-card.is-filled {
+  border-color: #a7f3d0;
+}
+.day-card.is-filled .day-number {
+  color: #059669;
+}
 
-.day-card.is-missed { border-color: #fecaca; opacity: 0.8;}
-.day-card.is-future { opacity: 0.5; background: #f8fafc; }
+.day-card.is-missed {
+  border-color: #fecaca;
+  opacity: 0.8;
+}
+.day-card.is-future {
+  opacity: 0.5;
+  background: #f8fafc;
+}
 
 /* Catatan Section */
 .catatan-section {
   background: white;
   border-radius: 24px;
   padding: 2.5rem;
-  box-shadow: 0 10px 30px -10px rgba(0,0,0,0.05);
+  box-shadow: 0 10px 30px -10px rgba(0, 0, 0, 0.05);
   border: 1px solid #f1f5f9;
 }
 
@@ -1012,34 +1233,34 @@ const goToCurrentMonth = () => {
   .hero-card {
     padding: 2rem 1.5rem;
   }
-  
+
   .hero-content {
     flex-direction: column;
     text-align: center;
   }
-  
+
   .hero-title {
     font-size: 2.2rem;
   }
-  
+
   .today-input-section {
     flex-direction: column;
     align-items: stretch;
   }
-  
+
   .btn-primary {
     justify-content: center;
   }
-  
+
   .section-header {
     flex-direction: column;
     align-items: stretch;
   }
-  
+
   .filter-group {
     flex-direction: column;
   }
-  
+
   .days-grid {
     grid-template-columns: repeat(auto-fill, minmax(110px, 1fr));
   }

@@ -2,52 +2,52 @@
   <div class="linear-navigation">
     <button v-if="prevLink" class="nav-btn prev-btn" @click="goToPrev">
       <Icon name="ph:arrow-left-bold" class="nav-icon" />
-      <span class="nav-text">{{ prevText || 'Sebelumnya' }}</span>
+      <span class="nav-text">{{ prevText || "Sebelumnya" }}</span>
     </button>
     <div v-else class="nav-spacer"></div>
 
     <button v-if="nextLink" class="nav-btn next-btn" @click="goToNext">
-      <span class="nav-text">{{ nextText || 'Selanjutnya' }}</span>
+      <span class="nav-text">{{ nextText || "Selanjutnya" }}</span>
       <Icon name="ph:arrow-right-bold" class="nav-icon" />
     </button>
   </div>
 </template>
 
 <script setup>
-import { useRouter } from 'vue-router'
+import { useRouter } from "vue-router";
 
 const props = defineProps({
   prevLink: {
     type: String,
-    default: ''
+    default: "",
   },
   prevText: {
     type: String,
-    default: 'Sebelumnya'
+    default: "Sebelumnya",
   },
   nextLink: {
     type: String,
-    default: ''
+    default: "",
   },
   nextText: {
     type: String,
-    default: 'Selanjutnya'
-  }
-})
+    default: "Selanjutnya",
+  },
+});
 
-const router = useRouter()
+const router = useRouter();
 
 const goToPrev = () => {
   if (props.prevLink) {
-    router.push(props.prevLink)
+    router.push(props.prevLink);
   }
-}
+};
 
 const goToNext = () => {
   if (props.nextLink) {
-    router.push(props.nextLink)
+    router.push(props.nextLink);
   }
-}
+};
 </script>
 
 <style scoped>
@@ -61,7 +61,7 @@ const goToNext = () => {
   background: rgba(255, 255, 255, 0.95);
   backdrop-filter: blur(10px);
   border-radius: 20px;
-  box-shadow: 0 10px 30px -10px rgba(0,0,0,0.08);
+  box-shadow: 0 10px 30px -10px rgba(0, 0, 0, 0.08);
   border: 1px solid #e2e8f0;
 }
 
@@ -115,7 +115,7 @@ const goToNext = () => {
 body.dark-theme .linear-navigation {
   background: rgba(30, 41, 59, 0.95);
   border-color: #334155;
-  box-shadow: 0 -10px 40px -10px rgba(0,0,0,0.5);
+  box-shadow: 0 -10px 40px -10px rgba(0, 0, 0, 0.5);
 }
 
 body.dark-theme .prev-btn {
@@ -136,13 +136,13 @@ body.dark-theme .prev-btn:hover {
     gap: 1rem;
     padding: 1.2rem;
   }
-  
+
   .nav-btn {
     width: 100%;
     justify-content: center;
     margin-left: 0 !important;
   }
-  
+
   .nav-spacer {
     display: none;
   }

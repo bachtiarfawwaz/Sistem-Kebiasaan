@@ -1,50 +1,50 @@
 <script setup>
-import { ref, onMounted } from 'vue'
-import { useRouter } from 'vue-router'
-import Swal from 'sweetalert2'
+import { ref, onMounted } from "vue";
+import { useRouter } from "vue-router";
+import Swal from "sweetalert2";
 
-const isDarkMode = ref(false)
-const router = useRouter()
-const sessionCookie = useCookie('user_session')
+const isDarkMode = ref(false);
+const router = useRouter();
+const sessionCookie = useCookie("user_session");
 
 const toggleDarkMode = () => {
-  isDarkMode.value = !isDarkMode.value
+  isDarkMode.value = !isDarkMode.value;
   if (import.meta.client) {
     if (isDarkMode.value) {
-      document.body.classList.add('dark-theme')
-      localStorage.setItem('siswa-theme', 'dark')
+      document.body.classList.add("dark-theme");
+      localStorage.setItem("siswa-theme", "dark");
     } else {
-      document.body.classList.remove('dark-theme')
-      localStorage.setItem('siswa-theme', 'light')
+      document.body.classList.remove("dark-theme");
+      localStorage.setItem("siswa-theme", "light");
     }
   }
-}
+};
 
-const showLogoutModal = ref(false)
-const supabase = useSupabase()
+const showLogoutModal = ref(false);
+const supabase = useSupabase();
 
 const handleLogout = () => {
-  showLogoutModal.value = true
-}
+  showLogoutModal.value = true;
+};
 
 const performLogout = async () => {
-  showLogoutModal.value = false
+  showLogoutModal.value = false;
   try {
-    await supabase.auth.signOut()
+    await supabase.auth.signOut();
   } catch (err) {}
-  sessionCookie.value = null
-  router.push('/Login')
-}
+  sessionCookie.value = null;
+  router.push("/Login");
+};
 
 onMounted(() => {
   if (import.meta.client) {
-    const savedTheme = localStorage.getItem('siswa-theme')
-    if (savedTheme === 'dark') {
-      isDarkMode.value = true
-      document.body.classList.add('dark-theme')
+    const savedTheme = localStorage.getItem("siswa-theme");
+    if (savedTheme === "dark") {
+      isDarkMode.value = true;
+      document.body.classList.add("dark-theme");
     }
   }
-})
+});
 </script>
 
 <template>
@@ -54,22 +54,32 @@ onMounted(() => {
         <div class="navbar-left">
           <img src="/logo.png" alt="KAIH Logo" class="logo" />
         </div>
-        
+
         <div class="navbar-right">
           <nav class="desktop-nav">
-            <NuxtLink to="/Siswa/Dashboard" class="nav-item hide-mobile" exact-active-class="active">
+            <NuxtLink
+              to="/Siswa/Dashboard"
+              class="nav-item hide-mobile"
+              exact-active-class="active"
+            >
               <Icon name="ph:house" class="nav-icon" />
               <span class="nav-text">Home</span>
             </NuxtLink>
           </nav>
-          
 
-
-          <button class="nav-item icon-only logout hide-mobile" title="Keluar" @click="handleLogout">
+          <button
+            class="nav-item icon-only logout hide-mobile"
+            title="Keluar"
+            @click="handleLogout"
+          >
             <Icon name="ph:sign-out" class="nav-icon" />
           </button>
-          
-          <button class="nav-item icon-only" title="Ganti Tema" @click="toggleDarkMode">
+
+          <button
+            class="nav-item icon-only"
+            title="Ganti Tema"
+            @click="toggleDarkMode"
+          >
             <Icon :name="isDarkMode ? 'ph:moon' : 'ph:moon'" class="nav-icon" />
           </button>
         </div>
@@ -84,23 +94,35 @@ onMounted(() => {
 
     <!-- Mobile Bottom Navigation (Floating Dock) -->
     <nav class="mobile-bottom-nav">
-      <NuxtLink to="/Siswa/Dashboard" class="mobile-nav-item" exact-active-class="active">
+      <NuxtLink
+        to="/Siswa/Dashboard"
+        class="mobile-nav-item"
+        exact-active-class="active"
+      >
         <Icon name="ph:house" />
       </NuxtLink>
 
-      <button class="mobile-nav-item logout-mobile" title="Keluar" @click="handleLogout">
+      <button
+        class="mobile-nav-item logout-mobile"
+        title="Keluar"
+        @click="handleLogout"
+      >
         <Icon name="ph:sign-out" />
       </button>
     </nav>
-    <LogoutModal :show="showLogoutModal" @cancel="showLogoutModal = false" @confirm="performLogout" />
+    <LogoutModal
+      :show="showLogoutModal"
+      @cancel="showLogoutModal = false"
+      @confirm="performLogout"
+    />
   </div>
 </template>
 
 <style scoped>
-@import url('https://fonts.googleapis.com/css2?family=Nunito:wght@400;500;600;700;800&display=swap');
+@import url("https://fonts.googleapis.com/css2?family=Nunito:wght@400;500;600;700;800&display=swap");
 
 .layout-siswa {
-  font-family: 'Nunito', sans-serif;
+  font-family: "Nunito", sans-serif;
   min-height: 100vh;
   background-color: #f1f5f9;
   color: #0f172a;
@@ -123,7 +145,7 @@ onMounted(() => {
   position: sticky;
   top: 0;
   z-index: 50;
-  box-shadow: 0 1px 3px rgba(0,0,0,0.05);
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.05);
 }
 
 .navbar-container {
@@ -192,8 +214,6 @@ onMounted(() => {
   transition: all 0.2s ease;
 }
 
-
-
 .icon-only {
   padding: 0.6rem;
   border-radius: 50%;
@@ -222,7 +242,9 @@ onMounted(() => {
   backdrop-filter: blur(16px);
   padding: 0.6rem 1.8rem;
   border-radius: 100px;
-  box-shadow: 0 10px 40px -10px rgba(0,0,0,0.15), 0 4px 10px -5px rgba(0,0,0,0.1);
+  box-shadow:
+    0 10px 40px -10px rgba(0, 0, 0, 0.15),
+    0 4px 10px -5px rgba(0, 0, 0, 0.1);
   z-index: 100;
   align-items: center;
   gap: 2rem;
@@ -262,29 +284,66 @@ onMounted(() => {
 }
 
 @media (min-width: 769px) {
-  .layout-siswa { padding-bottom: 0; }
+  .layout-siswa {
+    padding-bottom: 0;
+  }
 }
 
 @media (max-width: 768px) {
-  .navbar-container { padding: 0.75rem 1rem; }
-  .hide-mobile { display: none !important; }
-  .mobile-bottom-nav { display: flex; }
-  .main-content-wrapper { padding: 1.5rem 1rem; }
+  .navbar-container {
+    padding: 0.75rem 1rem;
+  }
+  .hide-mobile {
+    display: none !important;
+  }
+  .mobile-bottom-nav {
+    display: flex;
+  }
+  .main-content-wrapper {
+    padding: 1.5rem 1rem;
+  }
 }
 </style>
 
 <style>
-body.dark-theme .layout-siswa { background-color: #0f172a; color: #f8fafc; }
-body.dark-theme .navbar { background: rgba(15, 23, 42, 0.95) !important; border-bottom: 1px solid #334155 !important; }
-body.dark-theme .nav-item { color: #cbd5e1 !important; }
-body.dark-theme .nav-item:hover { color: #34d399 !important; }
-body.dark-theme .nav-item.active { background: #064e3b !important; color: #34d399 !important; }
-body.dark-theme .nav-item.active .nav-icon { color: #34d399 !important; }
-body.dark-theme .nav-icon { color: #94a3b8 !important; }
+body.dark-theme .layout-siswa {
+  background-color: #0f172a;
+  color: #f8fafc;
+}
+body.dark-theme .navbar {
+  background: rgba(15, 23, 42, 0.95) !important;
+  border-bottom: 1px solid #334155 !important;
+}
+body.dark-theme .nav-item {
+  color: #cbd5e1 !important;
+}
+body.dark-theme .nav-item:hover {
+  color: #34d399 !important;
+}
+body.dark-theme .nav-item.active {
+  background: #064e3b !important;
+  color: #34d399 !important;
+}
+body.dark-theme .nav-item.active .nav-icon {
+  color: #34d399 !important;
+}
+body.dark-theme .nav-icon {
+  color: #94a3b8 !important;
+}
 
-body.dark-theme .logout:hover { color: #ef4444 !important; }
+body.dark-theme .logout:hover {
+  color: #ef4444 !important;
+}
 
-body.dark-theme .mobile-bottom-nav { background: #1e293b; border: 1px solid #334155; }
-body.dark-theme .mobile-nav-item { color: #94a3b8; }
-body.dark-theme .mobile-nav-item:hover, body.dark-theme .mobile-nav-item.active { color: #34d399; }
+body.dark-theme .mobile-bottom-nav {
+  background: #1e293b;
+  border: 1px solid #334155;
+}
+body.dark-theme .mobile-nav-item {
+  color: #94a3b8;
+}
+body.dark-theme .mobile-nav-item:hover,
+body.dark-theme .mobile-nav-item.active {
+  color: #34d399;
+}
 </style>

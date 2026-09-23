@@ -6,35 +6,44 @@
 </template>
 
 <script setup>
-import { useRouter } from 'vue-router'
-import { onMounted } from 'vue'
+import { useRouter } from "vue-router";
+import { onMounted } from "vue";
 
 definePageMeta({
-  layout: 'orangtua'
-})
+  layout: "orangtua",
+});
 
-const router = useRouter()
-const sessionCookie = useCookie('user_session')
+const router = useRouter();
+const sessionCookie = useCookie("user_session");
 
 onMounted(() => {
-  const agama = sessionCookie.value?.agama || 'Islam'
-  const agamaLower = agama.toLowerCase()
-  
-  const nonIslamReligions = ['kristen', 'katholik', 'katolik', 'hindu', 'budha', 'buddha', 'konghucu', 'nonislam']
-  
+  const agama = sessionCookie.value?.agama || "Islam";
+  const agamaLower = agama.toLowerCase();
+
+  const nonIslamReligions = [
+    "kristen",
+    "katholik",
+    "katolik",
+    "hindu",
+    "budha",
+    "buddha",
+    "konghucu",
+    "nonislam",
+  ];
+
   // Periksa apakah agama mengandung salah satu kata kunci non-islam (contoh: "kristen protestan" mengandung "kristen")
-  const isNonIslam = nonIslamReligions.some(r => agamaLower.includes(r))
-  
+  const isNonIslam = nonIslamReligions.some((r) => agamaLower.includes(r));
+
   if (isNonIslam) {
-    router.push('/Orangtua/Ibadah/NonIslam')
+    router.push("/Orangtua/Ibadah/NonIslam");
   } else {
-    router.push('/Orangtua/Ibadah/Islam')
+    router.push("/Orangtua/Ibadah/Islam");
   }
-})
+});
 </script>
 
 <style scoped>
-@import url('https://fonts.googleapis.com/css2?family=Nunito:wght@400;600;800&display=swap');
+@import url("https://fonts.googleapis.com/css2?family=Nunito:wght@400;600;800&display=swap");
 
 .loading-container {
   display: flex;
@@ -42,7 +51,7 @@ onMounted(() => {
   align-items: center;
   justify-content: center;
   height: 60vh;
-  font-family: 'Nunito', sans-serif;
+  font-family: "Nunito", sans-serif;
   color: #64748b;
   gap: 1rem;
 }
@@ -54,7 +63,11 @@ onMounted(() => {
 }
 
 @keyframes spin {
-  from { transform: rotate(0deg); }
-  to { transform: rotate(360deg); }
+  from {
+    transform: rotate(0deg);
+  }
+  to {
+    transform: rotate(360deg);
+  }
 }
 </style>

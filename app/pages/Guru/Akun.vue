@@ -12,17 +12,33 @@
 
     <!-- Content Layout -->
     <div class="profile-content">
-      
       <!-- Main Card -->
       <div class="card main-card">
         <div class="card-cover"></div>
         <div class="card-body">
           <div class="card-profile-header">
             <div class="avatar-wrapper">
-              <div class="avatar-circle">{{ guruForm.namaLengkap ? guruForm.namaLengkap.charAt(0).toUpperCase() : '-' }}</div>
+              <div class="avatar-circle">
+                {{
+                  guruForm.namaLengkap
+                    ? guruForm.namaLengkap.charAt(0).toUpperCase()
+                    : "-"
+                }}
+              </div>
             </div>
-            <button class="settings-btn" :title="isEditing ? 'Simpan Profil' : 'Edit Profil'" @click="toggleEdit" :class="{ 'active': isEditing }">
-              <Icon :name="isEditing ? 'ph:floppy-disk-duotone' : 'ph:pencil-simple-duotone'" />
+            <button
+              class="settings-btn"
+              :title="isEditing ? 'Simpan Profil' : 'Edit Profil'"
+              @click="toggleEdit"
+              :class="{ active: isEditing }"
+            >
+              <Icon
+                :name="
+                  isEditing
+                    ? 'ph:floppy-disk-duotone'
+                    : 'ph:pencil-simple-duotone'
+                "
+              />
             </button>
           </div>
 
@@ -31,34 +47,76 @@
             <div class="form-col">
               <div class="form-group">
                 <label>Nama Lengkap</label>
-                <input type="text" class="form-input" v-model="guruForm.namaLengkap" :readonly="!isEditing" />
+                <input
+                  type="text"
+                  class="form-input"
+                  v-model="guruForm.namaLengkap"
+                  :readonly="!isEditing"
+                />
               </div>
               <div class="form-group">
                 <label>NIP</label>
-                <input type="text" class="form-input" v-model="guruForm.nip" :readonly="!isEditing" />
+                <input
+                  type="text"
+                  class="form-input"
+                  v-model="guruForm.nip"
+                  :readonly="!isEditing"
+                />
               </div>
               <div class="form-group">
                 <label>Kelas yang Diampu</label>
                 <!-- Tampilkan sebagai teks biasa jika sudah ditugaskan (tanpa panah dropdown) -->
-                <input v-if="hasAssignedClass" type="text" class="form-input" :value="assignedClassName" readonly style="background-color: #f8fafc; color: #64748b;" />
-                
+                <input
+                  v-if="hasAssignedClass"
+                  type="text"
+                  class="form-input"
+                  :value="assignedClassName"
+                  readonly
+                  style="background-color: #f8fafc; color: #64748b"
+                />
+
                 <!-- Tampilkan dropdown jika belum ditugaskan sama sekali -->
-                <select v-else class="form-input" v-model="guruForm.kelas" :disabled="!isEditing">
+                <select
+                  v-else
+                  class="form-input"
+                  v-model="guruForm.kelas"
+                  :disabled="!isEditing"
+                >
                   <option value="">-- Pilih Kelas --</option>
-                  <option v-for="k in listKelas" :key="k.id" :value="k.id">{{ k.nama_kelas }}</option>
+                  <option v-for="k in listKelas" :key="k.id" :value="k.id">
+                    {{ k.nama_kelas }}
+                  </option>
                 </select>
-                <small v-if="hasAssignedClass && isEditing" style="color: #ef4444; font-size: 0.75rem; display: block; margin-top: 4px;">Pemindahan kelas hanya bisa dilakukan oleh Admin.</small>
+                <small
+                  v-if="hasAssignedClass && isEditing"
+                  style="
+                    color: #ef4444;
+                    font-size: 0.75rem;
+                    display: block;
+                    margin-top: 4px;
+                  "
+                  >Pemindahan kelas hanya bisa dilakukan oleh Admin.</small
+                >
               </div>
               <div class="form-group">
                 <label>Jenis Kelamin</label>
-                <select class="form-input" v-model="guruForm.jenisKelamin" :disabled="!isEditing">
+                <select
+                  class="form-input"
+                  v-model="guruForm.jenisKelamin"
+                  :disabled="!isEditing"
+                >
                   <option value="Laki-laki">Laki-laki</option>
                   <option value="Perempuan">Perempuan</option>
                 </select>
               </div>
               <div class="form-group">
                 <label>Nama sekolah</label>
-                <input type="text" class="form-input" v-model="guruForm.namaSekolah" :readonly="!isEditing" />
+                <input
+                  type="text"
+                  class="form-input"
+                  v-model="guruForm.namaSekolah"
+                  :readonly="!isEditing"
+                />
               </div>
             </div>
 
@@ -66,15 +124,29 @@
             <div class="form-col">
               <div class="form-group">
                 <label>Email</label>
-                <input type="text" class="form-input" v-model="guruForm.email" :readonly="!isEditing" />
+                <input
+                  type="text"
+                  class="form-input"
+                  v-model="guruForm.email"
+                  :readonly="!isEditing"
+                />
               </div>
               <div class="form-group">
                 <label>Alamat</label>
-                <input type="text" class="form-input" v-model="guruForm.alamat" :readonly="!isEditing" />
+                <input
+                  type="text"
+                  class="form-input"
+                  v-model="guruForm.alamat"
+                  :readonly="!isEditing"
+                />
               </div>
               <div class="form-group">
                 <label>Agama</label>
-                <select class="form-input" v-model="guruForm.agama" :disabled="!isEditing">
+                <select
+                  class="form-input"
+                  v-model="guruForm.agama"
+                  :disabled="!isEditing"
+                >
                   <option value="Islam">Islam</option>
                   <option value="Kristen Protestan">Kristen Protestan</option>
                   <option value="Katolik">Katolik</option>
@@ -88,177 +160,228 @@
         </div>
       </div>
     </div>
-    
+
     <!-- Toast Notification -->
-    <div v-if="toastState.show" class="toast-notification" :class="toastState.type">
-      <Icon :name="toastState.type === 'error' ? 'ph:warning-circle-fill' : 'ph:check-circle-fill'" class="toast-icon" />
+    <div
+      v-if="toastState.show"
+      class="toast-notification"
+      :class="toastState.type"
+    >
+      <Icon
+        :name="
+          toastState.type === 'error'
+            ? 'ph:warning-circle-fill'
+            : 'ph:check-circle-fill'
+        "
+        class="toast-icon"
+      />
       <span>{{ toastState.message }}</span>
     </div>
-
   </div>
 </template>
 
 <script setup>
-import { ref, computed, onMounted } from 'vue'
+import { ref, computed, onMounted } from "vue";
 
 definePageMeta({
-  layout: 'guru'
-})
+  layout: "guru",
+});
 
-const supabase = useSupabase()
-const isEditing = ref(false)
-const isLoading = ref(true)
+const supabase = useSupabase();
+const isEditing = ref(false);
+const isLoading = ref(true);
 
 const guruForm = ref({
-  namaLengkap: '',
-  nip: '',
-  kelas: '',
-  jenisKelamin: 'Laki-laki',
-  namaSekolah: 'KAIH',
-  email: '',
-  alamat: '',
-  agama: 'Islam'
-})
+  namaLengkap: "",
+  nip: "",
+  kelas: "",
+  jenisKelamin: "Laki-laki",
+  namaSekolah: "KAIH",
+  email: "",
+  alamat: "",
+  agama: "Islam",
+});
 
-const listKelas = ref([])
-let currentGuruId = null
-let currentSekolahId = null
-const hasAssignedClass = ref(false)
+const listKelas = ref([]);
+let currentGuruId = null;
+let currentSekolahId = null;
+const hasAssignedClass = ref(false);
 
 const assignedClassName = computed(() => {
-  const matchedKelas = listKelas.value.find(k => k.id === guruForm.value.kelas)
-  return matchedKelas ? matchedKelas.nama_kelas : 'Belum ditugaskan'
-})
+  const matchedKelas = listKelas.value.find(
+    (k) => k.id === guruForm.value.kelas,
+  );
+  return matchedKelas ? matchedKelas.nama_kelas : "Belum ditugaskan";
+});
 
 const toastState = ref({
   show: false,
-  message: '',
-  type: 'success'
-})
+  message: "",
+  type: "success",
+});
 
-const showToast = (message, type = 'success') => {
-  toastState.value = { show: true, message, type }
+const showToast = (message, type = "success") => {
+  toastState.value = { show: true, message, type };
   setTimeout(() => {
-    toastState.value.show = false
-  }, 3000)
-}
+    toastState.value.show = false;
+  }, 3000);
+};
 
 onMounted(async () => {
   try {
-    const { data: { user } } = await supabase.auth.getUser()
-    
+    const {
+      data: { user },
+    } = await supabase.auth.getUser();
+
     if (user) {
-      guruForm.value.email = user.email
-      
-      // Ambil data guru dengan mencocokkan email di tabel users, untuk menghindari mismatch UUID
-      const { data: guruData } = await supabase.from('guru')
-        .select('*, users!inner(email), sekolah(nama_sekolah)')
-        .eq('users.email', user.email)
-        .single()
-      
+      guruForm.value.email = user.email;
+
+      const { data: guruData } = await supabase
+        .from("guru")
+        .select("*, users!inner(email), sekolah(nama_sekolah)")
+        .eq("users.email", user.email)
+        .single();
+
       if (guruData) {
-        // Jika ada mismatch UUID (karena auto-provisioning), perbaiki secara diam-diam
         if (guruData.user_id !== user.id) {
-          await supabase.from('guru').update({ user_id: user.id }).eq('id', guruData.id)
+          await supabase
+            .from("guru")
+            .update({ user_id: user.id })
+            .eq("id", guruData.id);
         }
-        currentGuruId = guruData.id
-        currentSekolahId = guruData.sekolah_id
-        guruForm.value.namaLengkap = guruData.nama || ''
-        guruForm.value.nip = guruData.nip || ''
-        guruForm.value.jenisKelamin = guruData.jenis_kelamin || 'Laki-laki'
-        guruForm.value.namaSekolah = (guruData.sekolah && guruData.sekolah.nama_sekolah) ? guruData.sekolah.nama_sekolah : 'Data Sekolah Kosong'
-        guruForm.value.alamat = guruData.alamat || ''
-        guruForm.value.agama = guruData.agama || 'Islam'
+        currentGuruId = guruData.id;
+        currentSekolahId = guruData.sekolah_id;
+        guruForm.value.namaLengkap = guruData.nama || "";
+        guruForm.value.nip = guruData.nip || "";
+        guruForm.value.jenisKelamin = guruData.jenis_kelamin || "Laki-laki";
+        guruForm.value.namaSekolah =
+          guruData.sekolah && guruData.sekolah.nama_sekolah
+            ? guruData.sekolah.nama_sekolah
+            : "Data Sekolah Kosong";
+        guruForm.value.alamat = guruData.alamat || "";
+        guruForm.value.agama = guruData.agama || "Islam";
 
         // Fetch semua kelas untuk dropdown
-        const { data: semuaKelas } = await supabase.from('kelas').select('id, nama_kelas')
-        if (semuaKelas) listKelas.value = semuaKelas
+        const { data: semuaKelas } = await supabase
+          .from("kelas")
+          .select("id, nama_kelas");
+        if (semuaKelas) listKelas.value = semuaKelas;
 
         // Fetch Kelas dari admin
-        const { data: kelasData } = await supabase.from('kelas').select('id, nama_kelas').eq('wali_kelas_id', guruData.id).single()
+        const { data: kelasData } = await supabase
+          .from("kelas")
+          .select("id, nama_kelas")
+          .eq("wali_kelas_id", guruData.id)
+          .single();
         if (kelasData) {
-          guruForm.value.kelas = kelasData.id
-          hasAssignedClass.value = true
+          guruForm.value.kelas = kelasData.id;
+          hasAssignedClass.value = true;
         }
       }
     }
   } catch (error) {
-    console.error('Error fetching profile:', error)
+    console.error("Error fetching profile:", error);
   } finally {
-    isLoading.value = false
+    isLoading.value = false;
   }
-})
+});
 
 const toggleEdit = async () => {
   if (isEditing.value) {
     // Mode Simpan
     try {
-      const { data: { user } } = await supabase.auth.getUser()
+      const {
+        data: { user },
+      } = await supabase.auth.getUser();
       if (user) {
-        const { error } = await supabase.from('guru').update({
-          nama: guruForm.value.namaLengkap,
-          nip: guruForm.value.nip,
-          alamat: guruForm.value.alamat,
-          jenis_kelamin: guruForm.value.jenisKelamin,
-          agama: guruForm.value.agama
-        }).eq('id', currentGuruId)
+        const { error } = await supabase
+          .from("guru")
+          .update({
+            nama: guruForm.value.namaLengkap,
+            nip: guruForm.value.nip,
+            alamat: guruForm.value.alamat,
+            jenis_kelamin: guruForm.value.jenisKelamin,
+            agama: guruForm.value.agama,
+          })
+          .eq("id", currentGuruId);
 
         // Perbaikan untuk akun Guru lama yang belum memiliki sekolah_id
-        let activeSekolahId = currentSekolahId
+        let activeSekolahId = currentSekolahId;
         if (!activeSekolahId) {
-          const { data: defaultSekolah } = await supabase.from('sekolah').select('id').limit(1).single()
-          
+          const { data: defaultSekolah } = await supabase
+            .from("sekolah")
+            .select("id")
+            .limit(1)
+            .single();
+
           if (defaultSekolah) {
-            activeSekolahId = defaultSekolah.id
+            activeSekolahId = defaultSekolah.id;
           } else {
-            // Jika tabel sekolah benar-benar KOSONG, buatkan data sekolah baru otomatis
-            const { data: newSekolah } = await supabase.from('sekolah').insert({ nama_sekolah: 'KAIH' }).select('id').single()
+            const { data: newSekolah } = await supabase
+              .from("sekolah")
+              .insert({ nama_sekolah: "KAIH" })
+              .select("id")
+              .single();
             if (newSekolah) {
-              activeSekolahId = newSekolah.id
+              activeSekolahId = newSekolah.id;
             }
           }
 
           if (activeSekolahId) {
             // Tautkan guru ini ke sekolah tersebut
-            await supabase.from('guru').update({ sekolah_id: activeSekolahId }).eq('id', currentGuruId)
-            currentSekolahId = activeSekolahId
+            await supabase
+              .from("guru")
+              .update({ sekolah_id: activeSekolahId })
+              .eq("id", currentGuruId);
+            currentSekolahId = activeSekolahId;
           }
         }
 
-        // Update nama sekolah di tabel sekolah (karena inputnya bisa diedit)
-        if (guruForm.value.namaSekolah && guruForm.value.namaSekolah !== 'Data Sekolah Kosong' && activeSekolahId) {
-          await supabase.from('sekolah').update({ nama_sekolah: guruForm.value.namaSekolah }).eq('id', activeSekolahId)
+        if (
+          guruForm.value.namaSekolah &&
+          guruForm.value.namaSekolah !== "Data Sekolah Kosong" &&
+          activeSekolahId
+        ) {
+          await supabase
+            .from("sekolah")
+            .update({ nama_sekolah: guruForm.value.namaSekolah })
+            .eq("id", activeSekolahId);
         }
 
-        // Update kelas jika guru memilih kelas baru (hanya jika belum ditugaskan sebelumnya)
         if (guruForm.value.kelas && currentGuruId && !hasAssignedClass.value) {
           // Pertama, hapus guru ini dari kelas lama (jika ada) agar tidak jadi wali di banyak kelas
-          await supabase.from('kelas').update({ wali_kelas_id: null }).eq('wali_kelas_id', currentGuruId)
+          await supabase
+            .from("kelas")
+            .update({ wali_kelas_id: null })
+            .eq("wali_kelas_id", currentGuruId);
           // Kemudian set sebagai wali kelas di kelas yang baru dipilih
-          await supabase.from('kelas').update({ wali_kelas_id: currentGuruId }).eq('id', guruForm.value.kelas)
-          
-          hasAssignedClass.value = true // Setelah sukses memilih, kunci pilihan kelas
+          await supabase
+            .from("kelas")
+            .update({ wali_kelas_id: currentGuruId })
+            .eq("id", guruForm.value.kelas);
+
+          hasAssignedClass.value = true; // Setelah sukses memilih, kunci pilihan kelas
         }
 
-        showToast('Profil berhasil disimpan!', 'success')
-        isEditing.value = false
+        showToast("Profil berhasil disimpan!", "success");
+        isEditing.value = false;
       }
     } catch (err) {
-      console.error('Error saving profile:', err)
-      showToast('Gagal menyimpan profil', 'error')
+      console.error("Error saving profile:", err);
+      showToast("Gagal menyimpan profil", "error");
     }
   } else {
     // Masuk mode edit
-    isEditing.value = true
+    isEditing.value = true;
   }
-}
+};
 </script>
 
 <style scoped>
-@import url('https://fonts.googleapis.com/css2?family=Nunito:wght@400;500;600;700;800&display=swap');
+@import url("https://fonts.googleapis.com/css2?family=Nunito:wght@400;500;600;700;800&display=swap");
 
 .profile-container {
-  font-family: 'Nunito', sans-serif;
+  font-family: "Nunito", sans-serif;
   max-width: 900px;
   margin: 0 auto;
   padding: 1.5rem 0 4rem 0;
@@ -359,7 +482,7 @@ const toggleEdit = async () => {
   font-size: 2.5rem;
   font-weight: 800;
   border: 6px solid #ffffff;
-  box-shadow: 0 4px 6px -1px rgba(0,0,0,0.05);
+  box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.05);
 }
 
 .settings-btn {
@@ -375,7 +498,7 @@ const toggleEdit = async () => {
   display: flex;
   align-items: center;
   justify-content: center;
-  box-shadow: 0 4px 6px -1px rgba(0,0,0,0.05);
+  box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.05);
   margin-bottom: 30px; /* Aligns with the middle of the avatar roughly */
 }
 
@@ -482,17 +605,17 @@ select.form-input[disabled] {
     grid-template-columns: 1fr;
     gap: 1.5rem;
   }
-  
+
   .card-body {
     padding: 1.5rem;
   }
-  
+
   .avatar-circle {
     width: 90px;
     height: 90px;
     font-size: 2rem;
   }
-  
+
   .card-profile-header {
     margin-top: -45px;
   }
@@ -501,30 +624,48 @@ select.form-input[disabled] {
 /* Toast Notification */
 .toast-notification {
   position: fixed;
-  top: 1.5rem; 
+  top: 1.5rem;
   right: 1.5rem;
-  background: white; 
+  background: white;
   border-radius: 12px;
-  padding: 1rem 1.5rem; 
-  display: flex; 
-  align-items: center; 
+  padding: 1rem 1.5rem;
+  display: flex;
+  align-items: center;
   gap: 0.75rem;
-  box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05);
-  font-weight: 700; 
+  box-shadow:
+    0 10px 15px -3px rgba(0, 0, 0, 0.1),
+    0 4px 6px -2px rgba(0, 0, 0, 0.05);
+  font-weight: 700;
   color: #0f172a;
-  z-index: 2000; 
+  z-index: 2000;
   animation: slideIn 0.3s ease-out;
 }
 
-.toast-notification.success { border-left: 4px solid #10b981; }
-.toast-notification.error { border-left: 4px solid #ef4444; }
+.toast-notification.success {
+  border-left: 4px solid #10b981;
+}
+.toast-notification.error {
+  border-left: 4px solid #ef4444;
+}
 
-.toast-icon { font-size: 1.5rem; }
-.toast-notification.success .toast-icon { color: #10b981; }
-.toast-notification.error .toast-icon { color: #ef4444; }
+.toast-icon {
+  font-size: 1.5rem;
+}
+.toast-notification.success .toast-icon {
+  color: #10b981;
+}
+.toast-notification.error .toast-icon {
+  color: #ef4444;
+}
 
 @keyframes slideIn {
-  from { transform: translateX(100%); opacity: 0; }
-  to { transform: translateX(0); opacity: 1; }
+  from {
+    transform: translateX(100%);
+    opacity: 0;
+  }
+  to {
+    transform: translateX(0);
+    opacity: 1;
+  }
 }
 </style>

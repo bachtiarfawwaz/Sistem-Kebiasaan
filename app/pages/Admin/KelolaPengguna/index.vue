@@ -19,7 +19,12 @@
       <div class="table-toolbar">
         <div class="search-box">
           <Icon name="ph:magnifying-glass" class="search-icon" />
-          <input type="text" placeholder="Cari nama atau email..." class="search-input" v-model="searchQuery" />
+          <input
+            type="text"
+            placeholder="Cari nama atau email..."
+            class="search-input"
+            v-model="searchQuery"
+          />
         </div>
         <div class="filter-group">
           <select class="modern-select" v-model="selectedRole">
@@ -55,34 +60,60 @@
                 </div>
               </td>
               <td>
-                <span class="badge" :class="getRoleClass(user.peran)">{{ user.peran }}</span>
+                <span class="badge" :class="getRoleClass(user.peran)">{{
+                  user.peran
+                }}</span>
               </td>
               <td class="text-gray">{{ user.kontak }}</td>
               <td>
-                <span class="status-badge" :class="user.aktif ? 'active' : 'inactive'">
-                  <span class="dot"></span> {{ user.aktif ? 'Aktif' : 'Nonaktif' }}
+                <span
+                  class="status-badge"
+                  :class="user.aktif ? 'active' : 'inactive'"
+                >
+                  <span class="dot"></span>
+                  {{ user.aktif ? "Aktif" : "Nonaktif" }}
                 </span>
               </td>
               <td class="text-right">
                 <div class="action-buttons" v-if="!user.isSelf">
-                  <button class="btn-icon" title="Edit" @click="editPengguna(user)"><Icon name="ph:pencil-simple" /></button>
-                  <button class="btn-icon danger" title="Hapus" @click="hapusPengguna(user)"><Icon name="ph:trash" /></button>
+                  <button
+                    class="btn-icon"
+                    title="Edit"
+                    @click="editPengguna(user)"
+                  >
+                    <Icon name="ph:pencil-simple" />
+                  </button>
+                  <button
+                    class="btn-icon danger"
+                    title="Hapus"
+                    @click="hapusPengguna(user)"
+                  >
+                    <Icon name="ph:trash" />
+                  </button>
                 </div>
                 <div v-else>
-                  <span class="badge badge-gray" style="font-size: 0.75rem;">Akun Anda</span>
+                  <span class="badge badge-gray" style="font-size: 0.75rem"
+                    >Akun Anda</span
+                  >
                 </div>
               </td>
             </tr>
           </tbody>
         </table>
       </div>
-      
+
       <div class="pagination">
-        <span class="page-info">Menampilkan {{ filteredUsers.length }} data</span>
+        <span class="page-info"
+          >Menampilkan {{ filteredUsers.length }} data</span
+        >
         <div class="page-controls">
-          <button class="btn-page" disabled><Icon name="ph:caret-left-bold" /></button>
+          <button class="btn-page" disabled>
+            <Icon name="ph:caret-left-bold" />
+          </button>
           <button class="btn-page active">1</button>
-          <button class="btn-page" disabled><Icon name="ph:caret-right-bold" /></button>
+          <button class="btn-page" disabled>
+            <Icon name="ph:caret-right-bold" />
+          </button>
         </div>
       </div>
     </div>
@@ -91,52 +122,114 @@
     <div v-if="showModal" class="modal-overlay">
       <div class="modal-content">
         <div class="modal-header">
-          <h2>{{ isEdit ? 'Edit Pengguna' : 'Tambah Pengguna Baru' }}</h2>
-          <button class="btn-close" @click="showModal = false"><Icon name="ph:x-bold" /></button>
+          <h2>{{ isEdit ? "Edit Pengguna" : "Tambah Pengguna Baru" }}</h2>
+          <button class="btn-close" @click="showModal = false">
+            <Icon name="ph:x-bold" />
+          </button>
         </div>
         <div class="modal-body">
           <div class="form-group">
             <label>Nama Lengkap</label>
-            <input type="text" v-model="form.nama" class="modern-input" placeholder="Nama Lengkap" />
+            <input
+              type="text"
+              v-model="form.nama"
+              class="modern-input"
+              placeholder="Nama Lengkap"
+            />
           </div>
           <div class="form-group">
             <label>Peran</label>
-            <select v-model="form.peran" class="modern-input" :disabled="isEdit && (editingUser?.peran === 'Siswa' || editingUser?.peran === 'Orang Tua')">
+            <select
+              v-model="form.peran"
+              class="modern-input"
+              :disabled="
+                isEdit &&
+                (editingUser?.peran === 'Siswa' ||
+                  editingUser?.peran === 'Orang Tua')
+              "
+            >
               <option value="Admin">Admin</option>
               <option value="Guru">Guru</option>
               <option value="Orang Tua">Orang Tua</option>
               <option value="Siswa">Siswa</option>
             </select>
-            <p v-if="isEdit && (editingUser?.peran === 'Siswa' || editingUser?.peran === 'Orang Tua')" style="font-size: 0.82rem; color: #94a3b8; margin: 0.3rem 0 0; display: flex; align-items: center; gap: 4px;">
-              <Icon name="ph:lock-simple-fill" style="font-size: 0.9rem;" />
-              Peran <strong style="color: #64748b;">{{ editingUser?.peran }}</strong> tidak dapat diubah karena terhubung ke data yang sudah ada.
+            <p
+              v-if="
+                isEdit &&
+                (editingUser?.peran === 'Siswa' ||
+                  editingUser?.peran === 'Orang Tua')
+              "
+              style="
+                font-size: 0.82rem;
+                color: #94a3b8;
+                margin: 0.3rem 0 0;
+                display: flex;
+                align-items: center;
+                gap: 4px;
+              "
+            >
+              <Icon name="ph:lock-simple-fill" style="font-size: 0.9rem" />
+              Peran
+              <strong style="color: #64748b">{{ editingUser?.peran }}</strong>
+              tidak dapat diubah karena terhubung ke data yang sudah ada.
             </p>
           </div>
-          
-          <div v-if="form.peran === 'Siswa' || form.peran === 'siswa'" class="form-group">
+
+          <div
+            v-if="form.peran === 'Siswa' || form.peran === 'siswa'"
+            class="form-group"
+          >
             <label>Pilih Kelas (Opsional)</label>
             <select v-model="form.kelas_id" class="modern-input">
               <option value="">-- Belum Masuk Kelas --</option>
-              <option v-for="k in kelasList" :key="k.id" :value="k.id">{{ k.nama_kelas }}</option>
+              <option v-for="k in kelasList" :key="k.id" :value="k.id">
+                {{ k.nama_kelas }}
+              </option>
             </select>
           </div>
-          
+
           <div class="form-group">
             <label>Email / Username</label>
-            <input type="email" v-model="form.kontak" class="modern-input" placeholder="Email / Username" />
+            <input
+              type="email"
+              v-model="form.kontak"
+              class="modern-input"
+              placeholder="Email / Username"
+            />
           </div>
           <div class="form-group">
-            <label>{{ isEdit ? 'Password Baru (Opsional)' : 'Password' }}</label>
+            <label>{{
+              isEdit ? "Password Baru (Opsional)" : "Password"
+            }}</label>
             <div class="input-wrapper">
-              <input :type="showPassword ? 'text' : 'password'" v-model="form.password" class="modern-input" placeholder="Password" style="padding-right: 3rem;" />
-              <button class="toggle-password" @click="showPassword = !showPassword" type="button" :title="showPassword ? 'Sembunyikan password' : 'Lihat password'">
-                <Icon :name="showPassword ? 'ph:eye-slash-duotone' : 'ph:eye-duotone'" />
+              <input
+                :type="showPassword ? 'text' : 'password'"
+                v-model="form.password"
+                class="modern-input"
+                placeholder="Password"
+                style="padding-right: 3rem"
+              />
+              <button
+                class="toggle-password"
+                @click="showPassword = !showPassword"
+                type="button"
+                :title="
+                  showPassword ? 'Sembunyikan password' : 'Lihat password'
+                "
+              >
+                <Icon
+                  :name="
+                    showPassword ? 'ph:eye-slash-duotone' : 'ph:eye-duotone'
+                  "
+                />
               </button>
             </div>
           </div>
         </div>
         <div class="modal-actions">
-          <button class="btn-secondary" @click="showModal = false">Batal</button>
+          <button class="btn-secondary" @click="showModal = false">
+            Batal
+          </button>
           <button class="btn-primary" @click="savePengguna">Simpan</button>
         </div>
       </div>
@@ -144,332 +237,419 @@
 
     <!-- Modal Konfirmasi Hapus -->
     <div v-if="showDeleteModal" class="modal-overlay">
-      <div class="modal-content" style="max-width: 400px;">
+      <div class="modal-content" style="max-width: 400px">
         <div class="modal-header">
           <h2>Hapus Pengguna?</h2>
-          <button class="btn-close" @click="showDeleteModal = false"><Icon name="ph:x-bold" /></button>
+          <button class="btn-close" @click="showDeleteModal = false">
+            <Icon name="ph:x-bold" />
+          </button>
         </div>
-        <div class="modal-body text-center" style="text-align: center;">
-          <div style="font-size: 3rem; color: #ef4444; margin-bottom: 1rem;"><Icon name="ph:warning-circle-duotone" /></div>
-          <p style="font-size: 1.05rem; color: #475569;">Apakah Anda yakin ingin menghapus pengguna <strong>{{ deleteTarget?.nama }}</strong>? Tindakan ini tidak dapat dibatalkan.</p>
+        <div class="modal-body text-center" style="text-align: center">
+          <div style="font-size: 3rem; color: #ef4444; margin-bottom: 1rem">
+            <Icon name="ph:warning-circle-duotone" />
+          </div>
+          <p style="font-size: 1.05rem; color: #475569">
+            Apakah Anda yakin ingin menghapus pengguna
+            <strong>{{ deleteTarget?.nama }}</strong
+            >? Tindakan ini tidak dapat dibatalkan.
+          </p>
         </div>
-        <div class="modal-actions" style="justify-content: center;">
-          <button class="btn-secondary" @click="showDeleteModal = false">Batal</button>
-          <button class="btn-primary" style="background: #ef4444; box-shadow: none;" @click="confirmHapus">Ya, Hapus!</button>
+        <div class="modal-actions" style="justify-content: center">
+          <button class="btn-secondary" @click="showDeleteModal = false">
+            Batal
+          </button>
+          <button
+            class="btn-primary"
+            style="background: #ef4444; box-shadow: none"
+            @click="confirmHapus"
+          >
+            Ya, Hapus!
+          </button>
         </div>
       </div>
     </div>
 
     <!-- Toast Notification -->
-    <div v-if="toastState.show" class="toast-notification" :class="toastState.type">
-      <Icon :name="toastState.type === 'error' ? 'ph:warning-circle-fill' : 'ph:check-circle-fill'" class="toast-icon" />
+    <div
+      v-if="toastState.show"
+      class="toast-notification"
+      :class="toastState.type"
+    >
+      <Icon
+        :name="
+          toastState.type === 'error'
+            ? 'ph:warning-circle-fill'
+            : 'ph:check-circle-fill'
+        "
+        class="toast-icon"
+      />
       <span>{{ toastState.message }}</span>
     </div>
   </div>
 </template>
 
 <script setup>
-import { ref, computed, onMounted } from 'vue'
+import { ref, computed, onMounted } from "vue";
 
 definePageMeta({
-  layout: 'admin'
-})
+  layout: "admin",
+});
 
-const supabase = useSupabase()
+const supabase = useSupabase();
 
-const users = ref([])
+const users = ref([]);
 
 const fetchUsers = async () => {
   try {
-    const { data: usersData, error } = await supabase.from('users').select('*').order('created_at', { ascending: false })
-    if (error) throw error
-    
+    const { data: usersData, error } = await supabase
+      .from("users")
+      .select("*")
+      .order("created_at", { ascending: false });
+    if (error) throw error;
+
     // Ambil data nama dari masing-masing tabel relasi
     const [guruRes, otRes, pdRes] = await Promise.all([
-      supabase.from('guru').select('user_id, nama'),
-      supabase.from('orang_tua').select('user_id, nama'),
-      supabase.from('peserta_didik').select('user_id, nama')
-    ])
+      supabase.from("guru").select("user_id, nama"),
+      supabase.from("orang_tua").select("user_id, nama"),
+      supabase.from("peserta_didik").select("user_id, nama"),
+    ]);
 
-    const nameMap = {}
-    if (guruRes.data) guruRes.data.forEach(g => nameMap[g.user_id] = g.nama)
-    if (otRes.data) otRes.data.forEach(o => nameMap[o.user_id] = o.nama)
-    if (pdRes.data) pdRes.data.forEach(p => nameMap[p.user_id] = p.nama)
+    const nameMap = {};
+    if (guruRes.data)
+      guruRes.data.forEach((g) => (nameMap[g.user_id] = g.nama));
+    if (otRes.data) otRes.data.forEach((o) => (nameMap[o.user_id] = o.nama));
+    if (pdRes.data) pdRes.data.forEach((p) => (nameMap[p.user_id] = p.nama));
 
-    let fetchedUsers = []
+    let fetchedUsers = [];
     if (usersData) {
-      fetchedUsers = usersData.map(u => {
-        const roleRaw = (u.role || '').toLowerCase().replace(/[\s_]+/g, '')
-        let peranLabel
-        if (roleRaw === 'orangtua') peranLabel = 'Orang Tua'
-        else if (roleRaw === 'guru') peranLabel = 'Guru'
-        else if (roleRaw === 'siswa') peranLabel = 'Siswa'
-        else if (roleRaw === 'admin') peranLabel = 'Admin'
-        else peranLabel = u.role ? u.role.charAt(0).toUpperCase() + u.role.slice(1) : 'Siswa'
+      fetchedUsers = usersData.map((u) => {
+        const roleRaw = (u.role || "").toLowerCase().replace(/[\s_]+/g, "");
+        let peranLabel;
+        if (roleRaw === "orangtua") peranLabel = "Orang Tua";
+        else if (roleRaw === "guru") peranLabel = "Guru";
+        else if (roleRaw === "siswa") peranLabel = "Siswa";
+        else if (roleRaw === "admin") peranLabel = "Admin";
+        else
+          peranLabel = u.role
+            ? u.role.charAt(0).toUpperCase() + u.role.slice(1)
+            : "Siswa";
         return {
           id: u.id,
           nama: nameMap[u.id] || u.email,
-          keterangan: '',
+          keterangan: "",
           peran: peranLabel,
           kontak: u.email,
-          aktif: true
-        }
-      })
+          aktif: true,
+        };
+      });
     }
-    
+
     // Tambahkan Admin Utama (diri sendiri) ke daftar paling atas
-    const { data: { user: authUser } } = await supabase.auth.getUser()
+    const {
+      data: { user: authUser },
+    } = await supabase.auth.getUser();
     if (authUser) {
       fetchedUsers.unshift({
         id: authUser.id,
-        nama: authUser.user_metadata?.name || 'Administrator',
-        keterangan: 'Admin Utama',
-        peran: 'Admin',
+        nama: authUser.user_metadata?.name || "Administrator",
+        keterangan: "Admin Utama",
+        peran: "Admin",
         kontak: authUser.email,
         aktif: true,
-        isSelf: true
-      })
+        isSelf: true,
+      });
     }
-    
-    users.value = fetchedUsers
 
+    users.value = fetchedUsers;
   } catch (err) {
-    console.error('Error fetching users:', err)
+    console.error("Error fetching users:", err);
   }
-}
+};
 
-const searchQuery = ref('')
-const selectedRole = ref('')
-const kelasList = ref([])
-const orangTuaList = ref([])
+const searchQuery = ref("");
+const selectedRole = ref("");
+const kelasList = ref([]);
+const orangTuaList = ref([]);
 
 const fetchExtras = async () => {
-  const { data: kData } = await supabase.from('kelas').select('id, nama_kelas').order('nama_kelas', { ascending: true })
-  if (kData) kelasList.value = kData
-  
-  const { data: oData } = await supabase.from('orang_tua').select('id, nama, user_id')
+  const { data: kData } = await supabase
+    .from("kelas")
+    .select("id, nama_kelas")
+    .order("nama_kelas", { ascending: true });
+  if (kData) kelasList.value = kData;
+
+  const { data: oData } = await supabase
+    .from("orang_tua")
+    .select("id, nama, user_id");
   if (oData) {
-    const { data: uData } = await supabase.from('users').select('id, email')
+    const { data: uData } = await supabase.from("users").select("id, email");
     if (uData) {
-       oData.forEach(o => {
-         const user = uData.find(u => u.id === o.user_id)
-         o.user_email = user ? user.email : ''
-       })
+      oData.forEach((o) => {
+        const user = uData.find((u) => u.id === o.user_id);
+        o.user_email = user ? user.email : "";
+      });
     }
-    orangTuaList.value = oData
+    orangTuaList.value = oData;
   }
-}
+};
 
 onMounted(() => {
-  fetchUsers()
-  fetchExtras()
-})
+  fetchUsers();
+  fetchExtras();
+});
 
 const filteredUsers = computed(() => {
-  return users.value.filter(user => {
-    const matchRole = selectedRole.value === '' || user.peran === selectedRole.value
-    const matchSearch = user.nama.toLowerCase().includes(searchQuery.value.toLowerCase()) || 
-                        user.kontak.toLowerCase().includes(searchQuery.value.toLowerCase())
-    return matchRole && matchSearch
-  })
-})
+  return users.value.filter((user) => {
+    const matchRole =
+      selectedRole.value === "" || user.peran === selectedRole.value;
+    const matchSearch =
+      user.nama.toLowerCase().includes(searchQuery.value.toLowerCase()) ||
+      user.kontak.toLowerCase().includes(searchQuery.value.toLowerCase());
+    return matchRole && matchSearch;
+  });
+});
 
-const showModal = ref(false)
-const showDeleteModal = ref(false)
-const isEdit = ref(false)
-const editingUser = ref(null)
-const deleteTarget = ref(null)
-const showPassword = ref(false)
+const showModal = ref(false);
+const showDeleteModal = ref(false);
+const isEdit = ref(false);
+const editingUser = ref(null);
+const deleteTarget = ref(null);
+const showPassword = ref(false);
 const form = ref({
-  nama: '',
-  peran: 'Guru',
-  kontak: '',
-  password: '',
-  kelas_id: '',
-  orang_tua_id: ''
-})
+  nama: "",
+  peran: "Guru",
+  kontak: "",
+  password: "",
+  kelas_id: "",
+  orang_tua_id: "",
+});
 
 const toastState = ref({
   show: false,
-  message: '',
-  type: 'success'
-})
+  message: "",
+  type: "success",
+});
 
-const showToast = (message, type = 'success') => {
-  toastState.value = { show: true, message, type }
+const showToast = (message, type = "success") => {
+  toastState.value = { show: true, message, type };
   setTimeout(() => {
-    toastState.value.show = false
-  }, 3000)
-}
+    toastState.value.show = false;
+  }, 3000);
+};
 
 const getRoleClass = (role) => {
-  if (role === 'Admin') return 'badge-red'
-  if (role === 'Guru') return 'badge-purple'
-  if (role === 'Orang Tua') return 'badge-blue'
-  return 'badge-orange'
-}
+  if (role === "Admin") return "badge-red";
+  if (role === "Guru") return "badge-purple";
+  if (role === "Orang Tua") return "badge-blue";
+  return "badge-orange";
+};
 
 const tambahPengguna = () => {
-  isEdit.value = false
-  form.value = { nama: '', peran: 'Guru', kontak: '', password: '', kelas_id: '', orang_tua_id: '' }
-  showPassword.value = false
-  showModal.value = true
-}
+  isEdit.value = false;
+  form.value = {
+    nama: "",
+    peran: "Guru",
+    kontak: "",
+    password: "",
+    kelas_id: "",
+    orang_tua_id: "",
+  };
+  showPassword.value = false;
+  showModal.value = true;
+};
 
 const editPengguna = async (user) => {
-  isEdit.value = true
-  editingUser.value = user
+  isEdit.value = true;
+  editingUser.value = user;
   form.value = {
     nama: user.nama,
     peran: user.peran,
     kontak: user.kontak,
-    password: '',
-    kelas_id: '',
-    orang_tua_id: ''
-  }
-  
-  if (user.peran === 'Siswa') {
-    const { data: pdData } = await supabase.from('peserta_didik').select('kelas_id, orang_tua_id').eq('user_id', user.id).single()
+    password: "",
+    kelas_id: "",
+    orang_tua_id: "",
+  };
+
+  if (user.peran === "Siswa") {
+    const { data: pdData } = await supabase
+      .from("peserta_didik")
+      .select("kelas_id, orang_tua_id")
+      .eq("user_id", user.id)
+      .single();
     if (pdData) {
-      form.value.kelas_id = pdData.kelas_id || ''
-      form.value.orang_tua_id = pdData.orang_tua_id || ''
+      form.value.kelas_id = pdData.kelas_id || "";
+      form.value.orang_tua_id = pdData.orang_tua_id || "";
     }
   }
-  
-  showPassword.value = false
-  showModal.value = true
-}
+
+  showPassword.value = false;
+  showModal.value = true;
+};
 
 const savePengguna = async () => {
   if (!form.value.kontak) {
-    showToast('Email/Username wajib diisi!', 'error')
-    return
+    showToast("Email/Username wajib diisi!", "error");
+    return;
   }
 
-  let roleFormatted = form.value.peran.toLowerCase()
-  if (roleFormatted === 'orang tua') roleFormatted = 'orangtua'
+  let roleFormatted = form.value.peran.toLowerCase();
+  if (roleFormatted === "orang tua") roleFormatted = "orangtua";
 
   try {
     if (isEdit.value) {
       const updateData = {
         email: form.value.kontak,
-        role: roleFormatted
-      }
+        role: roleFormatted,
+      };
       if (form.value.password) {
-        updateData.password = form.value.password
+        updateData.password = form.value.password;
       }
 
-      const { error } = await supabase.from('users').update(updateData).eq('id', editingUser.value.id)
-      if (error) throw error
+      const { error } = await supabase
+        .from("users")
+        .update(updateData)
+        .eq("id", editingUser.value.id);
+      if (error) throw error;
 
-      // Ambil default sekolah_id agar insert tidak gagal
-      const { data: sekolahData } = await supabase.from('sekolah').select('id').limit(1).single()
-      const defaultSekolahId = sekolahData ? sekolahData.id : null
+      const { data: sekolahData } = await supabase
+        .from("sekolah")
+        .select("id")
+        .limit(1)
+        .single();
+      const defaultSekolahId = sekolahData ? sekolahData.id : null;
 
       // Helper: check if row exists, then update or insert
       const updateOrInsertName = async (tableName) => {
-        const { data: existing } = await supabase.from(tableName).select('id').eq('user_id', editingUser.value.id).single()
+        const { data: existing } = await supabase
+          .from(tableName)
+          .select("id")
+          .eq("user_id", editingUser.value.id)
+          .single();
         if (existing) {
-          await supabase.from(tableName).update({ nama: form.value.nama }).eq('user_id', editingUser.value.id)
+          await supabase
+            .from(tableName)
+            .update({ nama: form.value.nama })
+            .eq("user_id", editingUser.value.id);
         } else {
-          const insertData = { user_id: editingUser.value.id, nama: form.value.nama }
-          if (defaultSekolahId && tableName === 'guru') insertData.sekolah_id = defaultSekolahId
-          await supabase.from(tableName).insert(insertData)
+          const insertData = {
+            user_id: editingUser.value.id,
+            nama: form.value.nama,
+          };
+          if (defaultSekolahId && tableName === "guru")
+            insertData.sekolah_id = defaultSekolahId;
+          await supabase.from(tableName).insert(insertData);
+        }
+      };
+
+      if (roleFormatted === "guru") {
+        await updateOrInsertName("guru");
+      } else if (roleFormatted === "orangtua") {
+        await updateOrInsertName("orang_tua");
+      } else if (roleFormatted === "siswa") {
+        const { data: existing } = await supabase
+          .from("peserta_didik")
+          .select("id")
+          .eq("user_id", editingUser.value.id)
+          .single();
+        if (existing) {
+          await supabase
+            .from("peserta_didik")
+            .update({
+              nama: form.value.nama,
+              kelas_id: form.value.kelas_id || null,
+              orang_tua_id: form.value.orang_tua_id || null,
+            })
+            .eq("user_id", editingUser.value.id);
+        } else {
+          await supabase.from("peserta_didik").insert({
+            user_id: editingUser.value.id,
+            nama: form.value.nama,
+            kelas_id: form.value.kelas_id || null,
+            orang_tua_id: form.value.orang_tua_id || null,
+          });
         }
       }
 
-      // Update nama di tabel spesifik
-      if (roleFormatted === 'guru') {
-        await updateOrInsertName('guru')
-      } else if (roleFormatted === 'orangtua') {
-        await updateOrInsertName('orang_tua')
-      } else if (roleFormatted === 'siswa') {
-        const { data: existing } = await supabase.from('peserta_didik').select('id').eq('user_id', editingUser.value.id).single()
-        if (existing) {
-          await supabase.from('peserta_didik').update({ 
-            nama: form.value.nama,
-            kelas_id: form.value.kelas_id || null,
-            orang_tua_id: form.value.orang_tua_id || null
-          }).eq('user_id', editingUser.value.id)
-        } else {
-          await supabase.from('peserta_didik').insert({ 
-            user_id: editingUser.value.id, 
-            nama: form.value.nama,
-            kelas_id: form.value.kelas_id || null,
-            orang_tua_id: form.value.orang_tua_id || null
-          })
-        }
-      }
-
-      showToast('Data pengguna telah diperbarui.', 'success')
+      showToast("Data pengguna telah diperbarui.", "success");
     } else {
       if (!form.value.password) {
-        showToast('Password wajib diisi untuk pengguna baru!', 'error')
-        return
+        showToast("Password wajib diisi untuk pengguna baru!", "error");
+        return;
       }
-      const { data: newUser, error } = await supabase.from('users').insert({
-        email: form.value.kontak,
-        password: form.value.password,
-        role: roleFormatted
-      }).select().single()
-      if (error) throw error
+      const { data: newUser, error } = await supabase
+        .from("users")
+        .insert({
+          email: form.value.kontak,
+          password: form.value.password,
+          role: roleFormatted,
+        })
+        .select()
+        .single();
+      if (error) throw error;
 
-      // Insert nama ke tabel spesifik
       if (newUser) {
-        // Ambil default sekolah_id
-        const { data: sekolahData } = await supabase.from('sekolah').select('id').limit(1).single()
-        const defaultSekolahId = sekolahData ? sekolahData.id : null
+        const { data: sekolahData } = await supabase
+          .from("sekolah")
+          .select("id")
+          .limit(1)
+          .single();
+        const defaultSekolahId = sekolahData ? sekolahData.id : null;
 
-        if (roleFormatted === 'guru') {
-          const insertData = { user_id: newUser.id, nama: form.value.nama }
-          if (defaultSekolahId) insertData.sekolah_id = defaultSekolahId
-          await supabase.from('guru').insert(insertData)
-        } else if (roleFormatted === 'orangtua') {
-          await supabase.from('orang_tua').insert({ user_id: newUser.id, nama: form.value.nama })
-        } else if (roleFormatted === 'siswa') {
-          await supabase.from('peserta_didik').insert({ 
-            user_id: newUser.id, 
+        if (roleFormatted === "guru") {
+          const insertData = { user_id: newUser.id, nama: form.value.nama };
+          if (defaultSekolahId) insertData.sekolah_id = defaultSekolahId;
+          await supabase.from("guru").insert(insertData);
+        } else if (roleFormatted === "orangtua") {
+          await supabase
+            .from("orang_tua")
+            .insert({ user_id: newUser.id, nama: form.value.nama });
+        } else if (roleFormatted === "siswa") {
+          await supabase.from("peserta_didik").insert({
+            user_id: newUser.id,
             nama: form.value.nama,
             kelas_id: form.value.kelas_id || null,
-            orang_tua_id: form.value.orang_tua_id || null
-          })
+            orang_tua_id: form.value.orang_tua_id || null,
+          });
         }
       }
 
-      showToast('Pengguna baru telah ditambahkan.', 'success')
+      showToast("Pengguna baru telah ditambahkan.", "success");
     }
-    showModal.value = false
-    await fetchUsers()
+    showModal.value = false;
+    await fetchUsers();
   } catch (err) {
-    console.error('Error saving user:', err)
-    showToast('Gagal menyimpan pengguna', 'error')
+    console.error("Error saving user:", err);
+    showToast("Gagal menyimpan pengguna", "error");
   }
-}
+};
 
 const hapusPengguna = (user) => {
-  deleteTarget.value = user
-  showDeleteModal.value = true
-}
+  deleteTarget.value = user;
+  showDeleteModal.value = true;
+};
 
 const confirmHapus = async () => {
   try {
-    const { error } = await supabase.from('users').delete().eq('id', deleteTarget.value.id)
-    if (error) throw error
-    showToast('Pengguna berhasil dihapus', 'success')
-    showDeleteModal.value = false
-    await fetchUsers()
+    const { error } = await supabase
+      .from("users")
+      .delete()
+      .eq("id", deleteTarget.value.id);
+    if (error) throw error;
+    showToast("Pengguna berhasil dihapus", "success");
+    showDeleteModal.value = false;
+    await fetchUsers();
   } catch (err) {
-    console.error('Error deleting user:', err)
-    showToast('Gagal menghapus pengguna', 'error')
+    console.error("Error deleting user:", err);
+    showToast("Gagal menghapus pengguna", "error");
   }
-}
+};
 </script>
 
 <style scoped>
-@import url('https://fonts.googleapis.com/css2?family=Nunito:wght@400;500;600;700;800&display=swap');
+@import url("https://fonts.googleapis.com/css2?family=Nunito:wght@400;500;600;700;800&display=swap");
 
 .admin-page {
-  font-family: 'Nunito', sans-serif;
+  font-family: "Nunito", sans-serif;
   max-width: 1200px;
   margin: 0 auto;
   display: flex;
@@ -549,7 +729,7 @@ const confirmHapus = async () => {
   background: white;
   border-radius: 16px;
   padding: 2rem;
-  box-shadow: 0 2px 4px rgba(0,0,0,0.02);
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.02);
   border: 1px solid #e2e8f0;
   display: flex;
   flex-direction: column;
@@ -652,8 +832,13 @@ const confirmHapus = async () => {
   background: #f8fafc;
 }
 
-.text-right { text-align: right; }
-.text-gray { color: #64748b; font-weight: 600; }
+.text-right {
+  text-align: right;
+}
+.text-gray {
+  color: #64748b;
+  font-weight: 600;
+}
 
 .user-cell {
   display: flex;
@@ -697,10 +882,22 @@ const confirmHapus = async () => {
   font-weight: 700;
 }
 
-.badge-purple { background: #f3e8ff; color: #7e22ce; }
-.badge-blue { background: #e0f2fe; color: #0369a1; }
-.badge-orange { background: #ffedd5; color: #c2410c; }
-.badge-red { background: #fee2e2; color: #ef4444; }
+.badge-purple {
+  background: #f3e8ff;
+  color: #7e22ce;
+}
+.badge-blue {
+  background: #e0f2fe;
+  color: #0369a1;
+}
+.badge-orange {
+  background: #ffedd5;
+  color: #c2410c;
+}
+.badge-red {
+  background: #fee2e2;
+  color: #ef4444;
+}
 
 .status-badge {
   display: inline-flex;
@@ -716,11 +913,20 @@ const confirmHapus = async () => {
   border-radius: 50%;
 }
 
-.status-badge.active { color: #10b981; }
-.status-badge.active .dot { background: #10b981; box-shadow: 0 0 0 3px #d1fae5; }
+.status-badge.active {
+  color: #10b981;
+}
+.status-badge.active .dot {
+  background: #10b981;
+  box-shadow: 0 0 0 3px #d1fae5;
+}
 
-.status-badge.inactive { color: #94a3b8; }
-.status-badge.inactive .dot { background: #94a3b8; }
+.status-badge.inactive {
+  color: #94a3b8;
+}
+.status-badge.inactive .dot {
+  background: #94a3b8;
+}
 
 /* Actions */
 .action-buttons {
@@ -744,8 +950,14 @@ const confirmHapus = async () => {
   font-size: 1.1rem;
 }
 
-.btn-icon:hover { background: #e2e8f0; color: #0f172a; }
-.btn-icon.danger:hover { background: #fee2e2; color: #ef4444; }
+.btn-icon:hover {
+  background: #e2e8f0;
+  color: #0f172a;
+}
+.btn-icon.danger:hover {
+  background: #fee2e2;
+  color: #ef4444;
+}
 
 /* Pagination */
 .pagination {
@@ -798,15 +1010,26 @@ const confirmHapus = async () => {
 }
 
 @media (max-width: 768px) {
-  .page-header { flex-direction: column; align-items: stretch; }
-  .table-toolbar { flex-direction: column; align-items: stretch; }
-  .search-box { width: 100%; }
+  .page-header {
+    flex-direction: column;
+    align-items: stretch;
+  }
+  .table-toolbar {
+    flex-direction: column;
+    align-items: stretch;
+  }
+  .search-box {
+    width: 100%;
+  }
 }
 
 /* Modal Styles */
 .modal-overlay {
   position: fixed;
-  top: 0; left: 0; right: 0; bottom: 0;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
   background: rgba(15, 23, 42, 0.6);
   backdrop-filter: blur(4px);
   display: flex;
@@ -821,7 +1044,9 @@ const confirmHapus = async () => {
   border-radius: 20px;
   width: 100%;
   max-width: 500px;
-  box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.1), 0 10px 10px -5px rgba(0, 0, 0, 0.04);
+  box-shadow:
+    0 20px 25px -5px rgba(0, 0, 0, 0.1),
+    0 10px 10px -5px rgba(0, 0, 0, 0.04);
   display: flex;
   flex-direction: column;
   max-height: 90vh;
@@ -942,22 +1167,47 @@ select.modern-input[disabled] {
 /* Toast Notification */
 .toast-notification {
   position: fixed;
-  top: 1.5rem; right: 1.5rem;
-  background: white; border-radius: 12px;
-  padding: 1rem 1.5rem; display: flex; align-items: center; gap: 0.75rem;
-  box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05);
-  font-weight: 700; color: #0f172a;
-  z-index: 2000; animation: slideIn 0.3s ease-out;
+  top: 1.5rem;
+  right: 1.5rem;
+  background: white;
+  border-radius: 12px;
+  padding: 1rem 1.5rem;
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  box-shadow:
+    0 10px 15px -3px rgba(0, 0, 0, 0.1),
+    0 4px 6px -2px rgba(0, 0, 0, 0.05);
+  font-weight: 700;
+  color: #0f172a;
+  z-index: 2000;
+  animation: slideIn 0.3s ease-out;
 }
-.toast-notification.success { border-left: 4px solid #10b981; }
-.toast-notification.error { border-left: 4px solid #ef4444; }
-.toast-notification .toast-icon { font-size: 1.5rem; }
-.toast-notification.success .toast-icon { color: #10b981; }
-.toast-notification.error .toast-icon { color: #ef4444; }
+.toast-notification.success {
+  border-left: 4px solid #10b981;
+}
+.toast-notification.error {
+  border-left: 4px solid #ef4444;
+}
+.toast-notification .toast-icon {
+  font-size: 1.5rem;
+}
+.toast-notification.success .toast-icon {
+  color: #10b981;
+}
+.toast-notification.error .toast-icon {
+  color: #ef4444;
+}
 
 @keyframes slideIn {
-  from { opacity: 0; transform: translateX(100%); }
-  to { opacity: 1; transform: translateX(0); }
+  from {
+    opacity: 0;
+    transform: translateX(100%);
+  }
+  to {
+    opacity: 1;
+    transform: translateX(0);
+  }
 }
 
 /* Password Toggle Specific Styles */

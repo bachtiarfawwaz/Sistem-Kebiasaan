@@ -1,61 +1,68 @@
 <script setup>
-import { ref, onMounted } from 'vue'
-import { useRouter } from 'vue-router'
-import Swal from 'sweetalert2'
+import { ref, onMounted } from "vue";
+import { useRouter } from "vue-router";
+import Swal from "sweetalert2";
 
-const isDarkMode = ref(false)
-const router = useRouter()
-const sessionCookie = useCookie('user_session')
+const isDarkMode = ref(false);
+const router = useRouter();
+const sessionCookie = useCookie("user_session");
 
 const toggleDarkMode = () => {
-  isDarkMode.value = !isDarkMode.value
+  isDarkMode.value = !isDarkMode.value;
   if (import.meta.client) {
     if (isDarkMode.value) {
-      document.body.classList.add('dark-theme')
-      localStorage.setItem('orangtua-theme', 'dark')
+      document.body.classList.add("dark-theme");
+      localStorage.setItem("orangtua-theme", "dark");
     } else {
-      document.body.classList.remove('dark-theme')
-      localStorage.setItem('orangtua-theme', 'light')
+      document.body.classList.remove("dark-theme");
+      localStorage.setItem("orangtua-theme", "light");
     }
   }
-}
+};
 
-const showLogoutModal = ref(false)
-const supabase = useSupabase()
+const showLogoutModal = ref(false);
+const supabase = useSupabase();
 
 const handleLogout = () => {
-  showLogoutModal.value = true
-}
+  showLogoutModal.value = true;
+};
 
 const performLogout = async () => {
-  showLogoutModal.value = false
+  showLogoutModal.value = false;
   try {
-    await supabase.auth.signOut()
+    await supabase.auth.signOut();
   } catch (err) {}
-  sessionCookie.value = null
-  router.push('/Login')
-}
+  sessionCookie.value = null;
+  router.push("/Login");
+};
 
-const userName = ref('')
+const userName = ref("");
 
 onMounted(async () => {
   if (import.meta.client) {
-    const savedTheme = localStorage.getItem('orangtua-theme')
-    if (savedTheme === 'dark') {
-      isDarkMode.value = true
-      document.body.classList.add('dark-theme')
+    const savedTheme = localStorage.getItem("orangtua-theme");
+    if (savedTheme === "dark") {
+      isDarkMode.value = true;
+      document.body.classList.add("dark-theme");
     }
-    
+
     // Fetch user name
-    if (sessionCookie.value && sessionCookie.value.id && sessionCookie.value.role === 'orangtua') {
-      const { data } = await supabase.from('orang_tua').select('nama').eq('user_id', sessionCookie.value.id).single()
+    if (
+      sessionCookie.value &&
+      sessionCookie.value.id &&
+      sessionCookie.value.role === "orangtua"
+    ) {
+      const { data } = await supabase
+        .from("orang_tua")
+        .select("nama")
+        .eq("user_id", sessionCookie.value.id)
+        .single();
       if (data && data.nama) {
-        // Ambil nama depan saja agar tidak terlalu panjang
-        userName.value = data.nama.split(' ')[0]
+        userName.value = data.nama.split(" ")[0];
       }
     }
   }
-})
+});
 </script>
 
 <template>
@@ -65,31 +72,51 @@ onMounted(async () => {
         <div class="navbar-left">
           <img src="/logo.png" alt="KAIH Logo" class="logo" />
         </div>
-        
+
         <div class="navbar-right">
           <nav class="desktop-nav">
-            <NuxtLink to="/Orangtua/Dashboard" class="nav-item hide-mobile" exact-active-class="active">
+            <NuxtLink
+              to="/Orangtua/Dashboard"
+              class="nav-item hide-mobile"
+              exact-active-class="active"
+            >
               <Icon name="ph:house" class="nav-icon" />
               <span class="nav-text">Home</span>
             </NuxtLink>
-            
-            <NuxtLink to="/Orangtua/Laporan" class="nav-item hide-mobile" exact-active-class="active">
+
+            <NuxtLink
+              to="/Orangtua/Laporan"
+              class="nav-item hide-mobile"
+              exact-active-class="active"
+            >
               <Icon name="ph:calendar-blank" class="nav-icon" />
               <span class="nav-text">Laporan</span>
             </NuxtLink>
-            
-            <NuxtLink to="/Orangtua/Akun" class="user-profile-badge hide-mobile" exact-active-class="active">
+
+            <NuxtLink
+              to="/Orangtua/Akun"
+              class="user-profile-badge hide-mobile"
+              exact-active-class="active"
+            >
               <Icon name="ph:user-circle-duotone" class="profile-icon" />
-              <span class="profile-name">{{ userName || 'Akun' }}</span>
+              <span class="profile-name">{{ userName || "Akun" }}</span>
               <span class="role-dot" v-if="userName"></span>
             </NuxtLink>
           </nav>
 
-          <button class="nav-item icon-only logout hide-mobile" title="Keluar" @click="handleLogout">
+          <button
+            class="nav-item icon-only logout hide-mobile"
+            title="Keluar"
+            @click="handleLogout"
+          >
             <Icon name="ph:sign-out" class="nav-icon" />
           </button>
-          
-          <button class="nav-item icon-only" title="Ganti Tema" @click="toggleDarkMode">
+
+          <button
+            class="nav-item icon-only"
+            title="Ganti Tema"
+            @click="toggleDarkMode"
+          >
             <Icon :name="isDarkMode ? 'ph:moon' : 'ph:moon'" class="nav-icon" />
           </button>
         </div>
@@ -108,31 +135,51 @@ onMounted(async () => {
 
     <!-- Mobile Bottom Navigation (Floating Dock) -->
     <nav class="mobile-bottom-nav">
-      <NuxtLink to="/Orangtua/Dashboard" class="mobile-nav-item" exact-active-class="active">
+      <NuxtLink
+        to="/Orangtua/Dashboard"
+        class="mobile-nav-item"
+        exact-active-class="active"
+      >
         <Icon name="ph:house" />
       </NuxtLink>
-      
-      <NuxtLink to="/Orangtua/Laporan" class="mobile-nav-item" exact-active-class="active">
+
+      <NuxtLink
+        to="/Orangtua/Laporan"
+        class="mobile-nav-item"
+        exact-active-class="active"
+      >
         <Icon name="ph:calendar-blank" />
       </NuxtLink>
 
-      <NuxtLink to="/Orangtua/Akun" class="mobile-nav-item" exact-active-class="active">
+      <NuxtLink
+        to="/Orangtua/Akun"
+        class="mobile-nav-item"
+        exact-active-class="active"
+      >
         <Icon name="ph:user" />
       </NuxtLink>
 
-      <button class="mobile-nav-item logout-mobile" title="Keluar" @click="handleLogout">
+      <button
+        class="mobile-nav-item logout-mobile"
+        title="Keluar"
+        @click="handleLogout"
+      >
         <Icon name="ph:sign-out" />
       </button>
     </nav>
-    <LogoutModal :show="showLogoutModal" @cancel="showLogoutModal = false" @confirm="performLogout" />
+    <LogoutModal
+      :show="showLogoutModal"
+      @cancel="showLogoutModal = false"
+      @confirm="performLogout"
+    />
   </div>
 </template>
 
 <style scoped>
-@import url('https://fonts.googleapis.com/css2?family=Nunito:wght@400;500;600;700;800&display=swap');
+@import url("https://fonts.googleapis.com/css2?family=Nunito:wght@400;500;600;700;800&display=swap");
 
 .layout-orangtua {
-  font-family: 'Nunito', sans-serif;
+  font-family: "Nunito", sans-serif;
   min-height: 100vh;
   background-color: #f1f5f9;
   color: #0f172a;
@@ -155,7 +202,7 @@ onMounted(async () => {
   position: sticky;
   top: 0;
   z-index: 50;
-  box-shadow: 0 1px 3px rgba(0,0,0,0.05);
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.05);
 }
 
 .navbar-container {
@@ -223,8 +270,6 @@ onMounted(async () => {
   font-size: 1.3rem;
   transition: all 0.2s ease;
 }
-
-
 
 .icon-only {
   padding: 0.6rem;
@@ -309,7 +354,9 @@ body.dark-theme .profile-name {
   backdrop-filter: blur(16px);
   padding: 0.6rem 1.8rem;
   border-radius: 100px;
-  box-shadow: 0 10px 40px -10px rgba(0,0,0,0.15), 0 4px 10px -5px rgba(0,0,0,0.1);
+  box-shadow:
+    0 10px 40px -10px rgba(0, 0, 0, 0.15),
+    0 4px 10px -5px rgba(0, 0, 0, 0.1);
   z-index: 100;
   align-items: center;
   gap: 2rem;
@@ -349,14 +396,24 @@ body.dark-theme .profile-name {
 }
 
 @media (min-width: 769px) {
-  .layout-orangtua { padding-bottom: 0; }
+  .layout-orangtua {
+    padding-bottom: 0;
+  }
 }
 
 @media (max-width: 768px) {
-  .navbar-container { padding: 0.75rem 1rem; }
-  .hide-mobile { display: none !important; }
-  .mobile-bottom-nav { display: flex; }
-  .main-content-wrapper { padding: 1.5rem 1rem; }
+  .navbar-container {
+    padding: 0.75rem 1rem;
+  }
+  .hide-mobile {
+    display: none !important;
+  }
+  .mobile-bottom-nav {
+    display: flex;
+  }
+  .main-content-wrapper {
+    padding: 1.5rem 1rem;
+  }
 }
 </style>
 
@@ -367,83 +424,83 @@ body.dark-theme .profile-name {
     padding-left: 1rem !important;
     padding-right: 1rem !important;
   }
-  
-  .hero-card { 
-    padding: 1.5rem 1rem !important; 
-    border-radius: 20px !important; 
+
+  .hero-card {
+    padding: 1.5rem 1rem !important;
+    border-radius: 20px !important;
   }
-  
-  .hero-title { 
-    font-size: 1.8rem !important; 
+
+  .hero-title {
+    font-size: 1.8rem !important;
   }
-  
-  .today-action-area { 
-    padding: 1.5rem 1rem !important; 
+
+  .today-action-area {
+    padding: 1.5rem 1rem !important;
   }
-  
-  .time-input-wrapper { 
-    min-width: 0 !important; 
-    width: 100% !important; 
+
+  .time-input-wrapper {
+    min-width: 0 !important;
+    width: 100% !important;
   }
-  
-  .btn-primary { 
-    padding: 0.8rem 1rem !important; 
-    font-size: 0.95rem !important; 
+
+  .btn-primary {
+    padding: 0.8rem 1rem !important;
+    font-size: 0.95rem !important;
     white-space: normal !important;
     height: auto !important;
     text-align: center !important;
     width: 100% !important;
     justify-content: center !important;
   }
-  
-  .success-badge { 
-    flex-direction: column !important; 
-    text-align: center !important; 
+
+  .success-badge {
+    flex-direction: column !important;
+    text-align: center !important;
     padding: 1rem !important;
   }
-  
-  .action-buttons { 
-    flex-direction: column !important; 
-    width: 100% !important; 
+
+  .action-buttons {
+    flex-direction: column !important;
+    width: 100% !important;
   }
-  
-  .upload-area { 
-    padding: 1.5rem 1rem !important; 
+
+  .upload-area {
+    padding: 1.5rem 1rem !important;
   }
-  
+
   .input-group {
     flex-direction: column !important;
     align-items: stretch !important;
     text-align: center !important;
   }
-  
+
   .input-icon {
     margin: 0 auto 0.5rem auto !important;
   }
-  
+
   /* Tambahan untuk Bermasyarakat & Berolahraga */
   .activity-input-wrapper {
     min-width: 0 !important;
     width: 100% !important;
   }
-  
+
   .form-grid {
     display: flex !important;
     flex-direction: column !important;
     gap: 1rem !important;
   }
-  
+
   .file-upload-wrapper {
     height: auto !important;
     min-height: 60px !important;
   }
-  
+
   .file-upload-label {
     flex-wrap: wrap !important;
     padding: 1rem !important;
     text-align: center !important;
   }
-  
+
   .upload-text {
     max-width: 100% !important;
     white-space: normal !important;
@@ -451,17 +508,44 @@ body.dark-theme .profile-name {
 }
 
 /* Global Dark Mode Styles untuk Orangtua */
-body.dark-theme .layout-orangtua { background-color: #0f172a; color: #f8fafc; }
-body.dark-theme .navbar { background: rgba(15, 23, 42, 0.95) !important; border-bottom: 1px solid #334155 !important; }
-body.dark-theme .nav-item { color: #cbd5e1 !important; }
-body.dark-theme .nav-item:hover { color: #34d399 !important; }
-body.dark-theme .nav-item.active { background: #064e3b !important; color: #34d399 !important; }
-body.dark-theme .nav-item.active .nav-icon { color: #34d399 !important; }
-body.dark-theme .nav-icon { color: #94a3b8 !important; }
+body.dark-theme .layout-orangtua {
+  background-color: #0f172a;
+  color: #f8fafc;
+}
+body.dark-theme .navbar {
+  background: rgba(15, 23, 42, 0.95) !important;
+  border-bottom: 1px solid #334155 !important;
+}
+body.dark-theme .nav-item {
+  color: #cbd5e1 !important;
+}
+body.dark-theme .nav-item:hover {
+  color: #34d399 !important;
+}
+body.dark-theme .nav-item.active {
+  background: #064e3b !important;
+  color: #34d399 !important;
+}
+body.dark-theme .nav-item.active .nav-icon {
+  color: #34d399 !important;
+}
+body.dark-theme .nav-icon {
+  color: #94a3b8 !important;
+}
 
-body.dark-theme .logout:hover { color: #ef4444 !important; }
+body.dark-theme .logout:hover {
+  color: #ef4444 !important;
+}
 
-body.dark-theme .mobile-bottom-nav { background: #1e293b; border: 1px solid #334155; }
-body.dark-theme .mobile-nav-item { color: #94a3b8; }
-body.dark-theme .mobile-nav-item:hover, body.dark-theme .mobile-nav-item.active { color: #34d399; }
+body.dark-theme .mobile-bottom-nav {
+  background: #1e293b;
+  border: 1px solid #334155;
+}
+body.dark-theme .mobile-nav-item {
+  color: #94a3b8;
+}
+body.dark-theme .mobile-nav-item:hover,
+body.dark-theme .mobile-nav-item.active {
+  color: #34d399;
+}
 </style>

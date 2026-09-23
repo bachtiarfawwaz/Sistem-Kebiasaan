@@ -14,20 +14,23 @@
       <!-- Forgot Password Card -->
       <div class="forgot-password-card">
         <h1 class="card-title">Lupa Password</h1>
-        <p class="card-subtitle">Masukkan email terdaftar Anda, dan kami akan mengirimkan instruksi untuk mereset password.</p>
-        
+        <p class="card-subtitle">
+          Masukkan email terdaftar Anda, dan kami akan mengirimkan instruksi
+          untuk mereset password.
+        </p>
+
         <form v-if="!isSent" @submit.prevent="handleReset" class="reset-form">
           <div class="form-group">
             <label for="email" class="form-label">Email</label>
             <div class="input-wrapper">
               <Icon name="ph:envelope-simple" class="input-icon" />
-              <input 
-                type="email" 
-                id="email" 
-                v-model="email" 
-                class="form-input" 
-                placeholder="Masukkan email Anda" 
-                required 
+              <input
+                type="email"
+                id="email"
+                v-model="email"
+                class="form-input"
+                placeholder="Masukkan email Anda"
+                required
               />
             </div>
           </div>
@@ -40,7 +43,10 @@
 
         <div v-else class="success-message">
           <Icon name="ph:check-circle-fill" class="success-icon" />
-          <p>Link reset password telah dikirim ke <strong>{{ email }}</strong>. Silakan periksa inbox atau folder spam Anda.</p>
+          <p>
+            Link reset password telah dikirim ke <strong>{{ email }}</strong
+            >. Silakan periksa inbox atau folder spam Anda.
+          </p>
         </div>
 
         <div class="card-footer">
@@ -54,57 +60,57 @@
 </template>
 
 <script setup>
-import { ref, onMounted } from 'vue'
+import { ref, onMounted } from "vue";
 
 definePageMeta({
-  layout: false
-})
+  layout: false,
+});
 
-const isDarkMode = ref(false)
+const isDarkMode = ref(false);
 
 const toggleDarkMode = () => {
-  isDarkMode.value = !isDarkMode.value
+  isDarkMode.value = !isDarkMode.value;
   if (import.meta.client) {
     if (isDarkMode.value) {
-      document.body.classList.add('dark-theme')
-      localStorage.setItem('landing-theme', 'dark')
+      document.body.classList.add("dark-theme");
+      localStorage.setItem("landing-theme", "dark");
     } else {
-      document.body.classList.remove('dark-theme')
-      localStorage.setItem('landing-theme', 'light')
+      document.body.classList.remove("dark-theme");
+      localStorage.setItem("landing-theme", "light");
     }
   }
-}
+};
 
 onMounted(() => {
   if (import.meta.client) {
-    const savedTheme = localStorage.getItem('landing-theme')
-    if (savedTheme === 'dark') {
-      isDarkMode.value = true
-      document.body.classList.add('dark-theme')
+    const savedTheme = localStorage.getItem("landing-theme");
+    if (savedTheme === "dark") {
+      isDarkMode.value = true;
+      document.body.classList.add("dark-theme");
     }
   }
-})
+});
 
-const email = ref('')
-const isLoading = ref(false)
-const isSent = ref(false)
+const email = ref("");
+const isLoading = ref(false);
+const isSent = ref(false);
 
 const handleReset = async () => {
-  isLoading.value = true
-  
+  isLoading.value = true;
+
   // Simulasi proses kirim email reset password
   setTimeout(() => {
-    isLoading.value = false
-    isSent.value = true
-  }, 1500)
-}
+    isLoading.value = false;
+    isSent.value = true;
+  }, 1500);
+};
 </script>
 
 <style scoped>
-@import url('https://fonts.googleapis.com/css2?family=Nunito:wght@400;500;600;700;800&display=swap');
+@import url("https://fonts.googleapis.com/css2?family=Nunito:wght@400;500;600;700;800&display=swap");
 
 .forgot-password-page {
-  font-family: 'Nunito', sans-serif;
+  font-family: "Nunito", sans-serif;
   min-height: 100vh;
   display: flex;
   align-items: center;
@@ -141,7 +147,9 @@ const handleReset = async () => {
   background: white;
   border-radius: 20px;
   padding: 2.5rem 2.5rem;
-  box-shadow: 0 20px 40px -10px rgba(0,0,0,0.1), 0 10px 15px -3px rgba(0,0,0,0.05);
+  box-shadow:
+    0 20px 40px -10px rgba(0, 0, 0, 0.1),
+    0 10px 15px -3px rgba(0, 0, 0, 0.05);
   animation: fadeIn 0.8s ease-out;
   border: 1px solid rgba(255, 255, 255, 0.6);
   backdrop-filter: blur(10px);
@@ -201,7 +209,7 @@ const handleReset = async () => {
   padding: 0.85rem 1rem 0.85rem 3rem;
   border: 1px solid #cbd5e1;
   border-radius: 12px;
-  font-family: 'Nunito', sans-serif;
+  font-family: "Nunito", sans-serif;
   font-size: 1rem;
   color: #0f172a;
   background-color: #f8fafc;
@@ -231,7 +239,7 @@ const handleReset = async () => {
   color: white;
   border: none;
   border-radius: 12px;
-  font-family: 'Nunito', sans-serif;
+  font-family: "Nunito", sans-serif;
   font-weight: 800;
   font-size: 1.1rem;
   cursor: pointer;
@@ -259,7 +267,7 @@ const handleReset = async () => {
 .loader {
   width: 20px;
   height: 20px;
-  border: 3px solid rgba(255,255,255,0.3);
+  border: 3px solid rgba(255, 255, 255, 0.3);
   border-radius: 50%;
   border-top-color: white;
   animation: spin 1s ease-in-out infinite;
@@ -305,17 +313,31 @@ const handleReset = async () => {
 }
 
 @keyframes spin {
-  to { transform: rotate(360deg); }
+  to {
+    transform: rotate(360deg);
+  }
 }
 
 @keyframes slideDown {
-  from { opacity: 0; transform: translateY(-20px); }
-  to { opacity: 1; transform: translateY(0); }
+  from {
+    opacity: 0;
+    transform: translateY(-20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
 }
 
 @keyframes fadeIn {
-  from { opacity: 0; transform: translateY(10px); }
-  to { opacity: 1; transform: translateY(0); }
+  from {
+    opacity: 0;
+    transform: translateY(10px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
 }
 
 @media (max-width: 480px) {
@@ -345,7 +367,7 @@ const handleReset = async () => {
   font-size: 1.5rem;
   color: #475569;
   cursor: pointer;
-  box-shadow: 0 4px 6px -1px rgba(0,0,0,0.05);
+  box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.05);
   transition: all 0.3s ease;
   z-index: 100;
 }
@@ -372,15 +394,27 @@ body.dark-theme .forgot-password-page {
 body.dark-theme .forgot-password-card {
   background: rgba(30, 41, 59, 0.8);
   border-color: #334155;
-  box-shadow: 0 20px 40px -10px rgba(0,0,0,0.5);
+  box-shadow: 0 20px 40px -10px rgba(0, 0, 0, 0.5);
 }
 
-body.dark-theme .card-title { color: #f8fafc; }
-body.dark-theme .card-subtitle { color: #94a3b8; }
-body.dark-theme .form-label { color: #cbd5e1; }
-body.dark-theme .card-footer { color: #94a3b8; }
-body.dark-theme .back-link { color: #cbd5e1; }
-body.dark-theme .back-link:hover { color: #f8fafc; }
+body.dark-theme .card-title {
+  color: #f8fafc;
+}
+body.dark-theme .card-subtitle {
+  color: #94a3b8;
+}
+body.dark-theme .form-label {
+  color: #cbd5e1;
+}
+body.dark-theme .card-footer {
+  color: #94a3b8;
+}
+body.dark-theme .back-link {
+  color: #cbd5e1;
+}
+body.dark-theme .back-link:hover {
+  color: #f8fafc;
+}
 
 body.dark-theme .success-message {
   background-color: rgba(22, 163, 74, 0.1);

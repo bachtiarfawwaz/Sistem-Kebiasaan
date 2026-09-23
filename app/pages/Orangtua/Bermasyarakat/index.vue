@@ -8,60 +8,104 @@
         </div>
         <div class="hero-text">
           <h1 class="hero-title">Bermasyarakat</h1>
-          <p class="hero-subtitle">Bantu anak melatih kepedulian sosial dengan mencatat kegiatan bermasyarakatnya.</p>
+          <p class="hero-subtitle">
+            Bantu anak melatih kepedulian sosial dengan mencatat kegiatan
+            bermasyarakatnya.
+          </p>
         </div>
       </div>
 
       <!-- Tampilkan input hari ini HANYA jika bulan dan tahun yang dipilih adalah bulan saat ini -->
       <div v-if="isCurrentMonthView" class="today-action-area">
         <div class="today-input-section" v-if="!todayData.saved">
-          <div class="activity-input-wrapper" style="width: 100%;">
-            <label class="input-label">Kategori Kegiatan Sosial ({{ todayFormatted }})</label>
+          <div class="activity-input-wrapper" style="width: 100%">
+            <label class="input-label"
+              >Kategori Kegiatan Sosial ({{ todayFormatted }})</label
+            >
             <div class="input-group">
               <Icon name="ph:users-duotone" class="input-icon" />
-              <select v-model="todayKategori" class="modern-select social-select">
+              <select
+                v-model="todayKategori"
+                class="modern-select social-select"
+              >
                 <option value="" disabled selected>Pilih Kegiatan...</option>
-                <option value="Kerja Bakti / Gotong Royong">Kerja Bakti / Gotong Royong</option>
-                <option value="Membantu Orang Tua">Membantu Orang Tua (Tugas Rumah)</option>
-                <option value="Membantu Tetangga / Teman">Membantu Tetangga / Teman</option>
-                <option value="Menjenguk Orang Sakit">Menjenguk Orang Sakit</option>
+                <option value="Kerja Bakti / Gotong Royong">
+                  Kerja Bakti / Gotong Royong
+                </option>
+                <option value="Membantu Orang Tua">
+                  Membantu Orang Tua (Tugas Rumah)
+                </option>
+                <option value="Membantu Tetangga / Teman">
+                  Membantu Tetangga / Teman
+                </option>
+                <option value="Menjenguk Orang Sakit">
+                  Menjenguk Orang Sakit
+                </option>
                 <option value="Berbagi / Sedekah">Berbagi / Sedekah</option>
-                <option value="Kegiatan Desa / Lingkungan">Kegiatan Desa / Lingkungan</option>
+                <option value="Kegiatan Desa / Lingkungan">
+                  Kegiatan Desa / Lingkungan
+                </option>
                 <option value="Lainnya">Lainnya</option>
               </select>
             </div>
-            <input type="text" v-model="todayKegiatan" placeholder="Tuliskan detail kegiatan secara singkat..." class="text-input" style="background: #f8fafc; padding: 10px; border-radius: 12px; border: 2px solid #e2e8f0; margin-top: 5px;">
+            <input
+              type="text"
+              v-model="todayKegiatan"
+              placeholder="Tuliskan detail kegiatan secara singkat..."
+              class="text-input"
+              style="
+                background: #f8fafc;
+                padding: 10px;
+                border-radius: 12px;
+                border: 2px solid #e2e8f0;
+                margin-top: 5px;
+              "
+            />
           </div>
 
           <div class="action-footer">
             <button class="btn-primary" @click="saveToday" :disabled="isSaving">
-              <Icon :name="isSaving ? 'ph:spinner-gap-bold' : 'ph:check-circle-bold'" class="btn-icon" :class="{'spin-icon': isSaving}" />
-              {{ isSaving ? 'Menyimpan...' : 'Simpan Catatan Hari Ini' }}
+              <Icon
+                :name="
+                  isSaving ? 'ph:spinner-gap-bold' : 'ph:check-circle-bold'
+                "
+                class="btn-icon"
+                :class="{ 'spin-icon': isSaving }"
+              />
+              {{ isSaving ? "Menyimpan..." : "Simpan Catatan Hari Ini" }}
             </button>
           </div>
         </div>
-        
+
         <div class="today-success-section" v-else>
           <div class="success-badge good">
             <Icon name="ph:seal-check-fill" class="success-icon" />
             <div class="success-text">
-              <strong>Tersimpan!</strong> Kegiatan hari ini: <span class="highlight-text">{{ todayData.activity }}</span>.
+              <strong>Tersimpan!</strong> Kegiatan hari ini:
+              <span class="highlight-text">{{ todayData.activity }}</span
+              >.
             </div>
           </div>
         </div>
       </div>
       <div v-else class="today-action-area not-current-month">
         <Icon name="ph:calendar-duotone" class="calendar-icon-large" />
-        <p>Anda sedang melihat riwayat bulan <strong>{{ months[selectedMonth] }} {{ selectedYear }}</strong>.</p>
-        <button class="btn-outline" @click="goToCurrentMonth">Kembali ke Bulan Ini</button>
+        <p>
+          Anda sedang melihat riwayat bulan
+          <strong>{{ months[selectedMonth] }} {{ selectedYear }}</strong
+          >.
+        </p>
+        <button class="btn-outline" @click="goToCurrentMonth">
+          Kembali ke Bulan Ini
+        </button>
       </div>
     </div>
 
-    <LinearNavigation 
-      prevLink="/Orangtua/GemarBelajar" 
-      prevText="Sebelumnya (Belajar)" 
-      nextLink="/Orangtua/TidurTepatWaktu" 
-      nextText="Lanjut ke Tidur" 
+    <LinearNavigation
+      prevLink="/Orangtua/GemarBelajar"
+      prevText="Sebelumnya (Belajar)"
+      nextLink="/Orangtua/TidurTepatWaktu"
+      nextText="Lanjut ke Tidur"
     />
 
     <!-- History / Book View Section (Table format as requested by the book) -->
@@ -71,14 +115,32 @@
           <div class="icon-box">
             <Icon name="ph:list-dashes-duotone" class="section-icon" />
           </div>
-          <h2 class="section-title">Riwayat Kegiatan {{ months[selectedMonth] }}</h2>
+          <h2 class="section-title">
+            Riwayat Kegiatan {{ months[selectedMonth] }}
+          </h2>
         </div>
         <div class="filter-group">
-          <select v-model="selectedMonth" class="modern-select" @change="generateDays">
-            <option v-for="(month, index) in months" :key="index" :value="index">{{ month }}</option>
+          <select
+            v-model="selectedMonth"
+            class="modern-select"
+            @change="generateDays"
+          >
+            <option
+              v-for="(month, index) in months"
+              :key="index"
+              :value="index"
+            >
+              {{ month }}
+            </option>
           </select>
-          <select v-model="selectedYear" class="modern-select" @change="generateDays">
-            <option v-for="year in years" :key="year" :value="year">{{ year }}</option>
+          <select
+            v-model="selectedYear"
+            class="modern-select"
+            @change="generateDays"
+          >
+            <option v-for="year in years" :key="year" :value="year">
+              {{ year }}
+            </option>
           </select>
         </div>
       </div>
@@ -94,19 +156,28 @@
             </tr>
           </thead>
           <tbody>
-            <tr v-for="day in days" :key="day.date" 
-                :class="{ 
-                  'is-today': isToday(day.date),
-                  'is-missed': isPastDate(day.date) && !day.saved,
-                  'is-future': isFutureDate(day.date)
-                }">
+            <tr
+              v-for="day in days"
+              :key="day.date"
+              :class="{
+                'is-today': isToday(day.date),
+                'is-missed': isPastDate(day.date) && !day.saved,
+                'is-future': isFutureDate(day.date),
+              }"
+            >
               <td class="date-cell">
                 <span class="date-num">{{ day.date }}</span>
-                <span class="today-badge" v-if="isToday(day.date)">Hari Ini</span>
+                <span class="today-badge" v-if="isToday(day.date)"
+                  >Hari Ini</span
+                >
               </td>
               <td class="activity-cell">
-                <div class="activity-text" v-if="day.saved">{{ day.activity }}</div>
-                <div class="empty-text" v-else-if="!isFutureDate(day.date)">Belum ada kegiatan dicatat</div>
+                <div class="activity-text" v-if="day.saved">
+                  {{ day.activity }}
+                </div>
+                <div class="empty-text" v-else-if="!isFutureDate(day.date)">
+                  Belum ada kegiatan dicatat
+                </div>
                 <div class="future-text" v-else>-</div>
               </td>
               <td class="status-cell">
@@ -134,16 +205,26 @@
           <Icon name="ph:notebook-duotone" class="catatan-icon" />
           <h3>Catatan Orang Tua</h3>
         </div>
-        <textarea 
-          class="modern-textarea" 
-          rows="4" 
-          v-model="catatan" 
+        <textarea
+          class="modern-textarea"
+          rows="4"
+          v-model="catatan"
           placeholder="Tuliskan catatan atau observasi terkait keikutsertaan anak di lingkungan masyarakat bulan ini..."
         ></textarea>
         <div class="catatan-footer">
-          <button class="btn-secondary" @click="saveCatatanBulanan" :disabled="isSavingCatatan">
-            <Icon :name="isSavingCatatan ? 'ph:spinner-gap-bold' : 'ph:floppy-disk-back'" class="btn-icon" :class="{'spin-icon': isSavingCatatan}" /> 
-            {{ isSavingCatatan ? 'Menyimpan...' : 'Simpan Catatan' }}
+          <button
+            class="btn-secondary"
+            @click="saveCatatanBulanan"
+            :disabled="isSavingCatatan"
+          >
+            <Icon
+              :name="
+                isSavingCatatan ? 'ph:spinner-gap-bold' : 'ph:floppy-disk-back'
+              "
+              class="btn-icon"
+              :class="{ 'spin-icon': isSavingCatatan }"
+            />
+            {{ isSavingCatatan ? "Menyimpan..." : "Simpan Catatan" }}
           </button>
         </div>
       </div>
@@ -152,280 +233,358 @@
 </template>
 
 <script setup>
-import { ref, computed, onMounted, watch } from 'vue'
+import { ref, computed, onMounted, watch } from "vue";
 
 definePageMeta({
-  layout: 'orangtua'
-})
+  layout: "orangtua",
+});
 
-const supabase = useSupabase()
-const pesertaDidikId = ref(null)
-const kebiasaanId = ref(null)
+const supabase = useSupabase();
+const pesertaDidikId = ref(null);
+const kebiasaanId = ref(null);
 
 const months = [
-  'Januari', 'Februari', 'Maret', 'April', 'Mei', 'Juni',
-  'Juli', 'Agustus', 'September', 'Oktober', 'November', 'Desember'
-]
+  "Januari",
+  "Februari",
+  "Maret",
+  "April",
+  "Mei",
+  "Juni",
+  "Juli",
+  "Agustus",
+  "September",
+  "Oktober",
+  "November",
+  "Desember",
+];
 
-const currentActualDate = new Date()
-const selectedMonth = ref(currentActualDate.getMonth())
-const selectedYear = ref(currentActualDate.getFullYear())
+const currentActualDate = new Date();
+const selectedMonth = ref(currentActualDate.getMonth());
+const selectedYear = ref(currentActualDate.getFullYear());
 const years = computed(() => {
-  const current = new Date().getFullYear()
-  return [current - 1, current, current + 1]
-})
+  const current = new Date().getFullYear();
+  return [current - 1, current, current + 1];
+});
 
-const days = ref([])
-const catatan = ref('')
-const isSavingCatatan = ref(false)
+const days = ref([]);
+const catatan = ref("");
+const isSavingCatatan = ref(false);
 
 const loadCatatanBulanan = async () => {
-  if (!pesertaDidikId.value) return
+  if (!pesertaDidikId.value) return;
   try {
-    const { data } = await supabase.from('catatan_orang_tua')
-      .select('catatan')
-      .eq('peserta_didik_id', pesertaDidikId.value)
-      .eq('jenis_jurnal', 'Bermasyarakat')
-      .eq('bulan', selectedMonth.value + 1)
-      .eq('tahun', selectedYear.value)
-      .maybeSingle()
-    
-    catatan.value = data ? data.catatan : ''
+    const { data } = await supabase
+      .from("catatan_orang_tua")
+      .select("catatan")
+      .eq("peserta_didik_id", pesertaDidikId.value)
+      .eq("jenis_jurnal", "Bermasyarakat")
+      .eq("bulan", selectedMonth.value + 1)
+      .eq("tahun", selectedYear.value)
+      .maybeSingle();
+
+    catatan.value = data ? data.catatan : "";
   } catch (err) {
-    console.error(err)
+    console.error(err);
   }
-}
+};
 
 const saveCatatanBulanan = async () => {
-  if (!pesertaDidikId.value) return
-  isSavingCatatan.value = true
+  if (!pesertaDidikId.value) return;
+  isSavingCatatan.value = true;
   try {
-    const { data: existing } = await supabase.from('catatan_orang_tua')
-      .select('id')
-      .eq('peserta_didik_id', pesertaDidikId.value)
-      .eq('jenis_jurnal', 'Bermasyarakat')
-      .eq('bulan', selectedMonth.value + 1)
-      .eq('tahun', selectedYear.value)
-      .maybeSingle()
+    const { data: existing } = await supabase
+      .from("catatan_orang_tua")
+      .select("id")
+      .eq("peserta_didik_id", pesertaDidikId.value)
+      .eq("jenis_jurnal", "Bermasyarakat")
+      .eq("bulan", selectedMonth.value + 1)
+      .eq("tahun", selectedYear.value)
+      .maybeSingle();
 
     if (existing) {
-      await supabase.from('catatan_orang_tua').update({ catatan: catatan.value }).eq('id', existing.id)
+      await supabase
+        .from("catatan_orang_tua")
+        .update({ catatan: catatan.value })
+        .eq("id", existing.id);
     } else {
-      await supabase.from('catatan_orang_tua').insert({
+      await supabase.from("catatan_orang_tua").insert({
         peserta_didik_id: pesertaDidikId.value,
-        jenis_jurnal: 'Bermasyarakat',
+        jenis_jurnal: "Bermasyarakat",
         bulan: selectedMonth.value + 1,
         tahun: selectedYear.value,
-        catatan: catatan.value
-      })
+        catatan: catatan.value,
+      });
     }
-    alert('Catatan bulanan berhasil disimpan!')
+    alert("Catatan bulanan berhasil disimpan!");
   } catch (err) {
-    console.error(err)
-    alert('Gagal menyimpan catatan bulanan.')
+    console.error(err);
+    alert("Gagal menyimpan catatan bulanan.");
   } finally {
-    isSavingCatatan.value = false
+    isSavingCatatan.value = false;
   }
-}
+};
 
-const todayKategori = ref('')
-const todayKegiatan = ref('')
-const isSaving = ref(false)
+const todayKategori = ref("");
+const todayKegiatan = ref("");
+const isSaving = ref(false);
 
 const isCurrentMonthView = computed(() => {
-  const today = new Date()
-  return selectedMonth.value === today.getMonth() && selectedYear.value === today.getFullYear()
-})
+  const today = new Date();
+  return (
+    selectedMonth.value === today.getMonth() &&
+    selectedYear.value === today.getFullYear()
+  );
+});
 
 const todayFormatted = computed(() => {
-  const options = { weekday: 'long', day: 'numeric', month: 'long', year: 'numeric' }
-  return new Date().toLocaleDateString('id-ID', options)
-})
+  const options = {
+    weekday: "long",
+    day: "numeric",
+    month: "long",
+    year: "numeric",
+  };
+  return new Date().toLocaleDateString("id-ID", options);
+});
 
 const todayData = computed(() => {
-  const today = new Date().getDate()
+  const today = new Date().getDate();
   if (isCurrentMonthView.value) {
-    const dayObj = days.value.find(d => d.date === today)
-    return dayObj || { saved: false, activity: '' }
+    const dayObj = days.value.find((d) => d.date === today);
+    return dayObj || { saved: false, activity: "" };
   }
-  return { saved: false, activity: '' }
-})
+  return { saved: false, activity: "" };
+});
 
 const generateDays = async () => {
-  if (!pesertaDidikId.value || !kebiasaanId.value) return
-  const daysInMonth = new Date(selectedYear.value, selectedMonth.value + 1, 0).getDate()
-  const startDate = `${selectedYear.value}-${String(selectedMonth.value + 1).padStart(2, '0')}-01`
-  const endDate = `${selectedYear.value}-${String(selectedMonth.value + 1).padStart(2, '0')}-${daysInMonth}`
+  if (!pesertaDidikId.value || !kebiasaanId.value) return;
+  const daysInMonth = new Date(
+    selectedYear.value,
+    selectedMonth.value + 1,
+    0,
+  ).getDate();
+  const startDate = `${selectedYear.value}-${String(selectedMonth.value + 1).padStart(2, "0")}-01`;
+  const endDate = `${selectedYear.value}-${String(selectedMonth.value + 1).padStart(2, "0")}-${daysInMonth}`;
 
-  const { data: listJurnalHarian } = await supabase.from('jurnal_harian').select('id, tanggal').eq('peserta_didik_id', pesertaDidikId.value).gte('tanggal', startDate).lte('tanggal', endDate)
-  
-  let listJurnalKebiasaan = []
+  const { data: listJurnalHarian } = await supabase
+    .from("jurnal_harian")
+    .select("id, tanggal")
+    .eq("peserta_didik_id", pesertaDidikId.value)
+    .gte("tanggal", startDate)
+    .lte("tanggal", endDate);
+
+  let listJurnalKebiasaan = [];
   if (listJurnalHarian && listJurnalHarian.length > 0) {
-    const harianIds = listJurnalHarian.map(jh => jh.id)
-    const { data: listJK } = await supabase.from('jurnal_kebiasaan').select('*').in('jurnal_harian_id', harianIds).eq('kebiasaan_id', kebiasaanId.value).eq('status', true)
-    if (listJK) listJurnalKebiasaan = listJK
+    const harianIds = listJurnalHarian.map((jh) => jh.id);
+    const { data: listJK } = await supabase
+      .from("jurnal_kebiasaan")
+      .select("*")
+      .in("jurnal_harian_id", harianIds)
+      .eq("kebiasaan_id", kebiasaanId.value)
+      .eq("status", true);
+    if (listJK) listJurnalKebiasaan = listJK;
   }
 
-  const newDays = []
+  const newDays = [];
   for (let i = 1; i <= daysInMonth; i++) {
-    const dateString = `${selectedYear.value}-${String(selectedMonth.value + 1).padStart(2, '0')}-${String(i).padStart(2, '0')}`
-    const harian = (listJurnalHarian || []).find(jh => jh.tanggal === dateString)
-    
-    let saved = false
-    let activity = ''
-    
+    const dateString = `${selectedYear.value}-${String(selectedMonth.value + 1).padStart(2, "0")}-${String(i).padStart(2, "0")}`;
+    const harian = (listJurnalHarian || []).find(
+      (jh) => jh.tanggal === dateString,
+    );
+
+    let saved = false;
+    let activity = "";
+
     if (harian) {
-      const jk = listJurnalKebiasaan.find(k => k.jurnal_harian_id === harian.id)
+      const jk = listJurnalKebiasaan.find(
+        (k) => k.jurnal_harian_id === harian.id,
+      );
       if (jk) {
-        saved = true
+        saved = true;
         try {
-          const parsed = JSON.parse(jk.keterangan)
-          activity = parsed.keterangan || parsed.activity || jk.keterangan
-        } catch(e) {
-          activity = jk.keterangan || ''
+          const parsed = JSON.parse(jk.keterangan);
+          activity = parsed.keterangan || parsed.activity || jk.keterangan;
+        } catch (e) {
+          activity = jk.keterangan || "";
         }
       }
     }
-    
+
     newDays.push({
       date: i,
       activity: activity,
       saved: saved,
       harianId: harian ? harian.id : null,
-      jurnalKebiasaanId: saved ? listJurnalKebiasaan.find(k => k.jurnal_harian_id === harian?.id)?.id : null
-    })
+      jurnalKebiasaanId: saved
+        ? listJurnalKebiasaan.find((k) => k.jurnal_harian_id === harian?.id)?.id
+        : null,
+    });
   }
 
-  days.value = newDays
-  
-  await loadCatatanBulanan()
-}
+  days.value = newDays;
+
+  await loadCatatanBulanan();
+};
 
 const getPesertaDidikId = async () => {
-  const { data: { user } } = await supabase.auth.getUser()
-  if (!user) return null
-  const userRole = user.user_metadata?.role || 'orangtua'
-  if (userRole === 'siswa') {
-    const { data: pdData } = await supabase.from('peserta_didik').select('id').eq('user_id', user.id).single()
-    return pdData ? pdData.id : null
+  const {
+    data: { user },
+  } = await supabase.auth.getUser();
+  if (!user) return null;
+  const userRole = user.user_metadata?.role || "orangtua";
+  if (userRole === "siswa") {
+    const { data: pdData } = await supabase
+      .from("peserta_didik")
+      .select("id")
+      .eq("user_id", user.id)
+      .single();
+    return pdData ? pdData.id : null;
   } else {
-    const { data: otData } = await supabase.from('orang_tua').select('id').eq('user_id', user.id).single()
+    const { data: otData } = await supabase
+      .from("orang_tua")
+      .select("id")
+      .eq("user_id", user.id)
+      .single();
     if (otData) {
-      const { data: pdData } = await supabase.from('peserta_didik').select('id').eq('orang_tua_id', otData.id).single()
-      return pdData ? pdData.id : null
+      const { data: pdData } = await supabase
+        .from("peserta_didik")
+        .select("id")
+        .eq("orang_tua_id", otData.id)
+        .single();
+      return pdData ? pdData.id : null;
     }
   }
-  return null
-}
+  return null;
+};
 
 onMounted(async () => {
-  pesertaDidikId.value = await getPesertaDidikId()
-  let { data: masterKebiasaan } = await supabase.from('kebiasaan').select('id').ilike('nama_kebiasaan', '%masyarakat%').single()
+  pesertaDidikId.value = await getPesertaDidikId();
+  let { data: masterKebiasaan } = await supabase
+    .from("kebiasaan")
+    .select("id")
+    .ilike("nama_kebiasaan", "%masyarakat%")
+    .single();
   if (!masterKebiasaan) {
-    const { data: newK } = await supabase.from('kebiasaan').insert({ nama_kebiasaan: 'Bermasyarakat' }).select('id').single()
-    if (newK) masterKebiasaan = newK
+    const { data: newK } = await supabase
+      .from("kebiasaan")
+      .insert({ nama_kebiasaan: "Bermasyarakat" })
+      .select("id")
+      .single();
+    if (newK) masterKebiasaan = newK;
   }
-  if (masterKebiasaan) kebiasaanId.value = masterKebiasaan.id
-  await generateDays()
-})
+  if (masterKebiasaan) kebiasaanId.value = masterKebiasaan.id;
+  await generateDays();
+});
 
 watch([selectedMonth, selectedYear], () => {
-  generateDays()
-})
+  generateDays();
+});
 
 const isToday = (date) => {
-  const today = new Date()
-  return date === today.getDate() && 
-         selectedMonth.value === today.getMonth() && 
-         selectedYear.value === today.getFullYear()
-}
+  const today = new Date();
+  return (
+    date === today.getDate() &&
+    selectedMonth.value === today.getMonth() &&
+    selectedYear.value === today.getFullYear()
+  );
+};
 
 const isPastDate = (date) => {
-  const today = new Date()
-  const checkDate = new Date(selectedYear.value, selectedMonth.value, date)
-  today.setHours(0,0,0,0)
-  return checkDate < today
-}
+  const today = new Date();
+  const checkDate = new Date(selectedYear.value, selectedMonth.value, date);
+  today.setHours(0, 0, 0, 0);
+  return checkDate < today;
+};
 
 const isFutureDate = (date) => {
-  const today = new Date()
-  const checkDate = new Date(selectedYear.value, selectedMonth.value, date)
-  today.setHours(0,0,0,0)
-  return checkDate > today
-}
+  const today = new Date();
+  const checkDate = new Date(selectedYear.value, selectedMonth.value, date);
+  today.setHours(0, 0, 0, 0);
+  return checkDate > today;
+};
 
 const saveToday = async () => {
-  if (isSaving.value) return
+  if (isSaving.value) return;
   if (!todayKategori.value || !todayKegiatan.value.trim()) {
-    alert('Mohon pilih Kategori dan isi Nama Kegiatan yang dilakukan.')
-    return
+    alert("Mohon pilih Kategori dan isi Nama Kegiatan yang dilakukan.");
+    return;
   }
-  const gabunganKeterangan = `[${todayKategori.value}] ${todayKegiatan.value}`
-  if (!pesertaDidikId.value || !kebiasaanId.value) return
+  const gabunganKeterangan = `[${todayKategori.value}] ${todayKegiatan.value}`;
+  if (!pesertaDidikId.value || !kebiasaanId.value) return;
 
-  const today = new Date().getDate()
-  const dateString = `${selectedYear.value}-${String(selectedMonth.value + 1).padStart(2, '0')}-${String(today).padStart(2, '0')}`
-  let dayObj = days.value.find(d => d.date === today)
-  if (!dayObj) return
-  
+  const today = new Date().getDate();
+  const dateString = `${selectedYear.value}-${String(selectedMonth.value + 1).padStart(2, "0")}-${String(today).padStart(2, "0")}`;
+  let dayObj = days.value.find((d) => d.date === today);
+  if (!dayObj) return;
+
   try {
-    let harianId = dayObj.harianId
+    let harianId = dayObj.harianId;
     if (!harianId) {
-      const { data: newHarian, error } = await supabase.from('jurnal_harian').insert({
-        peserta_didik_id: pesertaDidikId.value,
-        tanggal: dateString
-      }).select('id').single()
-      if (error) throw error
-      harianId = newHarian.id
-      dayObj.harianId = harianId
+      const { data: newHarian, error } = await supabase
+        .from("jurnal_harian")
+        .insert({
+          peserta_didik_id: pesertaDidikId.value,
+          tanggal: dateString,
+        })
+        .select("id")
+        .single();
+      if (error) throw error;
+      harianId = newHarian.id;
+      dayObj.harianId = harianId;
     }
 
-    isSaving.value = true
+    isSaving.value = true;
 
     const jsonKeterangan = JSON.stringify({
-      keterangan: gabunganKeterangan
-    })
+      keterangan: gabunganKeterangan,
+    });
 
     if (dayObj.jurnalKebiasaanId) {
-      await supabase.from('jurnal_kebiasaan').update({
-        status: true,
-        keterangan: jsonKeterangan
-      }).eq('id', dayObj.jurnalKebiasaanId)
+      await supabase
+        .from("jurnal_kebiasaan")
+        .update({
+          status: true,
+          keterangan: jsonKeterangan,
+        })
+        .eq("id", dayObj.jurnalKebiasaanId);
     } else {
-      const { data: newJk, error } = await supabase.from('jurnal_kebiasaan').insert({
-        jurnal_harian_id: harianId,
-        kebiasaan_id: kebiasaanId.value,
-        status: true,
-        keterangan: jsonKeterangan
-      }).select('id').single()
-      if (error) throw error
-      if (newJk) dayObj.jurnalKebiasaanId = newJk.id
+      const { data: newJk, error } = await supabase
+        .from("jurnal_kebiasaan")
+        .insert({
+          jurnal_harian_id: harianId,
+          kebiasaan_id: kebiasaanId.value,
+          status: true,
+          keterangan: jsonKeterangan,
+        })
+        .select("id")
+        .single();
+      if (error) throw error;
+      if (newJk) dayObj.jurnalKebiasaanId = newJk.id;
     }
-    
-    dayObj.activity = gabunganKeterangan
-    dayObj.saved = true
-    alert('Data Bermasyarakat berhasil disimpan!')
-    await generateDays()
+
+    dayObj.activity = gabunganKeterangan;
+    dayObj.saved = true;
+    alert("Data Bermasyarakat berhasil disimpan!");
+    await generateDays();
   } catch (err) {
-    console.error(err)
-    alert(err.message || 'Gagal menyimpan data')
+    console.error(err);
+    alert(err.message || "Gagal menyimpan data");
   } finally {
-    isSaving.value = false
+    isSaving.value = false;
   }
-}
+};
 
 const goToCurrentMonth = () => {
-  selectedMonth.value = new Date().getMonth()
-  selectedYear.value = new Date().getFullYear()
-  generateDays()
-}
+  selectedMonth.value = new Date().getMonth();
+  selectedYear.value = new Date().getFullYear();
+  generateDays();
+};
 </script>
 
 <style scoped>
-@import url('https://fonts.googleapis.com/css2?family=Nunito:wght@400;500;600;700;800;900&display=swap');
+@import url("https://fonts.googleapis.com/css2?family=Nunito:wght@400;500;600;700;800;900&display=swap");
 
 .page-container {
-  font-family: 'Nunito', sans-serif;
+  font-family: "Nunito", sans-serif;
   max-width: 1100px;
   margin: 0 auto;
   padding: 1.5rem 0 4rem 0;
@@ -450,11 +609,17 @@ const goToCurrentMonth = () => {
 }
 
 .hero-card::before {
-  content: '';
+  content: "";
   position: absolute;
-  top: 0; right: 0;
-  width: 300px; height: 300px;
-  background: radial-gradient(circle, rgba(16, 185, 129, 0.1) 0%, rgba(255,255,255,0) 70%);
+  top: 0;
+  right: 0;
+  width: 300px;
+  height: 300px;
+  background: radial-gradient(
+    circle,
+    rgba(16, 185, 129, 0.1) 0%,
+    rgba(255, 255, 255, 0) 70%
+  );
   border-radius: 50%;
   transform: translate(30%, -30%);
 }
@@ -656,15 +821,24 @@ const goToCurrentMonth = () => {
   width: 100%;
 }
 
-.success-badge.good { background: #ecfdf5; border-color: #a7f3d0; }
-.success-badge.good .success-icon { color: #10b981; font-size: 2.5rem; }
-.success-badge.good .success-text { color: #065f46; font-size: 1.1rem; }
-.success-badge.good .highlight-text { 
+.success-badge.good {
+  background: #ecfdf5;
+  border-color: #a7f3d0;
+}
+.success-badge.good .success-icon {
+  color: #10b981;
+  font-size: 2.5rem;
+}
+.success-badge.good .success-text {
+  color: #065f46;
+  font-size: 1.1rem;
+}
+.success-badge.good .highlight-text {
   font-weight: 800;
   background: white;
   padding: 0.3rem 0.8rem;
   border-radius: 8px;
-  box-shadow: 0 2px 4px rgba(0,0,0,0.05);
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
 }
 
 .btn-outline {
@@ -704,7 +878,7 @@ const goToCurrentMonth = () => {
   background: white;
   padding: 1.5rem 2rem;
   border-radius: 20px;
-  box-shadow: 0 10px 30px -10px rgba(0,0,0,0.05);
+  box-shadow: 0 10px 30px -10px rgba(0, 0, 0, 0.05);
 }
 
 .header-left {
@@ -776,7 +950,7 @@ const goToCurrentMonth = () => {
   background: white;
   border-radius: 20px;
   overflow: hidden;
-  box-shadow: 0 10px 30px -10px rgba(0,0,0,0.05);
+  box-shadow: 0 10px 30px -10px rgba(0, 0, 0, 0.05);
   border: 1px solid #f1f5f9;
 }
 
@@ -892,7 +1066,9 @@ const goToCurrentMonth = () => {
   align-items: center;
   gap: 0.4rem;
 }
-.status-paraf svg { font-size: 1.2rem; }
+.status-paraf svg {
+  font-size: 1.2rem;
+}
 
 .status-waiting {
   color: #f59e0b;
@@ -900,7 +1076,9 @@ const goToCurrentMonth = () => {
   align-items: center;
   gap: 0.4rem;
 }
-.status-waiting svg { font-size: 1.2rem; }
+.status-waiting svg {
+  font-size: 1.2rem;
+}
 
 .status-missed {
   color: #ef4444;
@@ -908,7 +1086,9 @@ const goToCurrentMonth = () => {
   align-items: center;
   gap: 0.4rem;
 }
-.status-missed svg { font-size: 1.2rem; }
+.status-missed svg {
+  font-size: 1.2rem;
+}
 
 .status-locked {
   color: #cbd5e1;
@@ -916,15 +1096,16 @@ const goToCurrentMonth = () => {
   align-items: center;
   gap: 0.4rem;
 }
-.status-locked svg { font-size: 1.2rem; }
-
+.status-locked svg {
+  font-size: 1.2rem;
+}
 
 /* Catatan Section */
 .catatan-section {
   background: white;
   border-radius: 24px;
   padding: 2.5rem;
-  box-shadow: 0 10px 30px -10px rgba(0,0,0,0.05);
+  box-shadow: 0 10px 30px -10px rgba(0, 0, 0, 0.05);
   border: 1px solid #f1f5f9;
 }
 
@@ -999,34 +1180,34 @@ const goToCurrentMonth = () => {
   .hero-card {
     padding: 2rem 1.5rem;
   }
-  
+
   .hero-content {
     flex-direction: column;
     text-align: center;
   }
-  
+
   .hero-title {
     font-size: 2.2rem;
   }
-  
+
   .today-input-section {
     flex-direction: column;
     align-items: stretch;
   }
-  
+
   .btn-primary {
     justify-content: center;
   }
-  
+
   .section-header {
     flex-direction: column;
     align-items: stretch;
   }
-  
+
   .filter-group {
     flex-direction: column;
   }
-  
+
   .modern-table {
     display: block;
     overflow-x: auto;

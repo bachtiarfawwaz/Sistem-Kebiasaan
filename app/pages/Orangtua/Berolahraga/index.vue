@@ -8,10 +8,35 @@
         </div>
         <div class="hero-text">
           <h1 class="hero-title">Berolahraga</h1>
-          <p class="hero-subtitle">Bantu anak menjaga kebugaran tubuh. Catat aktivitas fisik yang mereka lakukan hari ini.</p>
-          <div class="alert-info" style="margin-top: 15px; background: rgba(255,255,255,0.2); padding: 12px; border-radius: 8px; font-size: 0.9rem; line-height: 1.4;">
-            <Icon name="ph:info-duotone" style="margin-right: 5px; font-size: 1.1rem; vertical-align: middle;"/>
-            <span style="vertical-align: middle;"><strong>Petunjuk:</strong> Agar terhitung sebagai pencapaian (tuntas) di Laporan, durasi minimal olahraga adalah <strong>30 menit</strong>. Jika kurang dari itu, pencatatan akan tersimpan namun belum terhitung tuntas.</span>
+          <p class="hero-subtitle">
+            Bantu anak menjaga kebugaran tubuh. Catat aktivitas fisik yang
+            mereka lakukan hari ini.
+          </p>
+          <div
+            class="alert-info"
+            style="
+              margin-top: 15px;
+              background: rgba(255, 255, 255, 0.2);
+              padding: 12px;
+              border-radius: 8px;
+              font-size: 0.9rem;
+              line-height: 1.4;
+            "
+          >
+            <Icon
+              name="ph:info-duotone"
+              style="
+                margin-right: 5px;
+                font-size: 1.1rem;
+                vertical-align: middle;
+              "
+            />
+            <span style="vertical-align: middle"
+              ><strong>Petunjuk:</strong> Agar terhitung sebagai pencapaian
+              (tuntas) di Laporan, durasi minimal olahraga adalah
+              <strong>30 menit</strong>. Jika kurang dari itu, pencatatan akan
+              tersimpan namun belum terhitung tuntas.</span
+            >
           </div>
         </div>
       </div>
@@ -19,22 +44,34 @@
       <!-- Tampilkan input hari ini HANYA jika bulan dan tahun yang dipilih adalah bulan saat ini -->
       <div v-if="isCurrentMonthView" class="today-action-area">
         <div class="today-input-section" v-if="!todayData.saved">
-          
           <div class="form-grid">
             <div class="input-wrapper">
-              <label class="input-label">Jenis Olahraga ({{ todayFormatted }})</label>
+              <label class="input-label"
+                >Jenis Olahraga ({{ todayFormatted }})</label
+              >
               <div class="input-group">
                 <Icon name="ph:basketball-duotone" class="input-icon" />
-                <select v-model="todayActivityName" class="modern-select activity-select">
-                  <option value="" disabled selected>-- Pilih Jenis Olahraga --</option>
+                <select
+                  v-model="todayActivityName"
+                  class="modern-select activity-select"
+                >
+                  <option value="" disabled selected>
+                    -- Pilih Jenis Olahraga --
+                  </option>
                   <option value="Lari / Jogging">Lari / Jogging</option>
-                  <option value="Senam / Workout">Senam / Workout (Di Rumah)</option>
-                  <option value="Sepak Bola / Futsal">Sepak Bola / Futsal</option>
+                  <option value="Senam / Workout">
+                    Senam / Workout (Di Rumah)
+                  </option>
+                  <option value="Sepak Bola / Futsal">
+                    Sepak Bola / Futsal
+                  </option>
                   <option value="Bulu Tangkis">Bulu Tangkis</option>
                   <option value="Bersepeda">Bersepeda</option>
                   <option value="Berenang">Berenang</option>
                   <option value="Bola Basket / Voli">Bola Basket / Voli</option>
-                  <option value="Bela Diri / Silat">Bela Diri / Pencak Silat</option>
+                  <option value="Bela Diri / Silat">
+                    Bela Diri / Pencak Silat
+                  </option>
                   <option value="Olahraga Lainnya">Olahraga Lainnya</option>
                 </select>
               </div>
@@ -44,40 +81,60 @@
               <label class="input-label">Durasi (Menit)</label>
               <div class="input-group">
                 <Icon name="ph:timer-duotone" class="input-icon" />
-                <input type="number" v-model="todayDuration" class="text-input" placeholder="Contoh: 30" min="30" />
+                <input
+                  type="number"
+                  v-model="todayDuration"
+                  class="text-input"
+                  placeholder="Contoh: 30"
+                  min="30"
+                />
               </div>
             </div>
           </div>
 
-          <div style="width: 100%; grid-column: 1 / -1; margin-top: 1rem;">
+          <div style="width: 100%; grid-column: 1 / -1; margin-top: 1rem">
             <button class="btn-primary" @click="saveToday" :disabled="isSaving">
-              <Icon :name="isSaving ? 'ph:spinner-gap-bold' : 'ph:check-circle-bold'" class="btn-icon" :class="{'spin-icon': isSaving}" />
-              {{ isSaving ? 'Menyimpan...' : 'Simpan Catatan' }}
+              <Icon
+                :name="
+                  isSaving ? 'ph:spinner-gap-bold' : 'ph:check-circle-bold'
+                "
+                class="btn-icon"
+                :class="{ 'spin-icon': isSaving }"
+              />
+              {{ isSaving ? "Menyimpan..." : "Simpan Catatan" }}
             </button>
           </div>
         </div>
-        
+
         <div class="today-success-section" v-else>
           <div class="success-badge good">
             <Icon name="ph:seal-check-fill" class="success-icon" />
             <div class="success-text">
-              <strong>Tersimpan!</strong> Anda telah mengisi kegiatan <span class="highlight-text">{{ todayData.activity }}</span> hari ini.
+              <strong>Tersimpan!</strong> Anda telah mengisi kegiatan
+              <span class="highlight-text">{{ todayData.activity }}</span> hari
+              ini.
             </div>
           </div>
         </div>
       </div>
       <div v-else class="today-action-area not-current-month">
         <Icon name="ph:calendar-duotone" class="calendar-icon-large" />
-        <p>Anda sedang melihat riwayat bulan <strong>{{ months[selectedMonth] }} {{ selectedYear }}</strong>.</p>
-        <button class="btn-outline" @click="goToCurrentMonth">Kembali ke Bulan Ini</button>
+        <p>
+          Anda sedang melihat riwayat bulan
+          <strong>{{ months[selectedMonth] }} {{ selectedYear }}</strong
+          >.
+        </p>
+        <button class="btn-outline" @click="goToCurrentMonth">
+          Kembali ke Bulan Ini
+        </button>
       </div>
     </div>
 
-    <LinearNavigation 
-      prevLink="/Orangtua/Ibadah" 
-      prevText="Sebelumnya (Ibadah)" 
-      nextLink="/Orangtua/MakanSehat" 
-      nextText="Lanjut ke Makan Sehat" 
+    <LinearNavigation
+      prevLink="/Orangtua/Ibadah"
+      prevText="Sebelumnya (Ibadah)"
+      nextLink="/Orangtua/MakanSehat"
+      nextText="Lanjut ke Makan Sehat"
     />
 
     <!-- History / Book View Section -->
@@ -90,30 +147,49 @@
           <h2 class="section-title">Riwayat {{ months[selectedMonth] }}</h2>
         </div>
         <div class="filter-group">
-          <select v-model="selectedMonth" class="modern-select" @change="generateDays">
-            <option v-for="(month, index) in months" :key="index" :value="index">{{ month }}</option>
+          <select
+            v-model="selectedMonth"
+            class="modern-select"
+            @change="generateDays"
+          >
+            <option
+              v-for="(month, index) in months"
+              :key="index"
+              :value="index"
+            >
+              {{ month }}
+            </option>
           </select>
-          <select v-model="selectedYear" class="modern-select" @change="generateDays">
-            <option v-for="year in years" :key="year" :value="year">{{ year }}</option>
+          <select
+            v-model="selectedYear"
+            class="modern-select"
+            @change="generateDays"
+          >
+            <option v-for="year in years" :key="year" :value="year">
+              {{ year }}
+            </option>
           </select>
         </div>
       </div>
 
       <!-- Modern List Layout for Days -->
       <div class="days-list">
-        <div v-for="day in days" :key="day.date" 
-             class="day-row" 
-             :class="{ 
-               'is-today': isToday(day.date), 
-               'is-filled': day.saved, 
-               'is-missed': isPastDate(day.date) && !day.saved,
-               'is-future': isFutureDate(day.date)
-             }">
+        <div
+          v-for="day in days"
+          :key="day.date"
+          class="day-row"
+          :class="{
+            'is-today': isToday(day.date),
+            'is-filled': day.saved,
+            'is-missed': isPastDate(day.date) && !day.saved,
+            'is-future': isFutureDate(day.date),
+          }"
+        >
           <div class="day-date-col">
             <span class="day-number">{{ day.date }}</span>
             <span class="day-label" v-if="isToday(day.date)">Hari Ini</span>
           </div>
-          
+
           <div class="day-activity-col">
             <template v-if="day.saved">
               <div class="activity-text">{{ day.activity }}</div>
@@ -142,242 +218,318 @@
               <Icon name="ph:x-circle" class="status-icon missed" />
             </template>
             <template v-else>
-              <Icon name="ph:lock-key" class="status-icon locked" title="Belum waktunya" />
+              <Icon
+                name="ph:lock-key"
+                class="status-icon locked"
+                title="Belum waktunya"
+              />
             </template>
           </div>
         </div>
       </div>
-
     </div>
   </div>
 </template>
 
 <script setup>
-import { ref, computed, onMounted } from 'vue'
+import { ref, computed, onMounted } from "vue";
 
 definePageMeta({
-  layout: 'orangtua'
-})
+  layout: "orangtua",
+});
 
 const months = [
-  'Januari', 'Februari', 'Maret', 'April', 'Mei', 'Juni',
-  'Juli', 'Agustus', 'September', 'Oktober', 'November', 'Desember'
-]
+  "Januari",
+  "Februari",
+  "Maret",
+  "April",
+  "Mei",
+  "Juni",
+  "Juli",
+  "Agustus",
+  "September",
+  "Oktober",
+  "November",
+  "Desember",
+];
 
-const supabase = useSupabase()
-const pesertaDidikId = ref(null)
-const kebiasaanId = ref(null)
+const supabase = useSupabase();
+const pesertaDidikId = ref(null);
+const kebiasaanId = ref(null);
 
-const currentActualDate = new Date()
-const selectedMonth = ref(currentActualDate.getMonth())
-const selectedYear = ref(currentActualDate.getFullYear())
+const currentActualDate = new Date();
+const selectedMonth = ref(currentActualDate.getMonth());
+const selectedYear = ref(currentActualDate.getFullYear());
 const years = computed(() => {
-  const current = new Date().getFullYear()
-  return [current - 1, current, current + 1]
-})
+  const current = new Date().getFullYear();
+  return [current - 1, current, current + 1];
+});
 
-const days = ref([])
-const todayActivityName = ref('')
-const todayDuration = ref('')
-const todayActivity = ref('')
-const isSaving = ref(false)
+const days = ref([]);
+const todayActivityName = ref("");
+const todayDuration = ref("");
+const todayActivity = ref("");
+const isSaving = ref(false);
 
 const isCurrentMonthView = computed(() => {
-  const today = new Date()
-  return selectedMonth.value === today.getMonth() && selectedYear.value === today.getFullYear()
-})
+  const today = new Date();
+  return (
+    selectedMonth.value === today.getMonth() &&
+    selectedYear.value === today.getFullYear()
+  );
+});
 
 const todayFormatted = computed(() => {
-  const options = { weekday: 'long', day: 'numeric', month: 'long', year: 'numeric' }
-  return new Date().toLocaleDateString('id-ID', options)
-})
+  const options = {
+    weekday: "long",
+    day: "numeric",
+    month: "long",
+    year: "numeric",
+  };
+  return new Date().toLocaleDateString("id-ID", options);
+});
 
 const todayData = computed(() => {
-  const today = new Date().getDate()
+  const today = new Date().getDate();
   if (isCurrentMonthView.value) {
-    const dayObj = days.value.find(d => d.date === today)
-    return dayObj || { saved: false, activity: '' }
+    const dayObj = days.value.find((d) => d.date === today);
+    return dayObj || { saved: false, activity: "" };
   }
-  return { saved: false, activity: '' }
-})
+  return { saved: false, activity: "" };
+});
 
 const generateDays = async () => {
-  if (!pesertaDidikId.value || !kebiasaanId.value) return
-  const daysInMonth = new Date(selectedYear.value, selectedMonth.value + 1, 0).getDate()
-  const startDate = `${selectedYear.value}-${String(selectedMonth.value + 1).padStart(2, '0')}-01`
-  const endDate = `${selectedYear.value}-${String(selectedMonth.value + 1).padStart(2, '0')}-${daysInMonth}`
+  if (!pesertaDidikId.value || !kebiasaanId.value) return;
+  const daysInMonth = new Date(
+    selectedYear.value,
+    selectedMonth.value + 1,
+    0,
+  ).getDate();
+  const startDate = `${selectedYear.value}-${String(selectedMonth.value + 1).padStart(2, "0")}-01`;
+  const endDate = `${selectedYear.value}-${String(selectedMonth.value + 1).padStart(2, "0")}-${daysInMonth}`;
 
-  const { data: listJurnalHarian } = await supabase.from('jurnal_harian').select('id, tanggal').eq('peserta_didik_id', pesertaDidikId.value).gte('tanggal', startDate).lte('tanggal', endDate)
-  
-  let listJurnalKebiasaan = []
+  const { data: listJurnalHarian } = await supabase
+    .from("jurnal_harian")
+    .select("id, tanggal")
+    .eq("peserta_didik_id", pesertaDidikId.value)
+    .gte("tanggal", startDate)
+    .lte("tanggal", endDate);
+
+  let listJurnalKebiasaan = [];
   if (listJurnalHarian && listJurnalHarian.length > 0) {
-    const harianIds = listJurnalHarian.map(jh => jh.id)
-    const { data: listJK } = await supabase.from('jurnal_kebiasaan').select('*').in('jurnal_harian_id', harianIds).eq('kebiasaan_id', kebiasaanId.value).eq('status', true)
-    if (listJK) listJurnalKebiasaan = listJK
+    const harianIds = listJurnalHarian.map((jh) => jh.id);
+    const { data: listJK } = await supabase
+      .from("jurnal_kebiasaan")
+      .select("*")
+      .in("jurnal_harian_id", harianIds)
+      .eq("kebiasaan_id", kebiasaanId.value)
+      .eq("status", true);
+    if (listJK) listJurnalKebiasaan = listJK;
   }
 
-  const newDays = []
+  const newDays = [];
   for (let i = 1; i <= daysInMonth; i++) {
-    const dateString = `${selectedYear.value}-${String(selectedMonth.value + 1).padStart(2, '0')}-${String(i).padStart(2, '0')}`
-    const harian = (listJurnalHarian || []).find(jh => jh.tanggal === dateString)
-    let saved = false
-    let activity = ''
-    
+    const dateString = `${selectedYear.value}-${String(selectedMonth.value + 1).padStart(2, "0")}-${String(i).padStart(2, "0")}`;
+    const harian = (listJurnalHarian || []).find(
+      (jh) => jh.tanggal === dateString,
+    );
+    let saved = false;
+    let activity = "";
+
     if (harian) {
-      const jk = listJurnalKebiasaan.find(k => k.jurnal_harian_id === harian.id)
+      const jk = listJurnalKebiasaan.find(
+        (k) => k.jurnal_harian_id === harian.id,
+      );
       if (jk) {
-        saved = true
+        saved = true;
         try {
-          const parsed = JSON.parse(jk.keterangan)
-          activity = parsed.keterangan || jk.keterangan
-        } catch(e) {
-          activity = jk.keterangan || ''
+          const parsed = JSON.parse(jk.keterangan);
+          activity = parsed.keterangan || jk.keterangan;
+        } catch (e) {
+          activity = jk.keterangan || "";
         }
       }
     }
-    
+
     newDays.push({
       date: i,
       activity: activity,
       saved: saved,
       harianId: harian ? harian.id : null,
-      jurnalKebiasaanId: saved ? listJurnalKebiasaan.find(k => k.jurnal_harian_id === harian?.id)?.id : null
-    })
+      jurnalKebiasaanId: saved
+        ? listJurnalKebiasaan.find((k) => k.jurnal_harian_id === harian?.id)?.id
+        : null,
+    });
   }
-  days.value = newDays
-}
+  days.value = newDays;
+};
 
 const getPesertaDidikId = async () => {
-  const { data: { user } } = await supabase.auth.getUser()
-  if (!user) return null
-  const userRole = user.user_metadata?.role || 'orangtua'
-  if (userRole === 'siswa') {
-    const { data: pdData } = await supabase.from('peserta_didik').select('id').eq('user_id', user.id).single()
-    return pdData ? pdData.id : null
+  const {
+    data: { user },
+  } = await supabase.auth.getUser();
+  if (!user) return null;
+  const userRole = user.user_metadata?.role || "orangtua";
+  if (userRole === "siswa") {
+    const { data: pdData } = await supabase
+      .from("peserta_didik")
+      .select("id")
+      .eq("user_id", user.id)
+      .single();
+    return pdData ? pdData.id : null;
   } else {
-    const { data: otData } = await supabase.from('orang_tua').select('id').eq('user_id', user.id).single()
+    const { data: otData } = await supabase
+      .from("orang_tua")
+      .select("id")
+      .eq("user_id", user.id)
+      .single();
     if (otData) {
-      const { data: pdData } = await supabase.from('peserta_didik').select('id').eq('orang_tua_id', otData.id).single()
-      return pdData ? pdData.id : null
+      const { data: pdData } = await supabase
+        .from("peserta_didik")
+        .select("id")
+        .eq("orang_tua_id", otData.id)
+        .single();
+      return pdData ? pdData.id : null;
     }
   }
-  return null
-}
+  return null;
+};
 
 onMounted(async () => {
-  pesertaDidikId.value = await getPesertaDidikId()
-  let { data: masterKebiasaan } = await supabase.from('kebiasaan').select('id').ilike('nama_kebiasaan', '%olahraga%').single()
+  pesertaDidikId.value = await getPesertaDidikId();
+  let { data: masterKebiasaan } = await supabase
+    .from("kebiasaan")
+    .select("id")
+    .ilike("nama_kebiasaan", "%olahraga%")
+    .single();
   if (!masterKebiasaan) {
-    const { data: newK } = await supabase.from('kebiasaan').insert({ nama_kebiasaan: 'Berolahraga' }).select('id').single()
-    if (newK) masterKebiasaan = newK
+    const { data: newK } = await supabase
+      .from("kebiasaan")
+      .insert({ nama_kebiasaan: "Berolahraga" })
+      .select("id")
+      .single();
+    if (newK) masterKebiasaan = newK;
   }
-  if (masterKebiasaan) kebiasaanId.value = masterKebiasaan.id
-  await generateDays()
-})
+  if (masterKebiasaan) kebiasaanId.value = masterKebiasaan.id;
+  await generateDays();
+});
 
-import { watch } from 'vue'
+import { watch } from "vue";
 watch([selectedMonth, selectedYear], () => {
-  generateDays()
-})
+  generateDays();
+});
 
 const isToday = (date) => {
-  const today = new Date()
-  return date === today.getDate() && 
-         selectedMonth.value === today.getMonth() && 
-         selectedYear.value === today.getFullYear()
-}
+  const today = new Date();
+  return (
+    date === today.getDate() &&
+    selectedMonth.value === today.getMonth() &&
+    selectedYear.value === today.getFullYear()
+  );
+};
 
 const isPastDate = (date) => {
-  const today = new Date()
-  const checkDate = new Date(selectedYear.value, selectedMonth.value, date)
-  today.setHours(0,0,0,0)
-  return checkDate < today
-}
+  const today = new Date();
+  const checkDate = new Date(selectedYear.value, selectedMonth.value, date);
+  today.setHours(0, 0, 0, 0);
+  return checkDate < today;
+};
 
 const isFutureDate = (date) => {
-  const today = new Date()
-  const checkDate = new Date(selectedYear.value, selectedMonth.value, date)
-  today.setHours(0,0,0,0)
-  return checkDate > today
-}
+  const today = new Date();
+  const checkDate = new Date(selectedYear.value, selectedMonth.value, date);
+  today.setHours(0, 0, 0, 0);
+  return checkDate > today;
+};
 
 const saveToday = async () => {
-  if (isSaving.value) return
+  if (isSaving.value) return;
   if (!todayActivityName.value.trim()) {
-    alert('Mohon isi jenis olahraga terlebih dahulu.')
-    return
+    alert("Mohon isi jenis olahraga terlebih dahulu.");
+    return;
   }
   if (!todayDuration.value || parseInt(todayDuration.value) < 30) {
-    alert('Mohon isi durasi olahraga (minimal 30 menit).')
-    return
+    alert("Mohon isi durasi olahraga (minimal 30 menit).");
+    return;
   }
 
-  todayActivity.value = `${todayActivityName.value} (${todayDuration.value} Menit)`
-  if (!pesertaDidikId.value || !kebiasaanId.value) return
+  todayActivity.value = `${todayActivityName.value} (${todayDuration.value} Menit)`;
+  if (!pesertaDidikId.value || !kebiasaanId.value) return;
 
-  const today = new Date().getDate()
-  const dateString = `${selectedYear.value}-${String(selectedMonth.value + 1).padStart(2, '0')}-${String(today).padStart(2, '0')}`
-  let dayObj = days.value.find(d => d.date === today)
-  if (!dayObj) return
-  
+  const today = new Date().getDate();
+  const dateString = `${selectedYear.value}-${String(selectedMonth.value + 1).padStart(2, "0")}-${String(today).padStart(2, "0")}`;
+  let dayObj = days.value.find((d) => d.date === today);
+  if (!dayObj) return;
+
   try {
-    let harianId = dayObj.harianId
+    let harianId = dayObj.harianId;
     if (!harianId) {
-      const { data: newHarian, error } = await supabase.from('jurnal_harian').insert({
-        peserta_didik_id: pesertaDidikId.value,
-        tanggal: dateString
-      }).select('id').single()
-      if (error) throw error
-      harianId = newHarian.id
-      dayObj.harianId = harianId
+      const { data: newHarian, error } = await supabase
+        .from("jurnal_harian")
+        .insert({
+          peserta_didik_id: pesertaDidikId.value,
+          tanggal: dateString,
+        })
+        .select("id")
+        .single();
+      if (error) throw error;
+      harianId = newHarian.id;
+      dayObj.harianId = harianId;
     }
 
-    isSaving.value = true
+    isSaving.value = true;
 
     const jsonKeterangan = JSON.stringify({
-      keterangan: todayActivity.value
-    })
+      keterangan: todayActivity.value,
+    });
 
     if (dayObj.jurnalKebiasaanId) {
-      await supabase.from('jurnal_kebiasaan').update({
-        status: true,
-        keterangan: jsonKeterangan
-      }).eq('id', dayObj.jurnalKebiasaanId)
+      await supabase
+        .from("jurnal_kebiasaan")
+        .update({
+          status: true,
+          keterangan: jsonKeterangan,
+        })
+        .eq("id", dayObj.jurnalKebiasaanId);
     } else {
-      const { data: newJk, error } = await supabase.from('jurnal_kebiasaan').insert({
-        jurnal_harian_id: harianId,
-        kebiasaan_id: kebiasaanId.value,
-        status: true,
-        keterangan: jsonKeterangan
-      }).select('id').single()
-      if (error) throw error
-      if (newJk) dayObj.jurnalKebiasaanId = newJk.id
+      const { data: newJk, error } = await supabase
+        .from("jurnal_kebiasaan")
+        .insert({
+          jurnal_harian_id: harianId,
+          kebiasaan_id: kebiasaanId.value,
+          status: true,
+          keterangan: jsonKeterangan,
+        })
+        .select("id")
+        .single();
+      if (error) throw error;
+      if (newJk) dayObj.jurnalKebiasaanId = newJk.id;
     }
-    
-    dayObj.activity = todayActivity.value
-    dayObj.saved = true
-    alert('Data Berolahraga berhasil disimpan!')
-    await generateDays()
+
+    dayObj.activity = todayActivity.value;
+    dayObj.saved = true;
+    alert("Data Berolahraga berhasil disimpan!");
+    await generateDays();
   } catch (err) {
-    console.error(err)
-    alert(err.message || 'Gagal menyimpan data')
+    console.error(err);
+    alert(err.message || "Gagal menyimpan data");
   } finally {
-    isSaving.value = false
+    isSaving.value = false;
   }
-}
+};
 
 const goToCurrentMonth = () => {
-  selectedMonth.value = new Date().getMonth()
-  selectedYear.value = new Date().getFullYear()
-  generateDays()
-}
+  selectedMonth.value = new Date().getMonth();
+  selectedYear.value = new Date().getFullYear();
+  generateDays();
+};
 </script>
 
 <style scoped>
-@import url('https://fonts.googleapis.com/css2?family=Nunito:wght@400;500;600;700;800;900&display=swap');
+@import url("https://fonts.googleapis.com/css2?family=Nunito:wght@400;500;600;700;800;900&display=swap");
 
 .page-container {
-  font-family: 'Nunito', sans-serif;
+  font-family: "Nunito", sans-serif;
   max-width: 1100px;
   margin: 0 auto;
   padding: 1.5rem 0 4rem 0;
@@ -402,11 +554,17 @@ const goToCurrentMonth = () => {
 }
 
 .hero-card.sports-theme::before {
-  content: '';
+  content: "";
   position: absolute;
-  top: 0; right: 0;
-  width: 300px; height: 300px;
-  background: radial-gradient(circle, rgba(16, 185, 129, 0.1) 0%, rgba(255,255,255,0) 70%);
+  top: 0;
+  right: 0;
+  width: 300px;
+  height: 300px;
+  background: radial-gradient(
+    circle,
+    rgba(16, 185, 129, 0.1) 0%,
+    rgba(255, 255, 255, 0) 70%
+  );
   border-radius: 50%;
   transform: translate(30%, -30%);
 }
@@ -640,7 +798,7 @@ const goToCurrentMonth = () => {
   padding: 0.2rem 0.6rem;
   border-radius: 8px;
   margin: 0 0.2rem;
-  box-shadow: 0 2px 4px rgba(0,0,0,0.05);
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
 }
 
 .photo-badge {
@@ -693,7 +851,7 @@ const goToCurrentMonth = () => {
   background: white;
   padding: 1.5rem 2rem;
   border-radius: 20px;
-  box-shadow: 0 10px 30px -10px rgba(0,0,0,0.05);
+  box-shadow: 0 10px 30px -10px rgba(0, 0, 0, 0.05);
 }
 
 .header-left {
@@ -774,13 +932,13 @@ const goToCurrentMonth = () => {
   border-radius: 16px;
   padding: 1.2rem 1.5rem;
   border: 1px solid #e2e8f0;
-  box-shadow: 0 4px 6px -1px rgba(0,0,0,0.02);
+  box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.02);
   transition: all 0.2s ease;
 }
 
 .day-row:hover {
   transform: translateX(4px);
-  box-shadow: 0 10px 15px -3px rgba(0,0,0,0.05);
+  box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.05);
   border-color: #cbd5e1;
 }
 
@@ -835,9 +993,19 @@ const goToCurrentMonth = () => {
   font-weight: 800;
 }
 
-.empty-text { color: #b45309; font-weight: 600; font-style: italic;}
-.missed-text { color: #b91c1c; font-weight: 600; }
-.locked-text { color: #94a3b8; font-weight: 600; }
+.empty-text {
+  color: #b45309;
+  font-weight: 600;
+  font-style: italic;
+}
+.missed-text {
+  color: #b91c1c;
+  font-weight: 600;
+}
+.locked-text {
+  color: #94a3b8;
+  font-weight: 600;
+}
 
 .day-status-col {
   width: 150px;
@@ -856,55 +1024,75 @@ const goToCurrentMonth = () => {
   border-radius: 12px;
 }
 
-.status-paraf.good { background: #ecfdf5; color: #10b981; }
+.status-paraf.good {
+  background: #ecfdf5;
+  color: #10b981;
+}
 
-.status-icon { font-size: 1.8rem; }
-.status-icon.waiting { color: #f59e0b; }
-.status-icon.missed { color: #ef4444; }
-.status-icon.locked { color: #cbd5e1; }
+.status-icon {
+  font-size: 1.8rem;
+}
+.status-icon.waiting {
+  color: #f59e0b;
+}
+.status-icon.missed {
+  color: #ef4444;
+}
+.status-icon.locked {
+  color: #cbd5e1;
+}
 
 /* Day Row Variants */
 .day-row.is-today {
   border: 2px solid #f59e0b;
   background: #fffbeb;
 }
-.day-row.is-filled { border-left: 6px solid #10b981; }
-.day-row.is-missed { background: #fef2f2; border-color: #fecaca; opacity: 0.9;}
-.day-row.is-future { opacity: 0.6; background: #f8fafc; }
+.day-row.is-filled {
+  border-left: 6px solid #10b981;
+}
+.day-row.is-missed {
+  background: #fef2f2;
+  border-color: #fecaca;
+  opacity: 0.9;
+}
+.day-row.is-future {
+  opacity: 0.6;
+  background: #f8fafc;
+}
 
 @media (max-width: 768px) {
   .hero-card {
     padding: 2rem 1.5rem;
   }
-  
+
   .hero-content {
     flex-direction: column;
     text-align: center;
   }
-  
+
   .hero-title {
     font-size: 2.2rem;
   }
-  
+
   .form-grid {
     grid-template-columns: 1fr;
   }
-  
+
   .section-header {
     flex-direction: column;
     align-items: stretch;
   }
-  
+
   .filter-group {
     flex-direction: column;
   }
-  
+
   .day-row {
     flex-direction: column;
     align-items: stretch;
     gap: 1rem;
   }
-  
+
   .day-status-col {
     width: 100%;
     justify-content: flex-start;

@@ -12,17 +12,33 @@
 
     <!-- Content Layout -->
     <div class="profile-content">
-      
       <!-- Main Card: Profil Orang Tua & Data Siswa -->
       <div class="card main-card">
         <div class="card-cover"></div>
         <div class="card-body">
           <div class="card-profile-header">
             <div class="avatar-wrapper">
-              <div class="avatar-circle">{{ parentForm.namaLengkap ? parentForm.namaLengkap.charAt(0).toUpperCase() : '-' }}</div>
+              <div class="avatar-circle">
+                {{
+                  parentForm.namaLengkap
+                    ? parentForm.namaLengkap.charAt(0).toUpperCase()
+                    : "-"
+                }}
+              </div>
             </div>
-            <button class="settings-btn" :title="isEditing ? 'Simpan Profil' : 'Edit Profil'" @click="toggleEdit" :class="{ 'active': isEditing }">
-              <Icon :name="isEditing ? 'ph:floppy-disk-duotone' : 'ph:pencil-simple-duotone'" />
+            <button
+              class="settings-btn"
+              :title="isEditing ? 'Simpan Profil' : 'Edit Profil'"
+              @click="toggleEdit"
+              :class="{ active: isEditing }"
+            >
+              <Icon
+                :name="
+                  isEditing
+                    ? 'ph:floppy-disk-duotone'
+                    : 'ph:pencil-simple-duotone'
+                "
+              />
             </button>
           </div>
 
@@ -30,45 +46,83 @@
           <div class="form-grid">
             <div class="form-group">
               <label>Nama Lengkap Orang Tua</label>
-              <input type="text" class="form-input" v-model="parentForm.namaLengkap" readonly />
+              <input
+                type="text"
+                class="form-input"
+                v-model="parentForm.namaLengkap"
+                readonly
+              />
             </div>
             <div class="form-group">
               <label>Email</label>
-              <input type="text" class="form-input" v-model="parentForm.email" readonly />
+              <input
+                type="text"
+                class="form-input"
+                v-model="parentForm.email"
+                readonly
+              />
             </div>
             <div class="form-group">
               <label>No. Hp</label>
-              <input type="text" class="form-input" v-model="parentForm.noHp" :readonly="!isEditing" />
+              <input
+                type="text"
+                class="form-input"
+                v-model="parentForm.noHp"
+                :readonly="!isEditing"
+              />
             </div>
           </div>
 
           <hr class="section-divider" />
-          
+
           <h3 class="section-subtitle">Data Siswa</h3>
           <div class="form-grid">
             <div class="form-group">
               <label>Nama Lengkap Siswa</label>
-              <input type="text" class="form-input" v-model="parentForm.namaSiswa" readonly />
+              <input
+                type="text"
+                class="form-input"
+                v-model="parentForm.namaSiswa"
+                readonly
+              />
             </div>
             <div class="form-group">
               <label>Tempat Lahir</label>
-              <input type="text" class="form-input" v-model="parentForm.tempatLahir" :readonly="!isEditing" />
+              <input
+                type="text"
+                class="form-input"
+                v-model="parentForm.tempatLahir"
+                :readonly="!isEditing"
+              />
             </div>
             <div class="form-group">
               <label>Tanggal Lahir</label>
-              <input type="date" class="form-input" v-model="parentForm.tanggalLahir" :readonly="!isEditing" />
+              <input
+                type="date"
+                class="form-input"
+                v-model="parentForm.tanggalLahir"
+                :readonly="!isEditing"
+              />
             </div>
-            
+
             <div class="form-group">
               <label>Jenis Kelamin</label>
-              <select class="form-input" v-model="parentForm.jenisKelamin" :disabled="!isEditing">
+              <select
+                class="form-input"
+                v-model="parentForm.jenisKelamin"
+                :disabled="!isEditing"
+              >
                 <option value="Laki-laki">Laki-laki</option>
                 <option value="Perempuan">Perempuan</option>
               </select>
             </div>
             <div class="form-group">
               <label>Agama</label>
-              <select class="form-input" v-model="parentForm.agama" :disabled="!isEditing">
+              <select
+                class="form-input"
+                v-model="parentForm.agama"
+                :disabled="!isEditing"
+              >
                 <option value="Islam">Islam</option>
                 <option value="Kristen Protestan">Kristen Protestan</option>
                 <option value="Katolik">Katolik</option>
@@ -80,26 +134,49 @@
 
             <div class="form-group">
               <label>Kelas</label>
-              <select class="form-input" v-model="parentForm.kelas" :disabled="!isEditing">
+              <select
+                class="form-input"
+                v-model="parentForm.kelas"
+                :disabled="!isEditing"
+              >
                 <option value="">-- Pilih Kelas --</option>
-                <option v-for="k in daftarKelas" :key="k.id" :value="k.nama_kelas">
+                <option
+                  v-for="k in daftarKelas"
+                  :key="k.id"
+                  :value="k.nama_kelas"
+                >
                   {{ k.nama_kelas }}
                 </option>
               </select>
             </div>
-            
+
             <div class="form-group">
               <label>NIS (Nomor Induk Siswa)</label>
-              <input type="text" class="form-input" v-model="parentForm.nis" :readonly="!isEditing" />
+              <input
+                type="text"
+                class="form-input"
+                v-model="parentForm.nis"
+                :readonly="!isEditing"
+              />
             </div>
             <div class="form-group">
               <label>No. Absen</label>
-              <input type="text" class="form-input" v-model="parentForm.noAbsen" :readonly="!isEditing" />
+              <input
+                type="text"
+                class="form-input"
+                v-model="parentForm.noAbsen"
+                :readonly="!isEditing"
+              />
             </div>
 
             <div class="form-group full-width">
               <label>Alamat Siswa</label>
-              <input type="text" class="form-input" v-model="parentForm.alamat" :readonly="!isEditing" />
+              <input
+                type="text"
+                class="form-input"
+                v-model="parentForm.alamat"
+                :readonly="!isEditing"
+              />
             </div>
           </div>
         </div>
@@ -111,301 +188,351 @@
         <div class="form-col">
           <div class="form-group">
             <label>Username</label>
-            <input type="text" class="form-input" v-model="studentForm.username" :readonly="!isEditing" />
+            <input
+              type="text"
+              class="form-input"
+              v-model="studentForm.username"
+              :readonly="!isEditing"
+            />
           </div>
           <div class="form-group">
             <label>Password</label>
             <div class="password-wrapper">
-              <input :type="showStudentPassword ? 'text' : 'password'" class="form-input password-input" v-model="studentForm.password" :readonly="!isEditing" />
-              <button type="button" class="toggle-password-btn" @click="showStudentPassword = !showStudentPassword" title="Tampilkan Password">
+              <input
+                :type="showStudentPassword ? 'text' : 'password'"
+                class="form-input password-input"
+                v-model="studentForm.password"
+                :readonly="!isEditing"
+              />
+              <button
+                type="button"
+                class="toggle-password-btn"
+                @click="showStudentPassword = !showStudentPassword"
+                title="Tampilkan Password"
+              >
                 <Icon :name="showStudentPassword ? 'ph:eye-slash' : 'ph:eye'" />
               </button>
             </div>
           </div>
         </div>
       </div>
-
     </div>
   </div>
 </template>
 
 <script setup>
-import { ref, onMounted } from 'vue'
-import Swal from 'sweetalert2'
+import { ref, onMounted } from "vue";
+import Swal from "sweetalert2";
 
 definePageMeta({
-  layout: 'orangtua'
-})
+  layout: "orangtua",
+});
 
-const supabase = useSupabase()
-const isEditing = ref(false)
-const showStudentPassword = ref(false)
-const isLoading = ref(true)
+const supabase = useSupabase();
+const isEditing = ref(false);
+const showStudentPassword = ref(false);
+const isLoading = ref(true);
 
-const sessionCookie = useCookie('user_session')
+const sessionCookie = useCookie("user_session");
 
 // Data Session
-const currentUser = ref(null)
-const orangTuaId = ref(null)
-const pesertaDidikId = ref(null)
+const currentUser = ref(null);
+const orangTuaId = ref(null);
+const pesertaDidikId = ref(null);
 
 // Data Referensi
-const daftarKelas = ref([])
+const daftarKelas = ref([]);
 
 const parentForm = ref({
-  namaLengkap: '',
-  tempatLahir: '',
-  tanggalLahir: '',
-  namaSiswa: '',
-  alamat: '',
-  noAbsen: '',
-  nis: '',
-  noHp: '',
-  kelas: '',
-  email: '',
-  jenisKelamin: '',
-  agama: 'Islam'
-})
+  namaLengkap: "",
+  tempatLahir: "",
+  tanggalLahir: "",
+  namaSiswa: "",
+  alamat: "",
+  noAbsen: "",
+  nis: "",
+  noHp: "",
+  kelas: "",
+  email: "",
+  jenisKelamin: "",
+  agama: "Islam",
+});
 
 const studentForm = ref({
-  username: '',
-  password: ''
-})
+  username: "",
+  password: "",
+});
 
 const fetchProfileData = async () => {
-  isLoading.value = true
+  isLoading.value = true;
   try {
-    // Ambil daftar kelas dari database
-    const { data: listKelas } = await supabase.from('kelas').select('*')
-    if (listKelas) daftarKelas.value = listKelas
+    const { data: listKelas } = await supabase.from("kelas").select("*");
+    if (listKelas) daftarKelas.value = listKelas;
 
-    const { data: { user } } = await supabase.auth.getUser()
-    if (!user) return
-    currentUser.value = user
-    parentForm.value.email = user.email
+    const {
+      data: { user },
+    } = await supabase.auth.getUser();
+    if (!user) return;
+    currentUser.value = user;
+    parentForm.value.email = user.email;
 
     // Load akun siswa dan profil dari metadata parent (hasil dari Daftar.vue)
-    const meta = user.user_metadata || {}
+    const meta = user.user_metadata || {};
     if (meta.student_username) {
-      studentForm.value.username = meta.student_username
-      studentForm.value.password = meta.student_password
+      studentForm.value.username = meta.student_username;
+      studentForm.value.password = meta.student_password;
     }
     if (meta.name) {
-      parentForm.value.namaLengkap = meta.name
+      parentForm.value.namaLengkap = meta.name;
     }
     if (meta.child_name) {
-      parentForm.value.namaSiswa = meta.child_name
+      parentForm.value.namaSiswa = meta.child_name;
     }
 
-    // 1. Ambil data orang_tua
     const { data: orangTuaData, error: otError } = await supabase
-      .from('orang_tua')
-      .select('*')
-      .eq('user_id', user.id)
-      .single()
+      .from("orang_tua")
+      .select("*")
+      .eq("user_id", user.id)
+      .single();
 
     if (orangTuaData) {
-      orangTuaId.value = orangTuaData.id
+      orangTuaId.value = orangTuaData.id;
       // Prioritaskan nama dari database, jika tidak ada gunakan yang dari metadata
-      parentForm.value.namaLengkap = orangTuaData.nama || parentForm.value.namaLengkap
-      parentForm.value.noHp = orangTuaData.no_hp || ''
+      parentForm.value.namaLengkap =
+        orangTuaData.nama || parentForm.value.namaLengkap;
+      parentForm.value.noHp = orangTuaData.no_hp || "";
     }
 
-    // 2. Ambil data peserta_didik yang berelasi dengan orang_tua ini
     if (orangTuaId.value) {
       const { data: pdData, error: pdError } = await supabase
-        .from('peserta_didik')
-        .select('*')
-        .eq('orang_tua_id', orangTuaId.value)
-        .single()
+        .from("peserta_didik")
+        .select("*")
+        .eq("orang_tua_id", orangTuaId.value)
+        .single();
 
       if (pdData) {
-        pesertaDidikId.value = pdData.id
+        pesertaDidikId.value = pdData.id;
         // Prioritaskan nama dari database, jika tidak ada gunakan yang dari metadata
-        parentForm.value.namaSiswa = pdData.nama || parentForm.value.namaSiswa
-        parentForm.value.noAbsen = pdData.no_absen || ''
-        parentForm.value.nis = pdData.nis || ''
-        parentForm.value.agama = pdData.agama || 'Islam'
-        parentForm.value.tempatLahir = pdData.tempat_lahir || ''
-        parentForm.value.tanggalLahir = pdData.tanggal_lahir || ''
-        parentForm.value.alamat = pdData.alamat || ''
-        parentForm.value.jenisKelamin = pdData.jenis_kelamin || ''
-        
-        // Ambil nama kelas jika ada
+        parentForm.value.namaSiswa = pdData.nama || parentForm.value.namaSiswa;
+        parentForm.value.noAbsen = pdData.no_absen || "";
+        parentForm.value.nis = pdData.nis || "";
+        parentForm.value.agama = pdData.agama || "Islam";
+        parentForm.value.tempatLahir = pdData.tempat_lahir || "";
+        parentForm.value.tanggalLahir = pdData.tanggal_lahir || "";
+        parentForm.value.alamat = pdData.alamat || "";
+        parentForm.value.jenisKelamin = pdData.jenis_kelamin || "";
+
         if (pdData.kelas_id) {
-          const { data: kelasData } = await supabase.from('kelas').select('nama_kelas').eq('id', pdData.kelas_id).single()
-          if (kelasData) parentForm.value.kelas = kelasData.nama_kelas
+          const { data: kelasData } = await supabase
+            .from("kelas")
+            .select("nama_kelas")
+            .eq("id", pdData.kelas_id)
+            .single();
+          if (kelasData) parentForm.value.kelas = kelasData.nama_kelas;
         }
 
-        // Jika tidak ada dari tabel, gunakan dari metadata parent yang kita muat di atas
         if (pdData.user_id) {
-          const { data: userData } = await supabase.from('users').select('email, password').eq('id', pdData.user_id).single()
+          const { data: userData } = await supabase
+            .from("users")
+            .select("email, password")
+            .eq("id", pdData.user_id)
+            .single();
           if (userData && userData.email) {
             // override jika di database ada
-            studentForm.value.username = userData.email.replace('@siswa.com', '') 
-            studentForm.value.password = userData.password || studentForm.value.password
+            studentForm.value.username = userData.email.replace(
+              "@siswa.com",
+              "",
+            );
+            studentForm.value.password =
+              userData.password || studentForm.value.password;
           }
         }
       }
     }
   } catch (error) {
-    console.error('Error fetching profile:', error)
+    console.error("Error fetching profile:", error);
   } finally {
-    isLoading.value = false
+    isLoading.value = false;
   }
-}
+};
 
 const toggleEdit = async () => {
   if (isEditing.value) {
     // Mode Simpan
-    await simpanProfil()
+    await simpanProfil();
   } else {
     // Beralih ke mode edit
-    isEditing.value = true
+    isEditing.value = true;
   }
-}
+};
 
 const simpanProfil = async () => {
-  if (!currentUser.value) return
-  
+  if (!currentUser.value) return;
+
   try {
     Swal.fire({
-      title: 'Menyimpan...',
-      text: 'Mohon tunggu sebentar',
+      title: "Menyimpan...",
+      text: "Mohon tunggu sebentar",
       allowOutsideClick: false,
-      didOpen: () => Swal.showLoading()
-    })
+      didOpen: () => Swal.showLoading(),
+    });
 
-    // 0. Pastikan Parent ada di tabel public.users untuk memenuhi foreign key "orang_tua_user_id_fkey"
-    const { error: pUserErr } = await supabase.from('users').upsert({
-      id: currentUser.value.id,
-      email: currentUser.value.email,
-      password: 'password_terenkripsi_di_auth', // Placeholder karena auth asli ada di auth.users
-      role: 'orang_tua' // Sesuai dengan tipe data enum role yang mungkin ada
-    }, { onConflict: 'id' })
-    
-    if (pUserErr && !pUserErr.message.includes('duplicate key')) {
-      // Jika error enum, coba fallback role 'orangtua'
-      await supabase.from('users').upsert({
+    const { error: pUserErr } = await supabase.from("users").upsert(
+      {
         id: currentUser.value.id,
         email: currentUser.value.email,
-        password: 'password_terenkripsi_di_auth',
-        role: 'orangtua'
-      }, { onConflict: 'id' })
+        password: "password_terenkripsi_di_auth", // Placeholder karena auth asli ada di auth.users
+        role: "orang_tua", // Sesuai dengan tipe data enum role yang mungkin ada
+      },
+      { onConflict: "id" },
+    );
+
+    if (pUserErr && !pUserErr.message.includes("duplicate key")) {
+      await supabase.from("users").upsert(
+        {
+          id: currentUser.value.id,
+          email: currentUser.value.email,
+          password: "password_terenkripsi_di_auth",
+          role: "orangtua",
+        },
+        { onConflict: "id" },
+      );
     }
 
-    // 1. Simpan Data Orang Tua
     const payloadOrangTua = {
       user_id: currentUser.value.id,
       nama: parentForm.value.namaLengkap,
-      no_hp: parentForm.value.noHp
-    }
+      no_hp: parentForm.value.noHp,
+    };
 
-    let savedOrangTuaId = orangTuaId.value
+    let savedOrangTuaId = orangTuaId.value;
 
     if (savedOrangTuaId) {
-      const { error: otErr } = await supabase.from('orang_tua').update(payloadOrangTua).eq('id', savedOrangTuaId)
-      if (otErr) throw new Error('Gagal update orang tua: ' + otErr.message)
+      const { error: otErr } = await supabase
+        .from("orang_tua")
+        .update(payloadOrangTua)
+        .eq("id", savedOrangTuaId);
+      if (otErr) throw new Error("Gagal update orang tua: " + otErr.message);
     } else {
-      const { data: newOt, error: otErr } = await supabase.from('orang_tua').insert(payloadOrangTua).select().single()
-      if (otErr) throw new Error('Gagal simpan orang tua: ' + otErr.message)
-      if (newOt) savedOrangTuaId = newOt.id
+      const { data: newOt, error: otErr } = await supabase
+        .from("orang_tua")
+        .insert(payloadOrangTua)
+        .select()
+        .single();
+      if (otErr) throw new Error("Gagal simpan orang tua: " + otErr.message);
+      if (newOt) savedOrangTuaId = newOt.id;
     }
-    orangTuaId.value = savedOrangTuaId
+    orangTuaId.value = savedOrangTuaId;
 
-    // 2. Simpan Data Siswa
     if (savedOrangTuaId && parentForm.value.namaSiswa) {
-      let kelasId = null
+      let kelasId = null;
       if (parentForm.value.kelas) {
-        const { data: kData } = await supabase.from('kelas').select('id').eq('nama_kelas', parentForm.value.kelas).single()
-        if (kData) kelasId = kData.id
+        const { data: kData } = await supabase
+          .from("kelas")
+          .select("id")
+          .eq("nama_kelas", parentForm.value.kelas)
+          .single();
+        if (kData) kelasId = kData.id;
       }
 
-      let studentUserId = null
-      // Pastikan kolom email di public.users menyimpan USERNAME murni agar bisa dicari saat login
-      const studentUsername = studentForm.value.username || parentForm.value.namaSiswa.toLowerCase().replace(/\s+/g, '')
-      const studentPassword = studentForm.value.password || '123456'
+      let studentUserId = null;
+      const studentUsername =
+        studentForm.value.username ||
+        parentForm.value.namaSiswa.toLowerCase().replace(/\s+/g, "");
+      const studentPassword = studentForm.value.password || "123456";
 
       if (pesertaDidikId.value) {
-        // Update peserta didik
-        const { error: pdErr } = await supabase.from('peserta_didik').update({
-          nama: parentForm.value.namaSiswa,
-          no_absen: parentForm.value.noAbsen,
-          nis: parentForm.value.nis,
-          agama: parentForm.value.agama,
-          kelas_id: kelasId,
-          tempat_lahir: parentForm.value.tempatLahir,
-          tanggal_lahir: parentForm.value.tanggalLahir || null,
-          alamat: parentForm.value.alamat,
-          jenis_kelamin: parentForm.value.jenisKelamin
-        }).eq('id', pesertaDidikId.value)
-        if (pdErr) throw new Error('Gagal update peserta didik: ' + pdErr.message)
+        const { error: pdErr } = await supabase
+          .from("peserta_didik")
+          .update({
+            nama: parentForm.value.namaSiswa,
+            no_absen: parentForm.value.noAbsen,
+            nis: parentForm.value.nis,
+            agama: parentForm.value.agama,
+            kelas_id: kelasId,
+            tempat_lahir: parentForm.value.tempatLahir,
+            tanggal_lahir: parentForm.value.tanggalLahir || null,
+            alamat: parentForm.value.alamat,
+            jenis_kelamin: parentForm.value.jenisKelamin,
+          })
+          .eq("id", pesertaDidikId.value);
+        if (pdErr)
+          throw new Error("Gagal update peserta didik: " + pdErr.message);
       } else {
-        // Insert public user khusus untuk siswa dengan menyimpan username di kolom email
-        const { data: newUser, error: userErr } = await supabase.from('users').upsert({
-          email: studentUsername, // Kita simpan username di kolom email public.users
-          password: studentPassword,
-          role: 'siswa'
-        }, { onConflict: 'email' }).select().single()
-        
-        if (userErr) throw new Error('Gagal buat baris akun siswa: ' + userErr.message)
-        if (newUser) studentUserId = newUser.id
+        const { data: newUser, error: userErr } = await supabase
+          .from("users")
+          .upsert(
+            {
+              email: studentUsername, // Kita simpan username di kolom email public.users
+              password: studentPassword,
+              role: "siswa",
+            },
+            { onConflict: "email" },
+          )
+          .select()
+          .single();
 
-        // Insert peserta didik
-        const { data: newPd, error: newPdErr } = await supabase.from('peserta_didik').insert({
-          user_id: studentUserId,
-          orang_tua_id: savedOrangTuaId,
-          kelas_id: kelasId,
-          nama: parentForm.value.namaSiswa,
-          agama: parentForm.value.agama,
-          no_absen: parentForm.value.noAbsen,
-          nis: parentForm.value.nis,
-          tempat_lahir: parentForm.value.tempatLahir,
-          tanggal_lahir: parentForm.value.tanggalLahir || null,
-          alamat: parentForm.value.alamat,
-          jenis_kelamin: parentForm.value.jenisKelamin
-        }).select().single()
-        
-        if (newPdErr) throw new Error('Gagal simpan peserta didik: ' + newPdErr.message)
-        if (newPd) pesertaDidikId.value = newPd.id
+        if (userErr)
+          throw new Error("Gagal buat baris akun siswa: " + userErr.message);
+        if (newUser) studentUserId = newUser.id;
+
+        const { data: newPd, error: newPdErr } = await supabase
+          .from("peserta_didik")
+          .insert({
+            user_id: studentUserId,
+            orang_tua_id: savedOrangTuaId,
+            kelas_id: kelasId,
+            nama: parentForm.value.namaSiswa,
+            agama: parentForm.value.agama,
+            no_absen: parentForm.value.noAbsen,
+            nis: parentForm.value.nis,
+            tempat_lahir: parentForm.value.tempatLahir,
+            tanggal_lahir: parentForm.value.tanggalLahir || null,
+            alamat: parentForm.value.alamat,
+            jenis_kelamin: parentForm.value.jenisKelamin,
+          })
+          .select()
+          .single();
+
+        if (newPdErr)
+          throw new Error("Gagal simpan peserta didik: " + newPdErr.message);
+        if (newPd) pesertaDidikId.value = newPd.id;
       }
     }
 
     Swal.fire({
-      icon: 'success',
-      title: 'Berhasil',
-      text: 'Profil dan Akun Siswa berhasil disimpan!',
-      confirmButtonColor: '#4f46e5'
-    })
-    
-    // Pastikan session lokal langsung ter-update agar rute Ibadah langsung berubah tanpa perlu logout
-    if (sessionCookie.value) {
-      sessionCookie.value.agama = parentForm.value.agama
-    }
-    
-    isEditing.value = false
-    await fetchProfileData() 
+      icon: "success",
+      title: "Berhasil",
+      text: "Profil dan Akun Siswa berhasil disimpan!",
+      confirmButtonColor: "#4f46e5",
+    });
 
+    if (sessionCookie.value) {
+      sessionCookie.value.agama = parentForm.value.agama;
+    }
+
+    isEditing.value = false;
+    await fetchProfileData();
   } catch (err) {
-    console.error('Error saving profile:', err)
+    console.error("Error saving profile:", err);
     Swal.fire({
-      icon: 'error',
-      title: 'Gagal Menyimpan',
-      text: err.message || 'Terjadi kesalahan saat menyimpan ke database.',
-    })
+      icon: "error",
+      title: "Gagal Menyimpan",
+      text: err.message || "Terjadi kesalahan saat menyimpan ke database.",
+    });
   }
-}
+};
 
 onMounted(() => {
-  fetchProfileData()
-})
+  fetchProfileData();
+});
 </script>
 
 <style scoped>
-@import url('https://fonts.googleapis.com/css2?family=Nunito:wght@400;500;600;700;800&display=swap');
+@import url("https://fonts.googleapis.com/css2?family=Nunito:wght@400;500;600;700;800&display=swap");
 
 .profile-container {
-  font-family: 'Nunito', sans-serif;
+  font-family: "Nunito", sans-serif;
   max-width: 1100px;
   margin: 0 auto;
   padding: 1.5rem 0 4rem 0;
@@ -513,7 +640,7 @@ onMounted(() => {
   font-size: 2.5rem;
   font-weight: 800;
   border: 6px solid #ffffff;
-  box-shadow: 0 4px 6px -1px rgba(0,0,0,0.05);
+  box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.05);
 }
 
 .settings-btn {
@@ -529,7 +656,7 @@ onMounted(() => {
   display: flex;
   align-items: center;
   justify-content: center;
-  box-shadow: 0 4px 6px -1px rgba(0,0,0,0.05);
+  box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.05);
   margin-bottom: 30px; /* Aligns with the middle of the avatar roughly */
 }
 
@@ -654,7 +781,7 @@ select.form-input[disabled] {
 }
 
 .side-card-title::before {
-  content: '';
+  content: "";
   display: block;
   width: 4px;
   height: 24px;
@@ -702,17 +829,18 @@ select.form-input[disabled] {
   .form-grid {
     grid-template-columns: 1fr;
   }
-  
-  .card-body, .side-card {
+
+  .card-body,
+  .side-card {
     padding: 1.5rem;
   }
-  
+
   .avatar-circle {
     width: 90px;
     height: 90px;
     font-size: 2rem;
   }
-  
+
   .card-profile-header {
     margin-top: -45px;
   }

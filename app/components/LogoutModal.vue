@@ -18,19 +18,19 @@
 defineProps({
   show: {
     type: Boolean,
-    default: false
-  }
-})
+    default: false,
+  },
+});
 
-const emit = defineEmits(['cancel', 'confirm'])
+const emit = defineEmits(["cancel", "confirm"]);
 
 const handleCancel = () => {
-  emit('cancel')
-}
+  emit("cancel");
+};
 
 const handleConfirm = () => {
-  emit('confirm')
-}
+  emit("confirm");
+};
 </script>
 
 <style scoped>
@@ -61,8 +61,14 @@ const handleConfirm = () => {
 }
 
 @keyframes modalIn {
-  from { opacity: 0; transform: translateY(20px) scale(0.95); }
-  to { opacity: 1; transform: translateY(0) scale(1); }
+  from {
+    opacity: 0;
+    transform: translateY(20px) scale(0.95);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0) scale(1);
+  }
 }
 
 .logout-icon-wrapper {

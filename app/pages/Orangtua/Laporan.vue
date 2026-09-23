@@ -4,16 +4,27 @@
     <div class="page-header">
       <div class="header-left">
         <h1 class="page-title">Detail Laporan Jurnal</h1>
-        <p class="page-subtitle">Pantau tingkat konsistensi penerapan 7 kebiasaan anak.</p>
-        
+        <p class="page-subtitle">
+          Pantau tingkat konsistensi penerapan 7 kebiasaan anak.
+        </p>
+
         <div class="student-info">
           <div class="info-badge">
             <Icon name="ph:user-circle-duotone" class="info-icon text-blue" />
-            <span class="info-text"><strong>{{ studentData.nama }}</strong> (NIS: {{ studentData.nis }})</span>
+            <span class="info-text"
+              ><strong>{{ studentData.nama }}</strong> (NIS:
+              {{ studentData.nis }})</span
+            >
           </div>
           <div class="info-badge">
-            <Icon name="ph:chalkboard-teacher-duotone" class="info-icon text-green" />
-            <span class="info-text">Kelas {{ studentData.namaKelas }} | Wali: {{ studentData.waliKelas }}</span>
+            <Icon
+              name="ph:chalkboard-teacher-duotone"
+              class="info-icon text-green"
+            />
+            <span class="info-text"
+              >Kelas {{ studentData.namaKelas }} | Wali:
+              {{ studentData.waliKelas }}</span
+            >
           </div>
         </div>
       </div>
@@ -21,13 +32,29 @@
       <div class="header-right">
         <div class="filter-wrapper">
           <Icon name="ph:calendar-blank-duotone" class="select-icon" />
-          <select class="btn-month-select" v-model="selectedMonth" @change="onFilterChange">
-            <option v-for="(m, i) in monthsList" :key="i" :value="i">{{ m }}</option>
+          <select
+            class="btn-month-select"
+            v-model="selectedMonth"
+            @change="onFilterChange"
+          >
+            <option v-for="(m, i) in monthsList" :key="i" :value="i">
+              {{ m }}
+            </option>
           </select>
-          <select class="btn-month-select" v-model="selectedYear" @change="onFilterChange">
-            <option v-for="y in availableYears" :key="y" :value="y">{{ y }}</option>
+          <select
+            class="btn-month-select"
+            v-model="selectedYear"
+            @change="onFilterChange"
+          >
+            <option v-for="y in availableYears" :key="y" :value="y">
+              {{ y }}
+            </option>
           </select>
-          <Icon name="ph:caret-down-bold" class="select-icon" style="color: #64748b; font-size: 1rem; margin-left: 4px;" />
+          <Icon
+            name="ph:caret-down-bold"
+            class="select-icon"
+            style="color: #64748b; font-size: 1rem; margin-left: 4px"
+          />
         </div>
       </div>
     </div>
@@ -39,38 +66,65 @@
           <thead>
             <tr>
               <th rowspan="2" class="col-no">No</th>
-              <th rowspan="2" class="col-kegiatan">7 Kebiasaan Anak Indonesia Hebat</th>
-              <th colspan="4" class="col-penerapan">Kategori Tingkat Pembiasaan</th>
+              <th rowspan="2" class="col-kegiatan">
+                7 Kebiasaan Anak Indonesia Hebat
+              </th>
+              <th colspan="4" class="col-penerapan">
+                Kategori Tingkat Pembiasaan
+              </th>
             </tr>
             <tr class="sub-header">
-              <th class="col-opsi opsi-belum">Belum<br>Terbiasa</th>
-              <th class="col-opsi opsi-mulai">Mulai<br>Terbiasa</th>
-              <th class="col-opsi opsi-terbiasa"><br>Terbiasa</th>
-              <th class="col-opsi opsi-sangat">Sangat<br>Terbiasa</th>
+              <th class="col-opsi opsi-belum">Belum<br />Terbiasa</th>
+              <th class="col-opsi opsi-mulai">Mulai<br />Terbiasa</th>
+              <th class="col-opsi opsi-terbiasa"><br />Terbiasa</th>
+              <th class="col-opsi opsi-sangat">Sangat<br />Terbiasa</th>
             </tr>
           </thead>
           <tbody>
-            <tr v-for="(item, index) in kebiasaanData" :key="index" class="table-row">
+            <tr
+              v-for="(item, index) in kebiasaanData"
+              :key="index"
+              class="table-row"
+            >
               <td class="text-center text-number">{{ index + 1 }}</td>
               <td class="kegiatan-text">
                 <span class="kegiatan-label">
-                  {{ item.nama }} <span class="days-badge">({{ item.daysCompleted }} Hari)</span>
+                  {{ item.nama }}
+                  <span class="days-badge"
+                    >({{ item.daysCompleted }} Hari)</span
+                  >
                 </span>
               </td>
               <td class="text-center">
-                <Icon v-if="item.daysCompleted < 8" name="ph:check-circle-fill" class="status-icon text-red-500" />
+                <Icon
+                  v-if="item.daysCompleted < 8"
+                  name="ph:check-circle-fill"
+                  class="status-icon text-red-500"
+                />
                 <span v-else class="text-slate-300">-</span>
               </td>
               <td class="text-center">
-                <Icon v-if="item.daysCompleted >= 8 && item.daysCompleted <= 15" name="ph:check-circle-fill" class="status-icon text-yellow-500" />
+                <Icon
+                  v-if="item.daysCompleted >= 8 && item.daysCompleted <= 15"
+                  name="ph:check-circle-fill"
+                  class="status-icon text-yellow-500"
+                />
                 <span v-else class="text-slate-300">-</span>
               </td>
               <td class="text-center">
-                <Icon v-if="item.daysCompleted >= 16 && item.daysCompleted <= 23" name="ph:check-circle-fill" class="status-icon text-blue-500" />
+                <Icon
+                  v-if="item.daysCompleted >= 16 && item.daysCompleted <= 23"
+                  name="ph:check-circle-fill"
+                  class="status-icon text-blue-500"
+                />
                 <span v-else class="text-slate-300">-</span>
               </td>
               <td class="text-center">
-                <Icon v-if="item.daysCompleted >= 24" name="ph:check-circle-fill" class="status-icon text-green-500" />
+                <Icon
+                  v-if="item.daysCompleted >= 24"
+                  name="ph:check-circle-fill"
+                  class="status-icon text-green-500"
+                />
                 <span v-else class="text-slate-300">-</span>
               </td>
             </tr>
@@ -87,13 +141,16 @@
         </div>
         <div>
           <h2>Tindak Lanjut Guru</h2>
-          <p>Evaluasi, arahan, atau pembinaan yang diberikan oleh wali kelas untuk anak Anda.</p>
+          <p>
+            Evaluasi, arahan, atau pembinaan yang diberikan oleh wali kelas
+            untuk anak Anda.
+          </p>
         </div>
       </div>
-      
+
       <div class="feedback-content">
-        <textarea 
-          class="feedback-textarea" 
+        <textarea
+          class="feedback-textarea"
           placeholder="Belum ada catatan khusus dari guru untuk periode ini."
           rows="5"
           v-model="catatanGuru"
@@ -105,225 +162,306 @@
 </template>
 
 <script setup>
-import { ref, onMounted } from 'vue'
-import { useRoute } from 'vue-router'
+import { ref, onMounted } from "vue";
+import { useRoute } from "vue-router";
 
 definePageMeta({
-  layout: 'orangtua'
-})
+  layout: "orangtua",
+});
 
-const route = useRoute()
-const supabase = useSupabase()
+const route = useRoute();
+const supabase = useSupabase();
 
 const studentData = ref({
-  nama: 'Memuat...',
-  nis: '-',
-  namaKelas: '-',
-  waliKelas: '-',
-  nipWali: '-',
-  namaSekolah: '-',
-  namaOrangTua: '-',
-  agama: 'Islam'
-})
+  nama: "Memuat...",
+  nis: "-",
+  namaKelas: "-",
+  waliKelas: "-",
+  nipWali: "-",
+  namaSekolah: "-",
+  namaOrangTua: "-",
+  agama: "Islam",
+});
 
-const loggedInStudentId = ref(null)
+const loggedInStudentId = ref(null);
 
 onMounted(async () => {
-  const { data: { user } } = await supabase.auth.getUser()
-  if (!user) return
+  const {
+    data: { user },
+  } = await supabase.auth.getUser();
+  if (!user) return;
 
-  let studentId = null
-  
-  // 1. Coba cari apakah user ini adalah siswa
-  const { data: pdData } = await supabase.from('peserta_didik').select('id').eq('user_id', user.id).single()
+  let studentId = null;
+
+  const { data: pdData } = await supabase
+    .from("peserta_didik")
+    .select("id")
+    .eq("user_id", user.id)
+    .single();
   if (pdData) {
-    studentId = pdData.id
+    studentId = pdData.id;
   } else {
-    // 2. Jika bukan siswa, cari apakah user ini adalah orang tua
-    const { data: otData } = await supabase.from('orang_tua').select('id').eq('user_id', user.id).single()
+    const { data: otData } = await supabase
+      .from("orang_tua")
+      .select("id")
+      .eq("user_id", user.id)
+      .single();
     if (otData) {
-      const { data: pdData2 } = await supabase.from('peserta_didik').select('id').eq('orang_tua_id', otData.id).single()
-      if (pdData2) studentId = pdData2.id
+      const { data: pdData2 } = await supabase
+        .from("peserta_didik")
+        .select("id")
+        .eq("orang_tua_id", otData.id)
+        .single();
+      if (pdData2) studentId = pdData2.id;
     }
   }
 
   if (studentId) {
-    loggedInStudentId.value = studentId
-    const { data: s } = await supabase.from('peserta_didik').select('*, kelas(nama_kelas, wali_kelas_id), orang_tua(nama)').eq('id', studentId).single()
+    loggedInStudentId.value = studentId;
+    const { data: s } = await supabase
+      .from("peserta_didik")
+      .select("*, kelas(nama_kelas, wali_kelas_id), orang_tua(nama)")
+      .eq("id", studentId)
+      .single();
     if (s) {
-      studentData.value.nama = s.nama
-      studentData.value.nis = s.nis || '-'
-      studentData.value.namaKelas = s.kelas?.nama_kelas || '-'
-      studentData.value.namaOrangTua = s.orang_tua?.nama || '-'
-      studentData.value.agama = s.agama || 'Islam'
-      
+      studentData.value.nama = s.nama;
+      studentData.value.nis = s.nis || "-";
+      studentData.value.namaKelas = s.kelas?.nama_kelas || "-";
+      studentData.value.namaOrangTua = s.orang_tua?.nama || "-";
+      studentData.value.agama = s.agama || "Islam";
+
       if (s.kelas?.wali_kelas_id) {
-        const { data: g } = await supabase.from('guru').select('nama, nip').eq('id', s.kelas.wali_kelas_id).single()
+        const { data: g } = await supabase
+          .from("guru")
+          .select("nama, nip")
+          .eq("id", s.kelas.wali_kelas_id)
+          .single();
         if (g) {
-          studentData.value.waliKelas = g.nama
-          studentData.value.nipWali = g.nip || '-'
+          studentData.value.waliKelas = g.nama;
+          studentData.value.nipWali = g.nip || "-";
         }
       }
     }
-    
-    // Hitung summary awal saat halaman dimuat
-    calculateSummary()
+
+    calculateSummary();
   }
-})
+});
 
-const catatanGuru = ref('')
-const currentEvaluasiId = ref(null)
+const catatanGuru = ref("");
+const currentEvaluasiId = ref(null);
 
+const monthsList = [
+  "Januari",
+  "Februari",
+  "Maret",
+  "April",
+  "Mei",
+  "Juni",
+  "Juli",
+  "Agustus",
+  "September",
+  "Oktober",
+  "November",
+  "Desember",
+];
 
+const currentYear = new Date().getFullYear();
+const availableYears = [
+  currentYear - 2,
+  currentYear - 1,
+  currentYear,
+  currentYear + 1,
+];
 
-const monthsList = ['Januari', 'Februari', 'Maret', 'April', 'Mei', 'Juni', 'Juli', 'Agustus', 'September', 'Oktober', 'November', 'Desember']
-
-const currentYear = new Date().getFullYear()
-const availableYears = [currentYear - 2, currentYear - 1, currentYear, currentYear + 1]
-
-const selectedMonth = ref(new Date().getMonth())
-const selectedYear = ref(currentYear)
+const selectedMonth = ref(new Date().getMonth());
+const selectedYear = ref(currentYear);
 
 const onFilterChange = () => {
-  calculateSummary()
-}
-
-
+  calculateSummary();
+};
 
 const calculateSummary = async () => {
-  const studentId = loggedInStudentId.value
-  if (!studentId) return
+  const studentId = loggedInStudentId.value;
+  if (!studentId) return;
 
-  const startDate = `${selectedYear.value}-${String(selectedMonth.value + 1).padStart(2, '0')}-01`
-  const daysInMonth = new Date(selectedYear.value, selectedMonth.value + 1, 0).getDate()
-  const endDate = `${selectedYear.value}-${String(selectedMonth.value + 1).padStart(2, '0')}-${daysInMonth}`
+  const startDate = `${selectedYear.value}-${String(selectedMonth.value + 1).padStart(2, "0")}-01`;
+  const daysInMonth = new Date(
+    selectedYear.value,
+    selectedMonth.value + 1,
+    0,
+  ).getDate();
+  const endDate = `${selectedYear.value}-${String(selectedMonth.value + 1).padStart(2, "0")}-${daysInMonth}`;
 
-  // 1. Ambil semua jurnal_harian bulan ini
   const { data: harianData } = await supabase
-    .from('jurnal_harian')
-    .select('id, tanggal')
-    .eq('peserta_didik_id', studentId)
-    .gte('tanggal', startDate)
-    .lte('tanggal', endDate)
+    .from("jurnal_harian")
+    .select("id, tanggal")
+    .eq("peserta_didik_id", studentId)
+    .gte("tanggal", startDate)
+    .lte("tanggal", endDate);
 
-  // Reset counters
-  kebiasaanData.value.forEach(k => k.daysCompleted = 0)
-  catatanGuru.value = ''
-  currentEvaluasiId.value = null
+  kebiasaanData.value.forEach((k) => (k.daysCompleted = 0));
+  catatanGuru.value = "";
+  currentEvaluasiId.value = null;
 
   if (harianData && harianData.length > 0) {
-    const harianIds = harianData.map(h => h.id)
+    const harianIds = harianData.map((h) => h.id);
 
-    // Ambil Ibadah
-    const { data: ibadahData } = await supabase.from('jurnal_ibadah').select('jurnal_harian_id').in('jurnal_harian_id', harianIds).eq('status', true)
+    const { data: ibadahData } = await supabase
+      .from("jurnal_ibadah")
+      .select("jurnal_harian_id")
+      .in("jurnal_harian_id", harianIds)
+      .eq("status", true);
     if (ibadahData) {
       const ibadahCounts = ibadahData.reduce((acc, curr) => {
-        acc[curr.jurnal_harian_id] = (acc[curr.jurnal_harian_id] || 0) + 1
-        return acc
-      }, {})
-      const isIslam = !studentData.value?.agama || studentData.value.agama.toLowerCase().trim() === 'islam'
-      const requiredCount = isIslam ? 5 : 3
-      const uniqueDays = Object.values(ibadahCounts).filter(count => count >= requiredCount).length
-      const ibadahObj = kebiasaanData.value.find(k => k.nama === 'Beribadah')
-      if (ibadahObj) ibadahObj.daysCompleted = uniqueDays
+        acc[curr.jurnal_harian_id] = (acc[curr.jurnal_harian_id] || 0) + 1;
+        return acc;
+      }, {});
+      const isIslam =
+        !studentData.value?.agama ||
+        studentData.value.agama.toLowerCase().trim() === "islam";
+      const requiredCount = isIslam ? 5 : 3;
+      const uniqueDays = Object.values(ibadahCounts).filter(
+        (count) => count >= requiredCount,
+      ).length;
+      const ibadahObj = kebiasaanData.value.find((k) => k.nama === "Beribadah");
+      if (ibadahObj) ibadahObj.daysCompleted = uniqueDays;
     }
 
-    // Ambil Kebiasaan Lainnya
-    const { data: masterKebiasaan } = await supabase.from('kebiasaan').select('id, nama_kebiasaan')
-    const { data: kebiasaanLogs } = await supabase.from('jurnal_kebiasaan').select('jurnal_harian_id, kebiasaan_id, keterangan').in('jurnal_harian_id', harianIds).eq('status', true)
-    
+    const { data: masterKebiasaan } = await supabase
+      .from("kebiasaan")
+      .select("id, nama_kebiasaan");
+    const { data: kebiasaanLogs } = await supabase
+      .from("jurnal_kebiasaan")
+      .select("jurnal_harian_id, kebiasaan_id, keterangan")
+      .in("jurnal_harian_id", harianIds)
+      .eq("status", true);
+
     if (masterKebiasaan && kebiasaanLogs) {
-      kebiasaanData.value.forEach(k => {
-        if (k.nama === 'Beribadah') return
-        const masterK = masterKebiasaan.find(mk => mk.nama_kebiasaan.toLowerCase().includes(k.nama.toLowerCase().split(' ')[0]))
+      kebiasaanData.value.forEach((k) => {
+        if (k.nama === "Beribadah") return;
+        const masterK = masterKebiasaan.find((mk) =>
+          mk.nama_kebiasaan
+            .toLowerCase()
+            .includes(k.nama.toLowerCase().split(" ")[0]),
+        );
         if (masterK) {
-           const validLogs = kebiasaanLogs.filter(l => l.kebiasaan_id === masterK.id)
-           let count = 0
+          const validLogs = kebiasaanLogs.filter(
+            (l) => l.kebiasaan_id === masterK.id,
+          );
+          let count = 0;
 
-           if (k.nama === 'Bangun Pagi') {
-             // Hanya dihitung "Terbiasa" jika bangun <= 06:00 pagi
-             count = new Set(validLogs.filter(l => {
-                if (!l.keterangan || l.keterangan === 'Lebih dari 06:00') return false
-                const [h, m] = l.keterangan.split(':').map(Number)
-                return (h * 60 + m) <= (6 * 60)
-             }).map(l => l.jurnal_harian_id)).size
-           } else if (k.nama === 'Tidur tepat waktu' || k.nama === 'Tidur Tepat Waktu') {
-             // Hanya dihitung "Terbiasa" jika tidur <= 22:00 malam
-             count = new Set(validLogs.filter(l => {
-                if (!l.keterangan || l.keterangan === 'Lebih dari 22:00') return false
-                const [h, m] = l.keterangan.split(':').map(Number)
-                return (h * 60 + m) <= (22 * 60)
-             }).map(l => l.jurnal_harian_id)).size
-           } else if (k.nama === 'Berolahraga' || k.nama === 'Gemar Belajar') {
-             count = new Set(validLogs.filter(l => {
-                if (!l.keterangan) return false
-                let text = ''
-                try {
-                  const parsed = JSON.parse(l.keterangan)
-                  text = parsed.materi || parsed.keterangan || l.keterangan
-                } catch(e) {
-                  text = l.keterangan
-                }
-                const match = text.match(/\((\d+)\s*Menit\)/i)
-                if (match) {
-                  return parseInt(match[1]) >= 30
-                }
-                return false
-             }).map(l => l.jurnal_harian_id)).size
-           } else if (k.nama === 'Makan sehat & Bergizi') {
-             count = new Set(validLogs.filter(l => {
-                if (!l.keterangan) return false
-                try {
-                  const parsed = JSON.parse(l.keterangan)
-                  return (parsed.nasi && parsed.nasi !== 'Tidak Konsumsi') &&
-                         (parsed.lauk && parsed.lauk !== 'Tidak Konsumsi') &&
-                         (parsed.sayur && parsed.sayur !== 'Tidak Konsumsi') &&
-                         (parsed.buah && parsed.buah !== 'Tidak Konsumsi')
-                } catch(e) {
-                  return false
-                }
-             }).map(l => l.jurnal_harian_id)).size
-           } else {
-             count = new Set(validLogs.map(l => l.jurnal_harian_id)).size
-           }
-           
-           k.daysCompleted = count
+          if (k.nama === "Bangun Pagi") {
+            // Hanya dihitung "Terbiasa" jika bangun <= 06:00 pagi
+            count = new Set(
+              validLogs
+                .filter((l) => {
+                  if (!l.keterangan || l.keterangan === "Lebih dari 06:00")
+                    return false;
+                  const [h, m] = l.keterangan.split(":").map(Number);
+                  return h * 60 + m <= 6 * 60;
+                })
+                .map((l) => l.jurnal_harian_id),
+            ).size;
+          } else if (
+            k.nama === "Tidur tepat waktu" ||
+            k.nama === "Tidur Tepat Waktu"
+          ) {
+            // Hanya dihitung "Terbiasa" jika tidur <= 22:00 malam
+            count = new Set(
+              validLogs
+                .filter((l) => {
+                  if (!l.keterangan || l.keterangan === "Lebih dari 22:00")
+                    return false;
+                  const [h, m] = l.keterangan.split(":").map(Number);
+                  return h * 60 + m <= 22 * 60;
+                })
+                .map((l) => l.jurnal_harian_id),
+            ).size;
+          } else if (k.nama === "Berolahraga" || k.nama === "Gemar Belajar") {
+            count = new Set(
+              validLogs
+                .filter((l) => {
+                  if (!l.keterangan) return false;
+                  let text = "";
+                  try {
+                    const parsed = JSON.parse(l.keterangan);
+                    text = parsed.materi || parsed.keterangan || l.keterangan;
+                  } catch (e) {
+                    text = l.keterangan;
+                  }
+                  const match = text.match(/\((\d+)\s*Menit\)/i);
+                  if (match) {
+                    return parseInt(match[1]) >= 30;
+                  }
+                  return false;
+                })
+                .map((l) => l.jurnal_harian_id),
+            ).size;
+          } else if (k.nama === "Makan sehat & Bergizi") {
+            count = new Set(
+              validLogs
+                .filter((l) => {
+                  if (!l.keterangan) return false;
+                  try {
+                    const parsed = JSON.parse(l.keterangan);
+                    return (
+                      parsed.nasi &&
+                      parsed.nasi !== "Tidak Konsumsi" &&
+                      parsed.lauk &&
+                      parsed.lauk !== "Tidak Konsumsi" &&
+                      parsed.sayur &&
+                      parsed.sayur !== "Tidak Konsumsi" &&
+                      parsed.buah &&
+                      parsed.buah !== "Tidak Konsumsi"
+                    );
+                  } catch (e) {
+                    return false;
+                  }
+                })
+                .map((l) => l.jurnal_harian_id),
+            ).size;
+          } else {
+            count = new Set(validLogs.map((l) => l.jurnal_harian_id)).size;
+          }
+
+          k.daysCompleted = count;
         }
-      })
+      });
     }
 
-    // Ambil Evaluasi Guru untuk bulan ini (ambil yang terbaru)
-    const { data: evData } = await supabase.from('evaluasi_guru').select('*').in('jurnal_harian_id', harianIds).order('created_at', { ascending: false }).limit(1)
+    const { data: evData } = await supabase
+      .from("evaluasi_guru")
+      .select("*")
+      .in("jurnal_harian_id", harianIds)
+      .order("created_at", { ascending: false })
+      .limit(1);
     if (evData && evData.length > 0) {
-      catatanGuru.value = evData[0].catatan_evaluasi
-      currentEvaluasiId.value = evData[0].id
+      catatanGuru.value = evData[0].catatan_evaluasi;
+      currentEvaluasiId.value = evData[0].id;
     }
   }
-}
+};
 
-
-
-// Implementasi Logika Rule-Based Classification
 const getClassifiedLevel = (daysCompleted) => {
-  if (daysCompleted >= 24 && daysCompleted <= 31) return 'sangat';
-  if (daysCompleted >= 16 && daysCompleted <= 23) return 'terbiasa';
-  if (daysCompleted >= 8 && daysCompleted <= 15) return 'mulai';
-  return 'belum';
-}
+  if (daysCompleted >= 24 && daysCompleted <= 31) return "sangat";
+  if (daysCompleted >= 16 && daysCompleted <= 23) return "terbiasa";
+  if (daysCompleted >= 8 && daysCompleted <= 15) return "mulai";
+  return "belum";
+};
 
 const kebiasaanData = ref([
-  { id: 1, nama: 'Bangun Pagi', daysCompleted: 0 },
-  { id: 2, nama: 'Beribadah', daysCompleted: 0 },
-  { id: 3, nama: 'Berolahraga', daysCompleted: 0 },
-  { id: 4, nama: 'Makan sehat & Bergizi', daysCompleted: 0 },
-  { id: 5, nama: 'Gemar Belajar', daysCompleted: 0 },
-  { id: 6, nama: 'Bermasyarakat', daysCompleted: 0 },
-  { id: 7, nama: 'Tidur tepat waktu', daysCompleted: 0 }
+  { id: 1, nama: "Bangun Pagi", daysCompleted: 0 },
+  { id: 2, nama: "Beribadah", daysCompleted: 0 },
+  { id: 3, nama: "Berolahraga", daysCompleted: 0 },
+  { id: 4, nama: "Makan sehat & Bergizi", daysCompleted: 0 },
+  { id: 5, nama: "Gemar Belajar", daysCompleted: 0 },
+  { id: 6, nama: "Bermasyarakat", daysCompleted: 0 },
+  { id: 7, nama: "Tidur tepat waktu", daysCompleted: 0 },
 ]);
 </script>
 
 <style scoped>
-@import url('https://fonts.googleapis.com/css2?family=Nunito:wght@400;500;600;700;800;900&display=swap');
+@import url("https://fonts.googleapis.com/css2?family=Nunito:wght@400;500;600;700;800;900&display=swap");
 
 .print-template-container {
   display: none;
@@ -331,26 +469,32 @@ const kebiasaanData = ref([
 
 @media print {
   /* Sembunyikan elemen web utama */
-  .page-header, .table-card, .feedback-section, .modal-overlay {
+  .page-header,
+  .table-card,
+  .feedback-section,
+  .modal-overlay {
     display: none !important;
   }
-  
+
   @page {
     size: A4 portrait;
     margin: 0;
   }
-  
-  html, body, #__nuxt, #__layout {
+
+  html,
+  body,
+  #__nuxt,
+  #__layout {
     height: 100% !important;
     background: white !important;
   }
-  
+
   .detail-siswa-guru {
     padding: 0 !important;
     margin: 0 !important;
     max-width: none !important;
   }
-  
+
   /* Layout Khusus Cetak */
   .print-template-container {
     display: block !important;
@@ -358,7 +502,7 @@ const kebiasaanData = ref([
     height: 100vh;
     padding: 0.8cm;
     box-sizing: border-box;
-    font-family: 'Comic Sans MS', 'Chalkboard SE', 'Nunito', sans-serif;
+    font-family: "Comic Sans MS", "Chalkboard SE", "Nunito", sans-serif;
   }
 
   .print-border-box {
@@ -410,7 +554,8 @@ const kebiasaanData = ref([
     color: #000;
   }
 
-  .print-custom-table th, .print-custom-table td {
+  .print-custom-table th,
+  .print-custom-table td {
     border: 1px solid #000;
     padding: 0.6rem 0.4rem;
     font-size: 1rem;
@@ -432,7 +577,7 @@ const kebiasaanData = ref([
   }
 
   .print-custom-table .check-mark {
-    font-family: 'Comic Sans MS', cursive;
+    font-family: "Comic Sans MS", cursive;
     font-weight: bold;
   }
 
@@ -489,7 +634,7 @@ const kebiasaanData = ref([
   display: none; /* Hidden on web, visible on PDF */
   margin-top: 3rem;
   color: #0f172a;
-  font-family: 'Nunito', sans-serif;
+  font-family: "Nunito", sans-serif;
 }
 
 .signatures {
@@ -533,7 +678,7 @@ const kebiasaanData = ref([
 }
 
 .detail-siswa-guru {
-  font-family: 'Nunito', sans-serif;
+  font-family: "Nunito", sans-serif;
   max-width: 1100px;
   margin: 0 auto;
   padding: 1.5rem 0 4rem 0;
@@ -549,8 +694,8 @@ const kebiasaanData = ref([
   background: linear-gradient(135deg, #ffffff 0%, #f8fafc 100%);
   padding: 2rem 2.5rem;
   border-radius: 24px;
-  box-shadow: 0 10px 30px -10px rgba(0,0,0,0.05);
-  border: 1px solid rgba(255,255,255,0.8);
+  box-shadow: 0 10px 30px -10px rgba(0, 0, 0, 0.05);
+  border: 1px solid rgba(255, 255, 255, 0.8);
   flex-wrap: wrap;
   gap: 1.5rem;
 }
@@ -598,8 +743,12 @@ const kebiasaanData = ref([
   font-size: 1.4rem;
 }
 
-.text-blue { color: #3b82f6; }
-.text-green { color: #10b981; }
+.text-blue {
+  color: #3b82f6;
+}
+.text-green {
+  color: #10b981;
+}
 
 .info-text {
   font-size: 0.95rem;
@@ -638,7 +787,7 @@ const kebiasaanData = ref([
   -moz-appearance: none;
   background: transparent;
   border: none;
-  font-family: 'Nunito', sans-serif;
+  font-family: "Nunito", sans-serif;
   font-weight: 800;
   font-size: 1rem;
   color: #334155;
@@ -705,10 +854,23 @@ const kebiasaanData = ref([
   line-height: 1.4;
 }
 
-.report-table thead .col-no { width: 5%; }
-.report-table thead .col-kegiatan { width: 35%; text-align: left; font-size: 1.1rem; padding-left: 1.5rem; }
-.report-table thead .col-penerapan { width: 60%; font-size: 1.1rem; padding-bottom: 0.5rem;}
-.report-table thead .col-opsi { width: 15%; }
+.report-table thead .col-no {
+  width: 5%;
+}
+.report-table thead .col-kegiatan {
+  width: 35%;
+  text-align: left;
+  font-size: 1.1rem;
+  padding-left: 1.5rem;
+}
+.report-table thead .col-penerapan {
+  width: 60%;
+  font-size: 1.1rem;
+  padding-bottom: 0.5rem;
+}
+.report-table thead .col-opsi {
+  width: 15%;
+}
 
 /* Row hover interaktif */
 .table-row {
@@ -723,12 +885,18 @@ const kebiasaanData = ref([
   background-color: #f0f9ff;
 }
 
-.text-center { text-align: center; }
-.text-number { font-weight: 800; color: #94a3b8; font-size: 1.2rem; }
+.text-center {
+  text-align: center;
+}
+.text-number {
+  font-weight: 800;
+  color: #94a3b8;
+  font-size: 1.2rem;
+}
 
-.kegiatan-label { 
-  font-weight: 700; 
-  color: #334155; 
+.kegiatan-label {
+  font-weight: 700;
+  color: #334155;
   font-size: 1.1rem;
   background: transparent;
   padding: 0.2rem 0;
@@ -754,11 +922,23 @@ const kebiasaanData = ref([
 .status-icon {
   font-size: 1.3rem;
 }
-.text-red-500 { color: #ef4444; }
-.text-yellow-500 { color: #f59e0b; }
-.text-blue-500 { color: #3b82f6; }
-.text-green-500 { color: #10b981; }
-.text-slate-300 { color: #cbd5e1; font-weight: 500; font-size: 1.2rem; }
+.text-red-500 {
+  color: #ef4444;
+}
+.text-yellow-500 {
+  color: #f59e0b;
+}
+.text-blue-500 {
+  color: #3b82f6;
+}
+.text-green-500 {
+  color: #10b981;
+}
+.text-slate-300 {
+  color: #cbd5e1;
+  font-weight: 500;
+  font-size: 1.2rem;
+}
 
 /* Tindak Lanjut Guru Section */
 .feedback-section {
@@ -772,9 +952,12 @@ const kebiasaanData = ref([
 }
 
 .feedback-section::before {
-  content: '';
+  content: "";
   position: absolute;
-  top: 0; left: 0; right: 0; height: 6px;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 6px;
   background: linear-gradient(90deg, #4f46e5, #0ea5e9);
 }
 
@@ -833,7 +1016,7 @@ const kebiasaanData = ref([
   width: 100%;
   border: none;
   background: transparent;
-  font-family: 'Nunito', sans-serif;
+  font-family: "Nunito", sans-serif;
   font-size: 1.1rem;
   color: #334155;
   resize: vertical;
@@ -864,7 +1047,7 @@ const kebiasaanData = ref([
   font-size: 1.05rem;
   cursor: pointer;
   transition: all 0.3s ease;
-  font-family: 'Nunito', sans-serif;
+  font-family: "Nunito", sans-serif;
   display: flex;
   align-items: center;
   gap: 0.5rem;
@@ -887,7 +1070,7 @@ const kebiasaanData = ref([
   font-size: 1.1rem;
   cursor: pointer;
   transition: all 0.3s ease;
-  font-family: 'Nunito', sans-serif;
+  font-family: "Nunito", sans-serif;
   display: flex;
   align-items: center;
   gap: 0.5rem;
@@ -914,8 +1097,12 @@ const kebiasaanData = ref([
 }
 
 @keyframes spin {
-  from { transform: rotate(0deg); }
-  to { transform: rotate(360deg); }
+  from {
+    transform: rotate(0deg);
+  }
+  to {
+    transform: rotate(360deg);
+  }
 }
 
 /* Responsiveness */
@@ -925,35 +1112,37 @@ const kebiasaanData = ref([
     align-items: stretch;
     padding: 1.5rem;
   }
-  
+
   .header-right {
     width: 100%;
   }
-  
-  .filter-wrapper, .btn-month-select {
+
+  .filter-wrapper,
+  .btn-month-select {
     width: 100%;
   }
-  
+
   .report-table {
     min-width: 800px;
   }
-  
-  .report-table th, 
+
+  .report-table th,
   .report-table td {
     padding: 1rem 0.5rem;
     font-size: 0.95rem;
   }
-  
+
   .feedback-section {
     padding: 1.5rem;
   }
-  
+
   .action-footer {
     flex-direction: column;
     align-items: stretch;
   }
-  
-  .btn-save, .btn-secondary {
+
+  .btn-save,
+  .btn-secondary {
     justify-content: center;
   }
 }
@@ -1010,8 +1199,14 @@ const kebiasaanData = ref([
 }
 
 @keyframes modalIn {
-  from { opacity: 0; transform: translateY(20px) scale(0.95); }
-  to { opacity: 1; transform: translateY(0) scale(1); }
+  from {
+    opacity: 0;
+    transform: translateY(20px) scale(0.95);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0) scale(1);
+  }
 }
 
 .modal-header {
@@ -1117,7 +1312,7 @@ const kebiasaanData = ref([
   position: sticky;
   top: 0;
   z-index: 10;
-  box-shadow: 0 2px 4px rgba(0,0,0,0.02);
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.02);
 }
 
 .history-table td {
@@ -1136,8 +1331,12 @@ const kebiasaanData = ref([
   border-bottom: none;
 }
 
-.fw-bold { font-weight: 800; }
-.text-slate-700 { color: #334155; }
+.fw-bold {
+  font-weight: 800;
+}
+.text-slate-700 {
+  color: #334155;
+}
 
 .badge-status {
   padding: 0.4rem 1rem;
@@ -1149,15 +1348,24 @@ const kebiasaanData = ref([
   gap: 0.4rem;
 }
 
-.badge-status.success { background: #dcfce7; color: #166534; }
-.badge-status.danger { background: #fee2e2; color: #991b1b; }
+.badge-status.success {
+  background: #dcfce7;
+  color: #166534;
+}
+.badge-status.danger {
+  background: #fee2e2;
+  color: #991b1b;
+}
 
 .log-note {
   margin: 0;
   line-height: 1.5;
 }
 
-.text-danger { color: #dc2626; font-style: italic; }
+.text-danger {
+  color: #dc2626;
+  font-style: italic;
+}
 
 .btn-sm {
   margin-top: 0.5rem;
@@ -1183,12 +1391,26 @@ const kebiasaanData = ref([
 <style>
 @media print {
   /* Sembunyikan elemen bawaan dari Layout (Navbar, Sidebar, Footer, dll) */
-  header, nav, aside, footer, .sidebar, .navbar, .topbar, .app-header, .layout-sidebar, .layout-topbar, .page-subtitle {
+  header,
+  nav,
+  aside,
+  footer,
+  .sidebar,
+  .navbar,
+  .topbar,
+  .app-header,
+  .layout-sidebar,
+  .layout-topbar,
+  .page-subtitle {
     display: none !important;
   }
-  
+
   /* Pastikan kontainer utama memakan seluruh layar tanpa margin dari layout */
-  main, .main-content, .page-wrapper, .layout-main, .layout-main-container {
+  main,
+  .main-content,
+  .page-wrapper,
+  .layout-main,
+  .layout-main-container {
     margin: 0 !important;
     padding: 0 !important;
     width: 100% !important;

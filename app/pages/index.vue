@@ -8,9 +8,14 @@
         <div class="logo-container">
           <img src="/logo.png" alt="KAIH Logo" class="main-logo" />
         </div>
-        <h1 class="main-title">Sistem Monitoring <span class="text-highlight">KAIH</span></h1>
-        <p class="subtitle">Membangun 7 Kebiasaan Anak Indonesia Hebat bersama Orang Tua dan Guru untuk masa depan yang lebih cerah.</p>
-        
+        <h1 class="main-title">
+          Sistem Monitoring <span class="text-highlight">KAIH</span>
+        </h1>
+        <p class="subtitle">
+          Membangun 7 Kebiasaan Anak Indonesia Hebat bersama Orang Tua dan Guru
+          untuk masa depan yang lebih cerah.
+        </p>
+
         <div class="action-buttons">
           <NuxtLink to="/Login" class="btn btn-primary">
             <Icon name="ph:sign-in-bold" class="btn-icon" />
@@ -29,23 +34,38 @@
             <Icon name="ph:book-open-duotone" class="feature-icon text-blue" />
           </div>
           <h3 class="feature-title">Jurnal Harian</h3>
-          <p class="feature-text">Catat 7 kebiasaan hebat setiap hari: bangun pagi, ibadah, olahraga, makan sehat, belajar, bermasyarakat, dan tidur tepat waktu.</p>
+          <p class="feature-text">
+            Catat 7 kebiasaan hebat setiap hari: bangun pagi, ibadah, olahraga,
+            makan sehat, belajar, bermasyarakat, dan tidur tepat waktu.
+          </p>
         </div>
-        
+
         <div class="feature-card">
           <div class="feature-icon-wrapper bg-green">
-            <Icon name="ph:chart-line-up-duotone" class="feature-icon text-green" />
+            <Icon
+              name="ph:chart-line-up-duotone"
+              class="feature-icon text-green"
+            />
           </div>
           <h3 class="feature-title">Monitoring Berkala</h3>
-          <p class="feature-text">Pantau perkembangan kebiasaan anak secara real-time dengan laporan bulanan dan evaluasi komprehensif.</p>
+          <p class="feature-text">
+            Pantau perkembangan kebiasaan anak secara real-time dengan laporan
+            bulanan dan evaluasi komprehensif.
+          </p>
         </div>
-        
+
         <div class="feature-card">
           <div class="feature-icon-wrapper bg-purple">
-            <Icon name="ph:users-three-duotone" class="feature-icon text-purple" />
+            <Icon
+              name="ph:users-three-duotone"
+              class="feature-icon text-purple"
+            />
           </div>
           <h3 class="feature-title">Kolaborasi</h3>
-          <p class="feature-text">Kerjasama antara orang tua, guru, dan sekolah dalam membentuk karakter anak Indonesia yang hebat.</p>
+          <p class="feature-text">
+            Kerjasama antara orang tua, guru, dan sekolah dalam membentuk
+            karakter anak Indonesia yang hebat.
+          </p>
         </div>
       </div>
 
@@ -103,43 +123,43 @@
 </template>
 
 <script setup>
-import { ref, onMounted } from 'vue'
+import { ref, onMounted } from "vue";
 
 definePageMeta({
-  layout: false // Do not use any wrapper layout, we render full screen
-})
+  layout: false, // Do not use any wrapper layout, we render full screen
+});
 
-const isDarkMode = ref(false)
+const isDarkMode = ref(false);
 
 const toggleDarkMode = () => {
-  isDarkMode.value = !isDarkMode.value
+  isDarkMode.value = !isDarkMode.value;
   if (import.meta.client) {
     if (isDarkMode.value) {
-      document.body.classList.add('dark-theme')
-      localStorage.setItem('landing-theme', 'dark')
+      document.body.classList.add("dark-theme");
+      localStorage.setItem("landing-theme", "dark");
     } else {
-      document.body.classList.remove('dark-theme')
-      localStorage.setItem('landing-theme', 'light')
+      document.body.classList.remove("dark-theme");
+      localStorage.setItem("landing-theme", "light");
     }
   }
-}
+};
 
 onMounted(() => {
   if (import.meta.client) {
-    const savedTheme = localStorage.getItem('landing-theme')
-    if (savedTheme === 'dark') {
-      isDarkMode.value = true
-      document.body.classList.add('dark-theme')
+    const savedTheme = localStorage.getItem("landing-theme");
+    if (savedTheme === "dark") {
+      isDarkMode.value = true;
+      document.body.classList.add("dark-theme");
     }
   }
-})
+});
 </script>
 
 <style scoped>
-@import url('https://fonts.googleapis.com/css2?family=Nunito:wght@400;500;600;700;800;900&display=swap');
+@import url("https://fonts.googleapis.com/css2?family=Nunito:wght@400;500;600;700;800;900&display=swap");
 
 .landing-page {
-  font-family: 'Nunito', sans-serif;
+  font-family: "Nunito", sans-serif;
   min-height: 100vh;
   display: flex;
   flex-direction: column;
@@ -181,7 +201,7 @@ onMounted(() => {
 }
 
 .logo-container::before {
-  content: '';
+  content: "";
   position: absolute;
   inset: -4px;
   border-radius: 34px;
@@ -197,9 +217,15 @@ onMounted(() => {
 }
 
 @keyframes float {
-  0% { transform: translateY(0px); }
-  50% { transform: translateY(-8px); }
-  100% { transform: translateY(0px); }
+  0% {
+    transform: translateY(0px);
+  }
+  50% {
+    transform: translateY(-8px);
+  }
+  100% {
+    transform: translateY(0px);
+  }
 }
 
 .main-title {
@@ -316,14 +342,26 @@ onMounted(() => {
   font-size: 2rem;
 }
 
-.bg-blue { background-color: #eff6ff; }
-.text-blue { color: #3b82f6; }
+.bg-blue {
+  background-color: #eff6ff;
+}
+.text-blue {
+  color: #3b82f6;
+}
 
-.bg-green { background-color: #f0fdf4; }
-.text-green { color: #22c55e; }
+.bg-green {
+  background-color: #f0fdf4;
+}
+.text-green {
+  color: #22c55e;
+}
 
-.bg-purple { background-color: #faf5ff; }
-.text-purple { color: #a855f7; }
+.bg-purple {
+  background-color: #faf5ff;
+}
+.text-purple {
+  color: #a855f7;
+}
 
 .feature-title {
   font-size: 1.4rem;
@@ -382,14 +420,14 @@ onMounted(() => {
   display: flex;
   align-items: center;
   justify-content: center;
-  box-shadow: 0 10px 25px -5px rgba(0,0,0,0.1);
+  box-shadow: 0 10px 25px -5px rgba(0, 0, 0, 0.1);
   transition: all 0.3s ease;
   position: relative;
   z-index: 1;
 }
 
 .habit-icon-wrapper::after {
-  content: '';
+  content: "";
   position: absolute;
   inset: 0;
   border-radius: inherit;
@@ -413,26 +451,54 @@ onMounted(() => {
 }
 
 /* Specific colors for 7 habits */
-.bg-yellow { background: linear-gradient(135deg, #fef08a, #fde047); }
-.bg-yellow .habit-icon { color: #ca8a04; }
+.bg-yellow {
+  background: linear-gradient(135deg, #fef08a, #fde047);
+}
+.bg-yellow .habit-icon {
+  color: #ca8a04;
+}
 
-.bg-blue-light { background: linear-gradient(135deg, #bfdbfe, #93c5fd); }
-.bg-blue-light .habit-icon { color: #2563eb; }
+.bg-blue-light {
+  background: linear-gradient(135deg, #bfdbfe, #93c5fd);
+}
+.bg-blue-light .habit-icon {
+  color: #2563eb;
+}
 
-.bg-green-light { background: linear-gradient(135deg, #bbf7d0, #86efac); }
-.bg-green-light .habit-icon { color: #16a34a; }
+.bg-green-light {
+  background: linear-gradient(135deg, #bbf7d0, #86efac);
+}
+.bg-green-light .habit-icon {
+  color: #16a34a;
+}
 
-.bg-red-light { background: linear-gradient(135deg, #fecaca, #fca5a5); }
-.bg-red-light .habit-icon { color: #dc2626; }
+.bg-red-light {
+  background: linear-gradient(135deg, #fecaca, #fca5a5);
+}
+.bg-red-light .habit-icon {
+  color: #dc2626;
+}
 
-.bg-purple-light { background: linear-gradient(135deg, #e9d5ff, #d8b4fe); }
-.bg-purple-light .habit-icon { color: #9333ea; }
+.bg-purple-light {
+  background: linear-gradient(135deg, #e9d5ff, #d8b4fe);
+}
+.bg-purple-light .habit-icon {
+  color: #9333ea;
+}
 
-.bg-indigo-light { background: linear-gradient(135deg, #c7d2fe, #a5b4fc); }
-.bg-indigo-light .habit-icon { color: #4f46e5; }
+.bg-indigo-light {
+  background: linear-gradient(135deg, #c7d2fe, #a5b4fc);
+}
+.bg-indigo-light .habit-icon {
+  color: #4f46e5;
+}
 
-.bg-gray-light { background: linear-gradient(135deg, #e2e8f0, #cbd5e1); }
-.bg-gray-light .habit-icon { color: #475569; }
+.bg-gray-light {
+  background: linear-gradient(135deg, #e2e8f0, #cbd5e1);
+}
+.bg-gray-light .habit-icon {
+  color: #475569;
+}
 
 .habit-label {
   font-weight: 800;
@@ -447,7 +513,7 @@ onMounted(() => {
   .main-title {
     font-size: 3rem;
   }
-  
+
   .habits-title {
     font-size: 2.2rem;
   }
@@ -457,57 +523,57 @@ onMounted(() => {
   .landing-content {
     padding: 4rem 1.5rem 5rem;
   }
-  
+
   .main-title {
     font-size: 2.4rem;
   }
-  
+
   .subtitle {
     font-size: 1.1rem;
     margin-bottom: 2rem;
   }
-  
+
   .action-buttons {
     flex-direction: column;
     width: 100%;
     max-width: 300px;
     margin: 0 auto;
   }
-  
+
   .btn {
     width: 100%;
   }
-  
+
   .features-grid {
     grid-template-columns: 1fr;
     gap: 1.5rem;
     margin-bottom: 4rem;
   }
-  
+
   .habits-section {
     padding: 3rem 1.5rem;
     border-radius: 24px;
   }
-  
+
   .habits-title {
     font-size: 1.8rem;
     margin-bottom: 2.5rem;
   }
-  
+
   .habits-list {
     gap: 2rem 1.5rem;
   }
-  
+
   .habit-item {
     width: 100px;
   }
-  
+
   .habit-icon-wrapper {
     width: 64px;
     height: 64px;
     border-radius: 20px;
   }
-  
+
   .habit-icon {
     font-size: 2rem;
   }
@@ -521,34 +587,34 @@ onMounted(() => {
   .main-title {
     font-size: 2rem;
   }
-  
+
   .logo-container {
     padding: 1rem;
     border-radius: 20px;
   }
-  
+
   .main-logo {
     height: 80px;
   }
-  
+
   .feature-card {
     padding: 1.5rem;
   }
-  
+
   .habit-item {
     width: 80px;
   }
-  
+
   .habit-icon-wrapper {
     width: 56px;
     height: 56px;
     border-radius: 16px;
   }
-  
+
   .habit-icon {
     font-size: 1.6rem;
   }
-  
+
   .habit-label {
     font-size: 0.85rem;
   }
@@ -571,7 +637,7 @@ onMounted(() => {
   font-size: 1.5rem;
   color: #475569;
   cursor: pointer;
-  box-shadow: 0 4px 6px -1px rgba(0,0,0,0.05);
+  box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.05);
   transition: all 0.3s ease;
   z-index: 100;
 }
@@ -602,8 +668,12 @@ body.dark-theme .logo-container {
   box-shadow: 0 20px 40px -10px rgba(0, 0, 0, 0.5);
 }
 
-body.dark-theme .main-title { color: #f8fafc; }
-body.dark-theme .subtitle { color: #94a3b8; }
+body.dark-theme .main-title {
+  color: #f8fafc;
+}
+body.dark-theme .subtitle {
+  color: #94a3b8;
+}
 
 body.dark-theme .btn-secondary {
   background-color: #1e293b;
@@ -626,15 +696,23 @@ body.dark-theme .feature-card:hover {
   border-color: #475569;
   box-shadow: 0 25px 45px -15px rgba(0, 0, 0, 0.5);
 }
-body.dark-theme .feature-title { color: #f8fafc; }
-body.dark-theme .feature-text { color: #94a3b8; }
+body.dark-theme .feature-title {
+  color: #f8fafc;
+}
+body.dark-theme .feature-text {
+  color: #94a3b8;
+}
 
 body.dark-theme .habits-section {
   background: #1e293b;
   box-shadow: 0 20px 40px -10px rgba(0, 0, 0, 0.5);
 }
-body.dark-theme .habits-title { color: #f8fafc; }
-body.dark-theme .habit-label { color: #cbd5e1; }
+body.dark-theme .habits-title {
+  color: #f8fafc;
+}
+body.dark-theme .habit-label {
+  color: #cbd5e1;
+}
 
 body.dark-theme .theme-toggle-btn {
   background: #1e293b;
@@ -646,7 +724,13 @@ body.dark-theme .theme-toggle-btn:hover {
   color: #f8fafc;
 }
 
-body.dark-theme .bg-blue { background-color: rgba(59, 130, 246, 0.2); }
-body.dark-theme .bg-green { background-color: rgba(34, 197, 94, 0.2); }
-body.dark-theme .bg-purple { background-color: rgba(168, 85, 247, 0.2); }
+body.dark-theme .bg-blue {
+  background-color: rgba(59, 130, 246, 0.2);
+}
+body.dark-theme .bg-green {
+  background-color: rgba(34, 197, 94, 0.2);
+}
+body.dark-theme .bg-purple {
+  background-color: rgba(168, 85, 247, 0.2);
+}
 </style>

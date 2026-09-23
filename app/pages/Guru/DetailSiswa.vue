@@ -3,34 +3,80 @@
     <!-- Header & Info Section -->
     <div class="page-header">
       <div class="header-left">
-        <button class="btn-back" @click="router.push('/Guru/Dashboard')" style="display: flex; align-items: center; gap: 8px; background: none; border: none; color: #64748b; font-weight: 700; cursor: pointer; padding: 0; margin-bottom: 12px; font-size: 0.9rem; transition: color 0.2s;" onmouseover="this.style.color='#1e293b'" onmouseout="this.style.color='#64748b'">
+        <button
+          class="btn-back"
+          @click="router.push('/Guru/Dashboard')"
+          style="
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            background: none;
+            border: none;
+            color: #64748b;
+            font-weight: 700;
+            cursor: pointer;
+            padding: 0;
+            margin-bottom: 12px;
+            font-size: 0.9rem;
+            transition: color 0.2s;
+          "
+          onmouseover="this.style.color = '#1e293b'"
+          onmouseout="this.style.color = '#64748b'"
+        >
           <Icon name="ph:arrow-left-bold" /> Kembali ke Dashboard
         </button>
         <h1 class="page-title">Detail Laporan Jurnal</h1>
-        <p class="page-subtitle">Pantau tingkat konsistensi penerapan 7 kebiasaan anak.</p>
-        
+        <p class="page-subtitle">
+          Pantau tingkat konsistensi penerapan 7 kebiasaan anak.
+        </p>
+
         <div class="student-info">
           <div class="info-badge">
             <Icon name="ph:user-circle-duotone" class="info-icon text-blue" />
-            <span class="info-text"><strong>{{ studentData.nama }}</strong> (NIS: {{ studentData.nis }})</span>
+            <span class="info-text"
+              ><strong>{{ studentData.nama }}</strong> (NIS:
+              {{ studentData.nis }})</span
+            >
           </div>
           <div class="info-badge">
-            <Icon name="ph:chalkboard-teacher-duotone" class="info-icon text-green" />
-            <span class="info-text">Kelas {{ studentData.namaKelas }} | Wali: {{ studentData.waliKelas }}</span>
+            <Icon
+              name="ph:chalkboard-teacher-duotone"
+              class="info-icon text-green"
+            />
+            <span class="info-text"
+              >Kelas {{ studentData.namaKelas }} | Wali:
+              {{ studentData.waliKelas }}</span
+            >
           </div>
         </div>
       </div>
-      
+
       <div class="header-right">
         <div class="filter-wrapper">
           <Icon name="ph:calendar-blank-duotone" class="select-icon" />
-          <select class="btn-month-select" v-model="selectedMonth" @change="onFilterChange">
-            <option v-for="(m, i) in monthsList" :key="i" :value="i">{{ m }}</option>
+          <select
+            class="btn-month-select"
+            v-model="selectedMonth"
+            @change="onFilterChange"
+          >
+            <option v-for="(m, i) in monthsList" :key="i" :value="i">
+              {{ m }}
+            </option>
           </select>
-          <select class="btn-month-select" v-model="selectedYear" @change="onFilterChange">
-            <option v-for="y in availableYears" :key="y" :value="y">{{ y }}</option>
+          <select
+            class="btn-month-select"
+            v-model="selectedYear"
+            @change="onFilterChange"
+          >
+            <option v-for="y in availableYears" :key="y" :value="y">
+              {{ y }}
+            </option>
           </select>
-          <Icon name="ph:caret-down-bold" class="select-icon" style="color: #64748b; font-size: 1rem; margin-left: 4px;" />
+          <Icon
+            name="ph:caret-down-bold"
+            class="select-icon"
+            style="color: #64748b; font-size: 1rem; margin-left: 4px"
+          />
         </div>
       </div>
     </div>
@@ -42,38 +88,69 @@
           <thead>
             <tr>
               <th rowspan="2" class="col-no">No</th>
-              <th rowspan="2" class="col-kegiatan">7 Kebiasaan Anak Indonesia Hebat</th>
-              <th colspan="4" class="col-penerapan">Kategori Tingkat Pembiasaan</th>
+              <th rowspan="2" class="col-kegiatan">
+                7 Kebiasaan Anak Indonesia Hebat
+              </th>
+              <th colspan="4" class="col-penerapan">
+                Kategori Tingkat Pembiasaan
+              </th>
             </tr>
             <tr class="sub-header">
-              <th class="col-opsi opsi-belum">Belum<br>Terbiasa</th>
-              <th class="col-opsi opsi-mulai">Mulai<br>Terbiasa</th>
-              <th class="col-opsi opsi-terbiasa"><br>Terbiasa</th>
-              <th class="col-opsi opsi-sangat">Sangat<br>Terbiasa</th>
+              <th class="col-opsi opsi-belum">Belum<br />Terbiasa</th>
+              <th class="col-opsi opsi-mulai">Mulai<br />Terbiasa</th>
+              <th class="col-opsi opsi-terbiasa"><br />Terbiasa</th>
+              <th class="col-opsi opsi-sangat">Sangat<br />Terbiasa</th>
             </tr>
           </thead>
           <tbody>
-            <tr v-for="(item, index) in kebiasaanData" :key="index" class="table-row">
+            <tr
+              v-for="(item, index) in kebiasaanData"
+              :key="index"
+              class="table-row"
+            >
               <td class="text-center text-number">{{ index + 1 }}</td>
               <td class="kegiatan-text">
-                <button class="kegiatan-label clickable" @click="openModal(item.nama)">
-                  {{ item.nama }} <span class="days-badge">({{ item.daysCompleted }} Hari)</span> <Icon name="ph:arrow-square-out-bold" class="link-icon" />
+                <button
+                  class="kegiatan-label clickable"
+                  @click="openModal(item.nama)"
+                >
+                  {{ item.nama }}
+                  <span class="days-badge"
+                    >({{ item.daysCompleted }} Hari)</span
+                  >
+                  <Icon name="ph:arrow-square-out-bold" class="link-icon" />
                 </button>
               </td>
               <td class="text-center">
-                <Icon v-if="item.daysCompleted < 8" name="ph:check-circle-fill" class="status-icon text-red-500" />
+                <Icon
+                  v-if="item.daysCompleted < 8"
+                  name="ph:check-circle-fill"
+                  class="status-icon text-red-500"
+                />
                 <span v-else class="text-slate-300">-</span>
               </td>
               <td class="text-center">
-                <Icon v-if="item.daysCompleted >= 8 && item.daysCompleted <= 15" name="ph:check-circle-fill" class="status-icon text-yellow-500" />
+                <Icon
+                  v-if="item.daysCompleted >= 8 && item.daysCompleted <= 15"
+                  name="ph:check-circle-fill"
+                  class="status-icon text-yellow-500"
+                />
                 <span v-else class="text-slate-300">-</span>
               </td>
               <td class="text-center">
-                <Icon v-if="item.daysCompleted >= 16 && item.daysCompleted <= 23" name="ph:check-circle-fill" class="status-icon text-blue-500" />
+                <Icon
+                  v-if="item.daysCompleted >= 16 && item.daysCompleted <= 23"
+                  name="ph:check-circle-fill"
+                  class="status-icon text-blue-500"
+                />
                 <span v-else class="text-slate-300">-</span>
               </td>
               <td class="text-center">
-                <Icon v-if="item.daysCompleted >= 24" name="ph:check-circle-fill" class="status-icon text-green-500" />
+                <Icon
+                  v-if="item.daysCompleted >= 24"
+                  name="ph:check-circle-fill"
+                  class="status-icon text-green-500"
+                />
                 <span v-else class="text-slate-300">-</span>
               </td>
             </tr>
@@ -83,18 +160,28 @@
     </div>
 
     <!-- Catatan Orang Tua -->
-    <div class="parent-notes-section" v-if="catatanOrangTuaList && catatanOrangTuaList.length > 0">
+    <div
+      class="parent-notes-section"
+      v-if="catatanOrangTuaList && catatanOrangTuaList.length > 0"
+    >
       <div class="feedback-header parent-header">
         <div class="icon-box parent-icon-box">
           <Icon name="ph:users-three-duotone" class="feedback-icon" />
         </div>
         <div>
           <h2 class="parent-title">Catatan Orang Tua Bulan Ini</h2>
-          <p>Catatan atau observasi yang ditulis orang tua terkait kebiasaan anak.</p>
+          <p>
+            Catatan atau observasi yang ditulis orang tua terkait kebiasaan
+            anak.
+          </p>
         </div>
       </div>
       <div class="notes-grid">
-        <div class="note-card" v-for="(note, idx) in catatanOrangTuaList" :key="idx">
+        <div
+          class="note-card"
+          v-for="(note, idx) in catatanOrangTuaList"
+          :key="idx"
+        >
           <div class="note-badge">
             <Icon name="ph:bookmark-simple-duotone" /> {{ note.jenis_jurnal }}
           </div>
@@ -111,27 +198,36 @@
         </div>
         <div>
           <h2>Tindak Lanjut Guru</h2>
-          <p>Tuliskan evaluasi, arahan, atau pembinaan yang perlu diberikan kepada peserta didik.</p>
+          <p>
+            Tuliskan evaluasi, arahan, atau pembinaan yang perlu diberikan
+            kepada peserta didik.
+          </p>
         </div>
       </div>
-      
+
       <div class="feedback-content">
-        <textarea 
-          class="feedback-textarea" 
+        <textarea
+          class="feedback-textarea"
           placeholder="Tuliskan catatan pembinaan ananda di sini..."
           rows="5"
           v-model="catatanGuru"
         ></textarea>
       </div>
-      
+
       <div class="action-footer">
         <button class="btn-secondary" @click="exportPDF">
           <Icon name="ph:file-pdf-duotone" class="btn-icon" />
           Cetak PDF
         </button>
         <button class="btn-save" @click="saveEvaluasi" :disabled="isSaving">
-          <Icon :name="isSaving ? 'ph:spinner-gap-bold' : 'ph:floppy-disk-back-duotone'" class="btn-icon" :class="{ 'spin-icon': isSaving }" />
-          {{ isSaving ? 'Menyimpan...' : 'Simpan Evaluasi' }}
+          <Icon
+            :name="
+              isSaving ? 'ph:spinner-gap-bold' : 'ph:floppy-disk-back-duotone'
+            "
+            class="btn-icon"
+            :class="{ 'spin-icon': isSaving }"
+          />
+          {{ isSaving ? "Menyimpan..." : "Simpan Evaluasi" }}
         </button>
       </div>
     </div>
@@ -139,7 +235,6 @@
     <!-- Template Khusus Print (Desain Custom Sesuai Request) -->
     <div class="print-template-container">
       <div class="print-border-box">
-        
         <div class="print-top-header">
           <h1 class="print-title-text">KESIMPULAN</h1>
           <div class="print-mascot-placeholder">
@@ -152,24 +247,44 @@
           <thead>
             <tr>
               <th rowspan="2" class="w-no">No.</th>
-              <th rowspan="2" class="w-kegiatan">Tujuh Kebiasaan<br>Anak Indonesia Hebat</th>
+              <th rowspan="2" class="w-kegiatan">
+                Tujuh Kebiasaan<br />Anak Indonesia Hebat
+              </th>
               <th colspan="4" class="w-penerapan">Penerapan</th>
             </tr>
             <tr class="sub-th">
-              <th>Belum<br>Terbiasa</th>
-              <th>Mulai<br>Terbiasa</th>
+              <th>Belum<br />Terbiasa</th>
+              <th>Mulai<br />Terbiasa</th>
               <th>Terbiasa</th>
-              <th>Sangat<br>Terbiasa</th>
+              <th>Sangat<br />Terbiasa</th>
             </tr>
           </thead>
           <tbody>
             <tr v-for="(item, index) in kebiasaanData" :key="index">
               <td class="text-center">{{ index + 1 }}</td>
               <td>{{ item.nama }}</td>
-              <td class="text-center check-mark">{{ getClassifiedLevel(item.daysCompleted) === 'belum' ? 'v' : '' }}</td>
-              <td class="text-center check-mark">{{ getClassifiedLevel(item.daysCompleted) === 'mulai' ? 'v' : '' }}</td>
-              <td class="text-center check-mark">{{ getClassifiedLevel(item.daysCompleted) === 'terbiasa' ? 'v' : '' }}</td>
-              <td class="text-center check-mark">{{ getClassifiedLevel(item.daysCompleted) === 'sangat' ? 'v' : '' }}</td>
+              <td class="text-center check-mark">
+                {{
+                  getClassifiedLevel(item.daysCompleted) === "belum" ? "v" : ""
+                }}
+              </td>
+              <td class="text-center check-mark">
+                {{
+                  getClassifiedLevel(item.daysCompleted) === "mulai" ? "v" : ""
+                }}
+              </td>
+              <td class="text-center check-mark">
+                {{
+                  getClassifiedLevel(item.daysCompleted) === "terbiasa"
+                    ? "v"
+                    : ""
+                }}
+              </td>
+              <td class="text-center check-mark">
+                {{
+                  getClassifiedLevel(item.daysCompleted) === "sangat" ? "v" : ""
+                }}
+              </td>
             </tr>
           </tbody>
         </table>
@@ -184,14 +299,27 @@
             <p>Mengetahui,</p>
             <p>Guru Wali</p>
             <div class="print-sig-space"></div>
-            <p class="dotted-line">{{ studentData.waliKelas !== '-' ? studentData.waliKelas : '' }}</p>
-            <p>NIP. {{ studentData.nipWali !== '-' ? studentData.nipWali : '........................................' }}</p>
+            <p class="dotted-line">
+              {{ studentData.waliKelas !== "-" ? studentData.waliKelas : "" }}
+            </p>
+            <p>
+              NIP.
+              {{
+                studentData.nipWali !== "-"
+                  ? studentData.nipWali
+                  : "........................................"
+              }}
+            </p>
           </div>
           <div class="sig-right">
             <p>Kota Magelang, {{ currentPrintDate }}</p>
             <p>Orangtua</p>
             <div class="print-sig-space"></div>
-            <p class="dotted-line">{{ studentData.namaOrangTua !== '-' ? studentData.namaOrangTua : '' }}</p>
+            <p class="dotted-line">
+              {{
+                studentData.namaOrangTua !== "-" ? studentData.namaOrangTua : ""
+              }}
+            </p>
           </div>
         </div>
 
@@ -199,13 +327,23 @@
           <p class="ket-bold">Keterangan :</p>
           <ul class="ket-list-custom">
             <li>• Beri tanda cek (v) sesuai pilihan</li>
-            <li>• sangat terbiasa, jika anak melakukan kebiasaan 24-31 hari dalam sebulan</li>
-            <li>• terbiasa, jika anak melakukan kebiasaan 16-23 hari dalam sebulan</li>
-            <li>• mulai terbiasa, jika anak melakukan kebiasaan 8-15 hari dalam sebulan</li>
-            <li>• belum terbiasa, jika anak melakukan kebiasaan di bawah 7 hari dalam sebulan</li>
+            <li>
+              • sangat terbiasa, jika anak melakukan kebiasaan 24-31 hari dalam
+              sebulan
+            </li>
+            <li>
+              • terbiasa, jika anak melakukan kebiasaan 16-23 hari dalam sebulan
+            </li>
+            <li>
+              • mulai terbiasa, jika anak melakukan kebiasaan 8-15 hari dalam
+              sebulan
+            </li>
+            <li>
+              • belum terbiasa, jika anak melakukan kebiasaan di bawah 7 hari
+              dalam sebulan
+            </li>
           </ul>
         </div>
-
       </div>
     </div>
 
@@ -219,14 +357,16 @@
             </div>
             <div>
               <h3 class="modal-title">Riwayat Harian</h3>
-              <p class="modal-subtitle">{{ selectedHabit }} - {{ studentData.nama }}</p>
+              <p class="modal-subtitle">
+                {{ selectedHabit }} - {{ studentData.nama }}
+              </p>
             </div>
           </div>
           <button class="btn-close" @click="closeModal">
             <Icon name="ph:x-bold" />
           </button>
         </div>
-        
+
         <div class="modal-body">
           <div v-if="parentNote" class="parent-note-alert">
             <div class="note-header">
@@ -236,10 +376,24 @@
             <p>{{ parentNote }}</p>
           </div>
           <!-- Grafik Tren Mingguan -->
-          <div class="chart-container" style="height: 300px; width: 100%; margin-top: 10px; margin-bottom: 20px;">
+          <div
+            class="chart-container"
+            style="
+              height: 300px;
+              width: 100%;
+              margin-top: 10px;
+              margin-bottom: 20px;
+            "
+          >
             <ClientOnly>
-              <Line v-if="!isModalLoading && chartData.labels.length > 0" :data="chartData" :options="chartOptions" />
-              <div v-else-if="isModalLoading" class="text-center p-4">Memuat grafik riwayat...</div>
+              <Line
+                v-if="!isModalLoading && chartData.labels.length > 0"
+                :data="chartData"
+                :options="chartOptions"
+              />
+              <div v-else-if="isModalLoading" class="text-center p-4">
+                Memuat grafik riwayat...
+              </div>
             </ClientOnly>
           </div>
 
@@ -260,13 +414,24 @@
                 <tr v-else v-for="day in modalLogs" :key="day.day">
                   <td class="fw-bold text-slate-700">{{ day.dateString }}</td>
                   <td>
-                    <span v-if="day.isFuture" class="badge-status" style="background: #e2e8f0; color: #64748b;">
+                    <span
+                      v-if="day.isFuture"
+                      class="badge-status"
+                      style="background: #e2e8f0; color: #64748b"
+                    >
                       <Icon name="ph:clock" /> Belum
                     </span>
-                    <span v-else-if="day.isComplete" class="badge-status success">
+                    <span
+                      v-else-if="day.isComplete"
+                      class="badge-status success"
+                    >
                       <Icon name="ph:check-circle-fill" /> Tuntas
                     </span>
-                    <span v-else-if="day.hasLog" class="badge-status warning" style="background: #fef08a; color: #854d0e;">
+                    <span
+                      v-else-if="day.hasLog"
+                      class="badge-status warning"
+                      style="background: #fef08a; color: #854d0e"
+                    >
                       <Icon name="ph:warning-circle-fill" /> Tidak Tuntas
                     </span>
                     <span v-else class="badge-status danger">
@@ -275,15 +440,38 @@
                   </td>
                   <td>
                     <div v-if="day.hasLog" class="log-note-wrapper">
-                      <p v-if="day.isComplete" class="log-note text-success fw-bold">Jurnal harian tuntas.</p>
-                      <p v-else class="log-note text-warning fw-bold" style="color: #ca8a04;">Jurnal diisi namun belum tuntas.</p>
-                      <p v-if="day.note" class="log-note" style="margin-top: 8px; font-weight: 600; color: #334155;">{{ day.note }}</p>
+                      <p
+                        v-if="day.isComplete"
+                        class="log-note text-success fw-bold"
+                      >
+                        Jurnal harian tuntas.
+                      </p>
+                      <p
+                        v-else
+                        class="log-note text-warning fw-bold"
+                        style="color: #ca8a04"
+                      >
+                        Jurnal diisi namun belum tuntas.
+                      </p>
+                      <p
+                        v-if="day.note"
+                        class="log-note"
+                        style="
+                          margin-top: 8px;
+                          font-weight: 600;
+                          color: #334155;
+                        "
+                      >
+                        {{ day.note }}
+                      </p>
                     </div>
                     <div v-else-if="!day.isFuture" class="log-note-wrapper">
-                      <p class="log-note text-danger">Orang tua tidak mengisi jurnal pada hari ini.</p>
+                      <p class="log-note text-danger">
+                        Orang tua tidak mengisi jurnal pada hari ini.
+                      </p>
                     </div>
                     <div v-else class="log-note-wrapper">
-                      <p class="log-note" style="color: #94a3b8;">-</p>
+                      <p class="log-note" style="color: #94a3b8">-</p>
                     </div>
                   </td>
                 </tr>
@@ -295,307 +483,477 @@
     </div>
 
     <!-- Modal Success Alert -->
-    <div v-if="showSuccessModal" class="modal-overlay" style="z-index: 1000;" @click.self="showSuccessModal = false">
-      <div class="modal-content" style="max-width: 400px; text-align: center; padding: 2rem;">
-        <div style="background: #dcfce7; width: 80px; height: 80px; border-radius: 50%; display: flex; align-items: center; justify-content: center; margin: 0 auto 1.5rem auto;">
-          <Icon name="ph:check-circle-fill" style="font-size: 3rem; color: #166534;" />
+    <div
+      v-if="showSuccessModal"
+      class="modal-overlay"
+      style="z-index: 1000"
+      @click.self="showSuccessModal = false"
+    >
+      <div
+        class="modal-content"
+        style="max-width: 400px; text-align: center; padding: 2rem"
+      >
+        <div
+          style="
+            background: #dcfce7;
+            width: 80px;
+            height: 80px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin: 0 auto 1.5rem auto;
+          "
+        >
+          <Icon
+            name="ph:check-circle-fill"
+            style="font-size: 3rem; color: #166534"
+          />
         </div>
-        <h3 style="margin-bottom: 1rem; color: #0f172a; font-weight: 800; font-size: 1.5rem;">Berhasil Terkirim!</h3>
-        <p style="color: #475569; margin-bottom: 2rem; line-height: 1.5;">Catatan tindak lanjut telah berhasil disimpan dan dikirimkan kepada orang tua.</p>
-        <button class="btn-save" style="width: 100%; justify-content: center;" @click="showSuccessModal = false">Tutup</button>
+        <h3
+          style="
+            margin-bottom: 1rem;
+            color: #0f172a;
+            font-weight: 800;
+            font-size: 1.5rem;
+          "
+        >
+          Berhasil Terkirim!
+        </h3>
+        <p style="color: #475569; margin-bottom: 2rem; line-height: 1.5">
+          Catatan tindak lanjut telah berhasil disimpan dan dikirimkan kepada
+          orang tua.
+        </p>
+        <button
+          class="btn-save"
+          style="width: 100%; justify-content: center"
+          @click="showSuccessModal = false"
+        >
+          Tutup
+        </button>
       </div>
     </div>
-
   </div>
 </template>
 
 <script setup>
-import { ref, computed, onMounted } from 'vue'
-import { useRoute, useRouter } from 'vue-router'
-import { Line } from 'vue-chartjs'
-import { Chart as ChartJS, Title, Tooltip, Legend, PointElement, LineElement, Filler, CategoryScale, LinearScale } from 'chart.js'
+import { ref, computed, onMounted } from "vue";
+import { useRoute, useRouter } from "vue-router";
+import { Line } from "vue-chartjs";
+import {
+  Chart as ChartJS,
+  Title,
+  Tooltip,
+  Legend,
+  PointElement,
+  LineElement,
+  Filler,
+  CategoryScale,
+  LinearScale,
+} from "chart.js";
 
-ChartJS.register(Title, Tooltip, Legend, PointElement, LineElement, Filler, CategoryScale, LinearScale)
+ChartJS.register(
+  Title,
+  Tooltip,
+  Legend,
+  PointElement,
+  LineElement,
+  Filler,
+  CategoryScale,
+  LinearScale,
+);
 
 definePageMeta({
-  layout: 'guru'
-})
+  layout: "guru",
+});
 
-const route = useRoute()
-const router = useRouter()
-const supabase = useSupabase()
+const route = useRoute();
+const router = useRouter();
+const supabase = useSupabase();
 
 const currentPrintDate = computed(() => {
-  const d = new Date()
-  const months = ['Januari', 'Februari', 'Maret', 'April', 'Mei', 'Juni', 'Juli', 'Agustus', 'September', 'Oktober', 'November', 'Desember']
-  return `${d.getDate()} ${months[d.getMonth()]} ${d.getFullYear()}`
-})
+  const d = new Date();
+  const months = [
+    "Januari",
+    "Februari",
+    "Maret",
+    "April",
+    "Mei",
+    "Juni",
+    "Juli",
+    "Agustus",
+    "September",
+    "Oktober",
+    "November",
+    "Desember",
+  ];
+  return `${d.getDate()} ${months[d.getMonth()]} ${d.getFullYear()}`;
+});
 
 const studentData = ref({
-  nama: 'Memuat...',
-  nis: '-',
-  namaKelas: '-',
-  waliKelas: '-',
-  nipWali: '-',
-  namaSekolah: '-',
-  namaOrangTua: '-',
-  agama: 'Islam'
-})
+  nama: "Memuat...",
+  nis: "-",
+  namaKelas: "-",
+  waliKelas: "-",
+  nipWali: "-",
+  namaSekolah: "-",
+  namaOrangTua: "-",
+  agama: "Islam",
+});
 
 onMounted(async () => {
-  const studentId = route.query.id
+  const studentId = route.query.id;
   if (studentId) {
-    const { data: s } = await supabase.from('peserta_didik').select('*, kelas(nama_kelas, wali_kelas_id), orang_tua(nama)').eq('id', studentId).single()
+    const { data: s } = await supabase
+      .from("peserta_didik")
+      .select("*, kelas(nama_kelas, wali_kelas_id), orang_tua(nama)")
+      .eq("id", studentId)
+      .single();
     if (s) {
-      studentData.value.nama = s.nama
-      studentData.value.nis = s.nis || '-'
-      studentData.value.namaKelas = s.kelas?.nama_kelas || '-'
-      studentData.value.namaOrangTua = s.orang_tua?.nama || '-'
-      studentData.value.agama = s.agama || 'Islam'
-      
+      studentData.value.nama = s.nama;
+      studentData.value.nis = s.nis || "-";
+      studentData.value.namaKelas = s.kelas?.nama_kelas || "-";
+      studentData.value.namaOrangTua = s.orang_tua?.nama || "-";
+      studentData.value.agama = s.agama || "Islam";
+
       if (s.kelas?.wali_kelas_id) {
-        const { data: g } = await supabase.from('guru').select('nama, nip').eq('id', s.kelas.wali_kelas_id).single()
+        const { data: g } = await supabase
+          .from("guru")
+          .select("nama, nip")
+          .eq("id", s.kelas.wali_kelas_id)
+          .single();
         if (g) {
-          studentData.value.waliKelas = g.nama
-          studentData.value.nipWali = g.nip || '-'
+          studentData.value.waliKelas = g.nama;
+          studentData.value.nipWali = g.nip || "-";
         }
       }
     }
-    
-    // Hitung summary awal saat halaman dimuat
-    calculateSummary()
-  }
-})
 
-const catatanGuru = ref('')
-const currentEvaluasiId = ref(null)
-const isSaving = ref(false)
-const showSuccessModal = ref(false)
-const catatanOrangTuaList = ref([])
+    calculateSummary();
+  }
+});
+
+const catatanGuru = ref("");
+const currentEvaluasiId = ref(null);
+const isSaving = ref(false);
+const showSuccessModal = ref(false);
+const catatanOrangTuaList = ref([]);
 
 const saveEvaluasi = async () => {
   if (!catatanGuru.value.trim()) {
-    alert('Catatan tidak boleh kosong')
-    return
+    alert("Catatan tidak boleh kosong");
+    return;
   }
 
-  isSaving.value = true
+  isSaving.value = true;
   try {
-    const studentId = route.query.id
-    const startDate = `${selectedYear.value}-${String(selectedMonth.value + 1).padStart(2, '0')}-01`
-    const daysInMonth = new Date(selectedYear.value, selectedMonth.value + 1, 0).getDate()
-    const endDate = `${selectedYear.value}-${String(selectedMonth.value + 1).padStart(2, '0')}-${daysInMonth}`
+    const studentId = route.query.id;
+    const startDate = `${selectedYear.value}-${String(selectedMonth.value + 1).padStart(2, "0")}-01`;
+    const daysInMonth = new Date(
+      selectedYear.value,
+      selectedMonth.value + 1,
+      0,
+    ).getDate();
+    const endDate = `${selectedYear.value}-${String(selectedMonth.value + 1).padStart(2, "0")}-${daysInMonth}`;
 
-    // Cari jurnal harian terbaru di bulan ini untuk menempelkan evaluasi (karena skema menautkan evaluasi ke jurnal harian)
     let { data: harianData, error: harianErr } = await supabase
-      .from('jurnal_harian')
-      .select('id')
-      .eq('peserta_didik_id', studentId)
-      .gte('tanggal', startDate)
-      .lte('tanggal', endDate)
-      .order('tanggal', { ascending: false })
-      .limit(1)
-    
-    let targetHarianId = harianData && harianData.length > 0 ? harianData[0].id : null
-    
+      .from("jurnal_harian")
+      .select("id")
+      .eq("peserta_didik_id", studentId)
+      .gte("tanggal", startDate)
+      .lte("tanggal", endDate)
+      .order("tanggal", { ascending: false })
+      .limit(1);
+
+    let targetHarianId =
+      harianData && harianData.length > 0 ? harianData[0].id : null;
+
     if (!targetHarianId) {
-      // Jika murid belum pernah isi jurnal sama sekali bulan ini, buat satu entri harian kosong sebagai wadah evaluasi
-      const now = new Date()
-      const year = now.getFullYear()
-      const month = String(now.getMonth() + 1).padStart(2, '0')
-      const date = String(now.getDate()).padStart(2, '0')
-      const { data: newHarian, error: hError } = await supabase.from('jurnal_harian').insert({
-        peserta_didik_id: studentId,
-        tanggal: `${year}-${month}-${date}`
-      }).select('id')
-      if (hError) throw hError
-      if (newHarian && newHarian.length > 0) targetHarianId = newHarian[0].id
+      const now = new Date();
+      const year = now.getFullYear();
+      const month = String(now.getMonth() + 1).padStart(2, "0");
+      const date = String(now.getDate()).padStart(2, "0");
+      const { data: newHarian, error: hError } = await supabase
+        .from("jurnal_harian")
+        .insert({
+          peserta_didik_id: studentId,
+          tanggal: `${year}-${month}-${date}`,
+        })
+        .select("id");
+      if (hError) throw hError;
+      if (newHarian && newHarian.length > 0) targetHarianId = newHarian[0].id;
     }
 
     if (targetHarianId) {
-      const { data: { user } } = await supabase.auth.getUser()
-      if (!user) throw new Error('Pengguna tidak terautentikasi')
-      
-      const { data: guruData, error: gError } = await supabase.from('guru')
-        .select('id, users!inner(email)')
-        .eq('users.email', user.email)
-      if (gError) throw gError
-      
+      const {
+        data: { user },
+      } = await supabase.auth.getUser();
+      if (!user) throw new Error("Pengguna tidak terautentikasi");
+
+      const { data: guruData, error: gError } = await supabase
+        .from("guru")
+        .select("id, users!inner(email)")
+        .eq("users.email", user.email);
+      if (gError) throw gError;
+
       if (guruData && guruData.length > 0) {
         if (currentEvaluasiId.value) {
-          const { error: updErr } = await supabase.from('evaluasi_guru').update({ catatan_evaluasi: catatanGuru.value }).eq('id', currentEvaluasiId.value)
-          if (updErr) throw updErr
+          const { error: updErr } = await supabase
+            .from("evaluasi_guru")
+            .update({ catatan_evaluasi: catatanGuru.value })
+            .eq("id", currentEvaluasiId.value);
+          if (updErr) throw updErr;
         } else {
-          const { data: newEv, error: insErr } = await supabase.from('evaluasi_guru').insert({
-            jurnal_harian_id: targetHarianId,
-            guru_id: guruData[0].id,
-            catatan_evaluasi: catatanGuru.value
-          }).select('id')
-          if (insErr) throw insErr
-          if (newEv && newEv.length > 0) currentEvaluasiId.value = newEv[0].id
+          const { data: newEv, error: insErr } = await supabase
+            .from("evaluasi_guru")
+            .insert({
+              jurnal_harian_id: targetHarianId,
+              guru_id: guruData[0].id,
+              catatan_evaluasi: catatanGuru.value,
+            })
+            .select("id");
+          if (insErr) throw insErr;
+          if (newEv && newEv.length > 0) currentEvaluasiId.value = newEv[0].id;
         }
-        showSuccessModal.value = true
+        showSuccessModal.value = true;
       } else {
-         throw new Error('Data guru tidak ditemukan untuk user ini. Pastikan Anda login sebagai guru.')
+        throw new Error(
+          "Data guru tidak ditemukan untuk user ini. Pastikan Anda login sebagai guru.",
+        );
       }
     } else {
-       throw new Error('Gagal mendapatkan atau membuat Jurnal Harian')
+      throw new Error("Gagal mendapatkan atau membuat Jurnal Harian");
     }
   } catch (err) {
-    console.error('Error saving evaluasi:', err)
-    alert('Terjadi kesalahan saat menyimpan evaluasi: ' + (err.message || err.details || 'Silakan cek console.'))
+    console.error("Error saving evaluasi:", err);
+    alert(
+      "Terjadi kesalahan saat menyimpan evaluasi: " +
+        (err.message || err.details || "Silakan cek console."),
+    );
   } finally {
-    isSaving.value = false
+    isSaving.value = false;
   }
-}
+};
 
 const exportPDF = () => {
   window.print();
-}
+};
 
-const monthsList = ['Januari', 'Februari', 'Maret', 'April', 'Mei', 'Juni', 'Juli', 'Agustus', 'September', 'Oktober', 'November', 'Desember']
+const monthsList = [
+  "Januari",
+  "Februari",
+  "Maret",
+  "April",
+  "Mei",
+  "Juni",
+  "Juli",
+  "Agustus",
+  "September",
+  "Oktober",
+  "November",
+  "Desember",
+];
 
-const currentYear = new Date().getFullYear()
-const availableYears = [currentYear - 2, currentYear - 1, currentYear, currentYear + 1]
+const currentYear = new Date().getFullYear();
+const availableYears = [
+  currentYear - 2,
+  currentYear - 1,
+  currentYear,
+  currentYear + 1,
+];
 
-const selectedMonth = ref(new Date().getMonth())
-const selectedYear = ref(currentYear)
+const selectedMonth = ref(new Date().getMonth());
+const selectedYear = ref(currentYear);
 
 const onFilterChange = () => {
-  calculateSummary()
-}
+  calculateSummary();
+};
 
 const calculateSummary = async () => {
-  const studentId = route.query.id
-  if (!studentId) return
+  const studentId = route.query.id;
+  if (!studentId) return;
 
-  const startDate = `${selectedYear.value}-${String(selectedMonth.value + 1).padStart(2, '0')}-01`
-  const daysInMonth = new Date(selectedYear.value, selectedMonth.value + 1, 0).getDate()
-  const endDate = `${selectedYear.value}-${String(selectedMonth.value + 1).padStart(2, '0')}-${daysInMonth}`
+  const startDate = `${selectedYear.value}-${String(selectedMonth.value + 1).padStart(2, "0")}-01`;
+  const daysInMonth = new Date(
+    selectedYear.value,
+    selectedMonth.value + 1,
+    0,
+  ).getDate();
+  const endDate = `${selectedYear.value}-${String(selectedMonth.value + 1).padStart(2, "0")}-${daysInMonth}`;
 
-  // 1. Ambil semua jurnal_harian bulan ini
   const { data: harianData } = await supabase
-    .from('jurnal_harian')
-    .select('id, tanggal')
-    .eq('peserta_didik_id', studentId)
-    .gte('tanggal', startDate)
-    .lte('tanggal', endDate)
+    .from("jurnal_harian")
+    .select("id, tanggal")
+    .eq("peserta_didik_id", studentId)
+    .gte("tanggal", startDate)
+    .lte("tanggal", endDate);
 
-  // Reset counters
-  kebiasaanData.value.forEach(k => k.daysCompleted = 0)
-  catatanGuru.value = ''
-  currentEvaluasiId.value = null
+  kebiasaanData.value.forEach((k) => (k.daysCompleted = 0));
+  catatanGuru.value = "";
+  currentEvaluasiId.value = null;
 
   if (harianData && harianData.length > 0) {
-    const harianIds = harianData.map(h => h.id)
+    const harianIds = harianData.map((h) => h.id);
 
-    // Ambil Ibadah
-    const { data: ibadahData } = await supabase.from('jurnal_ibadah').select('jurnal_harian_id').in('jurnal_harian_id', harianIds).eq('status', true)
+    const { data: ibadahData } = await supabase
+      .from("jurnal_ibadah")
+      .select("jurnal_harian_id")
+      .in("jurnal_harian_id", harianIds)
+      .eq("status", true);
     if (ibadahData) {
       const ibadahCounts = ibadahData.reduce((acc, curr) => {
-        acc[curr.jurnal_harian_id] = (acc[curr.jurnal_harian_id] || 0) + 1
-        return acc
-      }, {})
-      const isIslam = !studentData.value?.agama || studentData.value.agama.toLowerCase().trim() === 'islam'
-      const requiredCount = isIslam ? 5 : 3
-      const uniqueDays = Object.values(ibadahCounts).filter(count => count >= requiredCount).length
-      const ibadahObj = kebiasaanData.value.find(k => k.nama === 'Beribadah')
-      if (ibadahObj) ibadahObj.daysCompleted = uniqueDays
+        acc[curr.jurnal_harian_id] = (acc[curr.jurnal_harian_id] || 0) + 1;
+        return acc;
+      }, {});
+      const isIslam =
+        !studentData.value?.agama ||
+        studentData.value.agama.toLowerCase().trim() === "islam";
+      const requiredCount = isIslam ? 5 : 3;
+      const uniqueDays = Object.values(ibadahCounts).filter(
+        (count) => count >= requiredCount,
+      ).length;
+      const ibadahObj = kebiasaanData.value.find((k) => k.nama === "Beribadah");
+      if (ibadahObj) ibadahObj.daysCompleted = uniqueDays;
     }
 
-    // Ambil Kebiasaan Lainnya
-    const { data: masterKebiasaan } = await supabase.from('kebiasaan').select('id, nama_kebiasaan')
-    const { data: kebiasaanLogs } = await supabase.from('jurnal_kebiasaan').select('jurnal_harian_id, kebiasaan_id, keterangan').in('jurnal_harian_id', harianIds).eq('status', true)
-    
+    const { data: masterKebiasaan } = await supabase
+      .from("kebiasaan")
+      .select("id, nama_kebiasaan");
+    const { data: kebiasaanLogs } = await supabase
+      .from("jurnal_kebiasaan")
+      .select("jurnal_harian_id, kebiasaan_id, keterangan")
+      .in("jurnal_harian_id", harianIds)
+      .eq("status", true);
+
     if (masterKebiasaan && kebiasaanLogs) {
-      kebiasaanData.value.forEach(k => {
-        if (k.nama === 'Beribadah') return
-        const masterK = masterKebiasaan.find(mk => mk.nama_kebiasaan.toLowerCase().includes(k.nama.toLowerCase().split(' ')[0]))
+      kebiasaanData.value.forEach((k) => {
+        if (k.nama === "Beribadah") return;
+        const masterK = masterKebiasaan.find((mk) =>
+          mk.nama_kebiasaan
+            .toLowerCase()
+            .includes(k.nama.toLowerCase().split(" ")[0]),
+        );
         if (masterK) {
-           const validLogs = kebiasaanLogs.filter(l => l.kebiasaan_id === masterK.id)
-           let count = 0
+          const validLogs = kebiasaanLogs.filter(
+            (l) => l.kebiasaan_id === masterK.id,
+          );
+          let count = 0;
 
-           if (k.nama === 'Bangun Pagi') {
-             // Hanya dihitung "Terbiasa" jika bangun <= 06:00 pagi
-             count = new Set(validLogs.filter(l => {
-                if (!l.keterangan || l.keterangan === 'Lebih dari 06:00') return false
-                const [h, m] = l.keterangan.split(':').map(Number)
-                return (h * 60 + m) <= (6 * 60)
-             }).map(l => l.jurnal_harian_id)).size
-           } else if (k.nama === 'Tidur tepat waktu' || k.nama === 'Tidur Tepat Waktu') {
-             // Hanya dihitung "Terbiasa" jika tidur <= 22:00 malam
-             count = new Set(validLogs.filter(l => {
-                if (!l.keterangan || l.keterangan === 'Lebih dari 22:00') return false
-                const [h, m] = l.keterangan.split(':').map(Number)
-                return (h * 60 + m) <= (22 * 60)
-             }).map(l => l.jurnal_harian_id)).size
-           } else if (k.nama === 'Berolahraga' || k.nama === 'Gemar Belajar') {
-             count = new Set(validLogs.filter(l => {
-                if (!l.keterangan) return false
-                let text = ''
-                try {
-                  const parsed = JSON.parse(l.keterangan)
-                  text = parsed.materi || parsed.keterangan || l.keterangan
-                } catch(e) {
-                  text = l.keterangan
-                }
-                const match = text.match(/\((\d+)\s*Menit\)/i)
-                if (match) {
-                  return parseInt(match[1]) >= 30
-                }
-                return false
-             }).map(l => l.jurnal_harian_id)).size
-           } else if (k.nama === 'Makan sehat & Bergizi') {
-             count = new Set(validLogs.filter(l => {
-                if (!l.keterangan) return false
-                try {
-                  const parsed = JSON.parse(l.keterangan)
-                  return (parsed.nasi && parsed.nasi !== 'Tidak Konsumsi') &&
-                         (parsed.lauk && parsed.lauk !== 'Tidak Konsumsi') &&
-                         (parsed.sayur && parsed.sayur !== 'Tidak Konsumsi') &&
-                         (parsed.buah && parsed.buah !== 'Tidak Konsumsi')
-                } catch(e) {
-                  return false
-                }
-             }).map(l => l.jurnal_harian_id)).size
-           } else {
-             count = new Set(validLogs.map(l => l.jurnal_harian_id)).size
-           }
-           
-           k.daysCompleted = count
+          if (k.nama === "Bangun Pagi") {
+            // Hanya dihitung "Terbiasa" jika bangun <= 06:00 pagi
+            count = new Set(
+              validLogs
+                .filter((l) => {
+                  if (!l.keterangan || l.keterangan === "Lebih dari 06:00")
+                    return false;
+                  const [h, m] = l.keterangan.split(":").map(Number);
+                  return h * 60 + m <= 6 * 60;
+                })
+                .map((l) => l.jurnal_harian_id),
+            ).size;
+          } else if (
+            k.nama === "Tidur tepat waktu" ||
+            k.nama === "Tidur Tepat Waktu"
+          ) {
+            // Hanya dihitung "Terbiasa" jika tidur <= 22:00 malam
+            count = new Set(
+              validLogs
+                .filter((l) => {
+                  if (!l.keterangan || l.keterangan === "Lebih dari 22:00")
+                    return false;
+                  const [h, m] = l.keterangan.split(":").map(Number);
+                  return h * 60 + m <= 22 * 60;
+                })
+                .map((l) => l.jurnal_harian_id),
+            ).size;
+          } else if (k.nama === "Berolahraga" || k.nama === "Gemar Belajar") {
+            count = new Set(
+              validLogs
+                .filter((l) => {
+                  if (!l.keterangan) return false;
+                  let text = "";
+                  try {
+                    const parsed = JSON.parse(l.keterangan);
+                    text = parsed.materi || parsed.keterangan || l.keterangan;
+                  } catch (e) {
+                    text = l.keterangan;
+                  }
+                  const match = text.match(/\((\d+)\s*Menit\)/i);
+                  if (match) {
+                    return parseInt(match[1]) >= 30;
+                  }
+                  return false;
+                })
+                .map((l) => l.jurnal_harian_id),
+            ).size;
+          } else if (k.nama === "Makan sehat & Bergizi") {
+            count = new Set(
+              validLogs
+                .filter((l) => {
+                  if (!l.keterangan) return false;
+                  try {
+                    const parsed = JSON.parse(l.keterangan);
+                    return (
+                      parsed.nasi &&
+                      parsed.nasi !== "Tidak Konsumsi" &&
+                      parsed.lauk &&
+                      parsed.lauk !== "Tidak Konsumsi" &&
+                      parsed.sayur &&
+                      parsed.sayur !== "Tidak Konsumsi" &&
+                      parsed.buah &&
+                      parsed.buah !== "Tidak Konsumsi"
+                    );
+                  } catch (e) {
+                    return false;
+                  }
+                })
+                .map((l) => l.jurnal_harian_id),
+            ).size;
+          } else {
+            count = new Set(validLogs.map((l) => l.jurnal_harian_id)).size;
+          }
+
+          k.daysCompleted = count;
         }
-      })
+      });
     }
 
-    // Ambil Evaluasi Guru untuk bulan ini (ambil yang terbaru)
-    const { data: evData } = await supabase.from('evaluasi_guru').select('*').in('jurnal_harian_id', harianIds).order('created_at', { ascending: false }).limit(1)
+    const { data: evData } = await supabase
+      .from("evaluasi_guru")
+      .select("*")
+      .in("jurnal_harian_id", harianIds)
+      .order("created_at", { ascending: false })
+      .limit(1);
     if (evData && evData.length > 0) {
-      catatanGuru.value = evData[0].catatan_evaluasi
-      currentEvaluasiId.value = evData[0].id
+      catatanGuru.value = evData[0].catatan_evaluasi;
+      currentEvaluasiId.value = evData[0].id;
     }
   }
 
   // Fetch Catatan Bulanan Orang Tua
-  const { data: catData } = await supabase.from('catatan_orang_tua')
-    .select('jenis_jurnal, catatan')
-    .eq('peserta_didik_id', studentId)
-    .eq('bulan', selectedMonth.value + 1)
-    .eq('tahun', selectedYear.value)
-  
+  const { data: catData } = await supabase
+    .from("catatan_orang_tua")
+    .select("jenis_jurnal, catatan")
+    .eq("peserta_didik_id", studentId)
+    .eq("bulan", selectedMonth.value + 1)
+    .eq("tahun", selectedYear.value);
+
   if (catData) {
-    catatanOrangTuaList.value = catData.filter(c => c.catatan && c.catatan.trim() !== '')
+    catatanOrangTuaList.value = catData.filter(
+      (c) => c.catatan && c.catatan.trim() !== "",
+    );
   } else {
-    catatanOrangTuaList.value = []
+    catatanOrangTuaList.value = [];
   }
-}
+};
 
-const showModal = ref(false)
-const selectedHabit = ref('')
-const isModalLoading = ref(false)
-const modalLogs = ref([])
-const parentNote = ref('')
+const showModal = ref(false);
+const selectedHabit = ref("");
+const isModalLoading = ref(false);
+const modalLogs = ref([]);
+const parentNote = ref("");
 
-const chartData = ref({ labels: [], datasets: [] })
+const chartData = ref({ labels: [], datasets: [] });
 const chartOptions = ref({
   responsive: true,
   maintainAspectRatio: false,
@@ -604,202 +962,248 @@ const chartOptions = ref({
       beginAtZero: true,
       max: 7,
       ticks: {
-        stepSize: 1
+        stepSize: 1,
       },
       title: {
         display: true,
-        text: 'Jumlah Hari Tuntas'
-      }
-    }
+        text: "Jumlah Hari Tuntas",
+      },
+    },
   },
   plugins: {
     legend: { display: false },
     tooltip: {
       callbacks: {
-        label: function(context) {
-          return `Tuntas: ${context.raw} Hari`
-        }
-      }
-    }
-  }
-})
+        label: function (context) {
+          return `Tuntas: ${context.raw} Hari`;
+        },
+      },
+    },
+  },
+});
 
 const openModal = async (habit) => {
-  selectedHabit.value = habit
-  showModal.value = true
-  isModalLoading.value = true
-  modalLogs.value = []
+  selectedHabit.value = habit;
+  showModal.value = true;
+  isModalLoading.value = true;
+  modalLogs.value = [];
 
-  const studentId = route.query.id
+  const studentId = route.query.id;
   if (studentId) {
-    const today = new Date()
-    const currentMonth = selectedMonth.value
-    const currentYear = selectedYear.value
-    
-    const startDate = `${currentYear}-${String(currentMonth + 1).padStart(2, '0')}-01`
-    const daysInMonth = new Date(currentYear, currentMonth + 1, 0).getDate()
-    const endDate = `${currentYear}-${String(currentMonth + 1).padStart(2, '0')}-${daysInMonth}`
+    const today = new Date();
+    const currentMonth = selectedMonth.value;
+    const currentYear = selectedYear.value;
+
+    const startDate = `${currentYear}-${String(currentMonth + 1).padStart(2, "0")}-01`;
+    const daysInMonth = new Date(currentYear, currentMonth + 1, 0).getDate();
+    const endDate = `${currentYear}-${String(currentMonth + 1).padStart(2, "0")}-${daysInMonth}`;
 
     const { data } = await supabase
-      .from('jurnal_harian')
-      .select('*')
-      .eq('peserta_didik_id', studentId)
-      .gte('tanggal', startDate)
-      .lte('tanggal', endDate)
+      .from("jurnal_harian")
+      .select("*")
+      .eq("peserta_didik_id", studentId)
+      .gte("tanggal", startDate)
+      .lte("tanggal", endDate);
 
-    const logsMap = {}
+    const logsMap = {};
     if (data) {
-      data.forEach(log => {
-        const d = new Date(log.tanggal).getDate()
-        logsMap[d] = log
-      })
+      data.forEach((log) => {
+        const d = new Date(log.tanggal).getDate();
+        logsMap[d] = log;
+      });
     }
 
-    const harianIds = (data || []).map(h => h.id)
-    let completedHarianIds = new Map()
-    let interactedHarianIds = new Set()
+    const harianIds = (data || []).map((h) => h.id);
+    let completedHarianIds = new Map();
+    let interactedHarianIds = new Set();
 
     if (harianIds.length > 0) {
-      if (habit === 'Beribadah') {
-        const { data: ibadahLogs } = await supabase.from('jurnal_ibadah').select('jurnal_harian_id, status, ibadah(nama_ibadah)').in('jurnal_harian_id', harianIds)
+      if (habit === "Beribadah") {
+        const { data: ibadahLogs } = await supabase
+          .from("jurnal_ibadah")
+          .select("jurnal_harian_id, status, ibadah(nama_ibadah)")
+          .in("jurnal_harian_id", harianIds);
         if (ibadahLogs) {
-          const isIslam = !studentData.value?.agama || studentData.value.agama.toLowerCase().trim() === 'islam'
-          const requiredPrayers = isIslam ? ['subuh', 'dzuhur', 'ashar', 'maghrib', 'isya'] : ['doa pagi', 'membaca alkitab', 'doa malam']
-          
+          const isIslam =
+            !studentData.value?.agama ||
+            studentData.value.agama.toLowerCase().trim() === "islam";
+          const requiredPrayers = isIslam
+            ? ["subuh", "dzuhur", "ashar", "maghrib", "isya"]
+            : ["doa pagi", "membaca alkitab", "doa malam"];
+
           const grouped = ibadahLogs.reduce((acc, curr) => {
-            acc[curr.jurnal_harian_id] = acc[curr.jurnal_harian_id] || []
-            interactedHarianIds.add(curr.jurnal_harian_id)
+            acc[curr.jurnal_harian_id] = acc[curr.jurnal_harian_id] || [];
+            interactedHarianIds.add(curr.jurnal_harian_id);
             if (curr.status) {
-              acc[curr.jurnal_harian_id].push(curr.ibadah?.nama_ibadah?.toLowerCase() || '')
+              acc[curr.jurnal_harian_id].push(
+                curr.ibadah?.nama_ibadah?.toLowerCase() || "",
+              );
             }
-            return acc
-          }, {})
+            return acc;
+          }, {});
 
           for (const [hId, donePrayers] of Object.entries(grouped)) {
-            const missing = requiredPrayers.filter(p => {
-               const cleanP = p.replace(/[^a-z]/g, '')
-               return !donePrayers.some(dp => {
-                  const cleanDp = dp.replace(/[^a-z]/g, '')
-                  return cleanDp.includes(cleanP) || cleanP.includes(cleanDp)
-               })
-            })
+            const missing = requiredPrayers.filter((p) => {
+              const cleanP = p.replace(/[^a-z]/g, "");
+              return !donePrayers.some((dp) => {
+                const cleanDp = dp.replace(/[^a-z]/g, "");
+                return cleanDp.includes(cleanP) || cleanP.includes(cleanDp);
+              });
+            });
             if (missing.length === 0) {
-              completedHarianIds.set(hId, { isComplete: true, note: 'Lengkap (Seluruh Ibadah Terlaksana)' })
+              completedHarianIds.set(hId, {
+                isComplete: true,
+                note: "Lengkap (Seluruh Ibadah Terlaksana)",
+              });
             } else {
-              completedHarianIds.set(hId, { isComplete: false, note: `Belum Tuntas. Kurang: ${missing.map(m => m.charAt(0).toUpperCase() + m.slice(1)).join(', ')}` })
+              completedHarianIds.set(hId, {
+                isComplete: false,
+                note: `Belum Tuntas. Kurang: ${missing.map((m) => m.charAt(0).toUpperCase() + m.slice(1)).join(", ")}`,
+              });
             }
           }
         }
       } else {
-        const { data: masterKebiasaan } = await supabase.from('kebiasaan').select('id, nama_kebiasaan')
-        const masterK = masterKebiasaan?.find(mk => mk.nama_kebiasaan.toLowerCase().includes(habit.split(' ')[0].toLowerCase()))
+        const { data: masterKebiasaan } = await supabase
+          .from("kebiasaan")
+          .select("id, nama_kebiasaan");
+        const masterK = masterKebiasaan?.find((mk) =>
+          mk.nama_kebiasaan
+            .toLowerCase()
+            .includes(habit.split(" ")[0].toLowerCase()),
+        );
         if (masterK) {
-           const { data: kLogs } = await supabase.from('jurnal_kebiasaan').select('jurnal_harian_id, keterangan, status').in('jurnal_harian_id', harianIds).eq('kebiasaan_id', masterK.id)
-           if (kLogs) {
-             kLogs.forEach(l => {
-               interactedHarianIds.add(l.jurnal_harian_id)
-               if (!l.status && habit !== 'Makan sehat & Bergizi') return
-               
-               if (habit === 'Berolahraga' || habit === 'Gemar Belajar') {
-                 let text = ''
-                 try {
-                   const parsed = JSON.parse(l.keterangan)
-                   text = parsed.materi || parsed.keterangan || l.keterangan
-                 } catch(e) {
-                   text = l.keterangan
-                 }
-                 const match = text.match(/\((\d+)\s*Menit\)/i)
-                 if (!match || parseInt(match[1]) < 30) {
-                   return // skip adding to completed if less than 30 mins
-                 }
-               }
-               
-               if (habit === 'Makan sehat & Bergizi') {
-                 let isComplete = false
-                 let note = ''
-                 try {
-                   const parsed = JSON.parse(l.keterangan)
-                   const missing = []
-                   if (!parsed.nasi || parsed.nasi === 'Tidak Konsumsi') missing.push('Karbohidrat')
-                   if (!parsed.lauk || parsed.lauk === 'Tidak Konsumsi') missing.push('Lauk Pauk')
-                   if (!parsed.sayur || parsed.sayur === 'Tidak Konsumsi') missing.push('Sayur')
-                   if (!parsed.buah || parsed.buah === 'Tidak Konsumsi') missing.push('Buah')
-                   
-                   isComplete = missing.length === 0
-                   note = isComplete ? 'Lengkap (Nasi, Lauk, Sayur, Buah)' : `Tidak makan: ${missing.join(', ')}`
-                 } catch(e) {
-                   note = l.keterangan
-                 }
-                 completedHarianIds.set(l.jurnal_harian_id, { isComplete, note })
-                 return
-               }
-               
-               completedHarianIds.set(l.jurnal_harian_id, l.keterangan)
-             })
-           }
+          const { data: kLogs } = await supabase
+            .from("jurnal_kebiasaan")
+            .select("jurnal_harian_id, keterangan, status")
+            .in("jurnal_harian_id", harianIds)
+            .eq("kebiasaan_id", masterK.id);
+          if (kLogs) {
+            kLogs.forEach((l) => {
+              interactedHarianIds.add(l.jurnal_harian_id);
+              if (!l.status && habit !== "Makan sehat & Bergizi") return;
+
+              if (habit === "Berolahraga" || habit === "Gemar Belajar") {
+                let text = "";
+                try {
+                  const parsed = JSON.parse(l.keterangan);
+                  text = parsed.materi || parsed.keterangan || l.keterangan;
+                } catch (e) {
+                  text = l.keterangan;
+                }
+                const match = text.match(/\((\d+)\s*Menit\)/i);
+                if (!match || parseInt(match[1]) < 30) {
+                  return; // skip adding to completed if less than 30 mins
+                }
+              }
+
+              if (habit === "Makan sehat & Bergizi") {
+                let isComplete = false;
+                let note = "";
+                try {
+                  const parsed = JSON.parse(l.keterangan);
+                  const missing = [];
+                  if (!parsed.nasi || parsed.nasi === "Tidak Konsumsi")
+                    missing.push("Karbohidrat");
+                  if (!parsed.lauk || parsed.lauk === "Tidak Konsumsi")
+                    missing.push("Lauk Pauk");
+                  if (!parsed.sayur || parsed.sayur === "Tidak Konsumsi")
+                    missing.push("Sayur");
+                  if (!parsed.buah || parsed.buah === "Tidak Konsumsi")
+                    missing.push("Buah");
+
+                  isComplete = missing.length === 0;
+                  note = isComplete
+                    ? "Lengkap (Nasi, Lauk, Sayur, Buah)"
+                    : `Tidak makan: ${missing.join(", ")}`;
+                } catch (e) {
+                  note = l.keterangan;
+                }
+                completedHarianIds.set(l.jurnal_harian_id, {
+                  isComplete,
+                  note,
+                });
+                return;
+              }
+
+              completedHarianIds.set(l.jurnal_harian_id, l.keterangan);
+            });
+          }
         }
       }
     }
 
-    const generatedDays = []
-    
-    parentNote.value = ''
+    const generatedDays = [];
+
+    parentNote.value = "";
     try {
-      const { data: noteData } = await supabase.from('catatan_orang_tua')
-        .select('catatan')
-        .eq('peserta_didik_id', studentId)
-        .eq('jenis_jurnal', habit)
-        .eq('bulan', currentMonth + 1)
-        .eq('tahun', currentYear)
-        .maybeSingle()
-      if (noteData && noteData.catatan) parentNote.value = noteData.catatan
+      const { data: noteData } = await supabase
+        .from("catatan_orang_tua")
+        .select("catatan")
+        .eq("peserta_didik_id", studentId)
+        .eq("jenis_jurnal", habit)
+        .eq("bulan", currentMonth + 1)
+        .eq("tahun", currentYear)
+        .maybeSingle();
+      if (noteData && noteData.catatan) parentNote.value = noteData.catatan;
     } catch (e) {
-      console.error(e)
+      console.error(e);
     }
 
     for (let i = 1; i <= daysInMonth; i++) {
-      // Cek apakah jurnal_harian untuk hari ini memiliki record status = true untuk kebiasaan spesifik ini
-      const harianId = logsMap[i]?.id
-      let hasLog = harianId ? interactedHarianIds.has(harianId) : false
-      let isComplete = false
-      let note = ''
-      let fotoUrl = null
-      
+      const harianId = logsMap[i]?.id;
+      let hasLog = harianId ? interactedHarianIds.has(harianId) : false;
+      let isComplete = false;
+      let note = "";
+      let fotoUrl = null;
+
       if (hasLog) {
         if (completedHarianIds.has(harianId)) {
-          const rawData = completedHarianIds.get(harianId)
-          if (typeof rawData === 'object' && rawData !== null && rawData.isComplete !== undefined) {
-            isComplete = rawData.isComplete
-            note = rawData.note
+          const rawData = completedHarianIds.get(harianId);
+          if (
+            typeof rawData === "object" &&
+            rawData !== null &&
+            rawData.isComplete !== undefined
+          ) {
+            isComplete = rawData.isComplete;
+            note = rawData.note;
           } else {
-            isComplete = true
+            isComplete = true;
             if (rawData) {
               try {
-                const parsed = JSON.parse(rawData)
-                fotoUrl = parsed.foto_url || null
-                
-                if (habit === 'Gemar Belajar') {
-                   note = `${parsed.materi || ''} - ${parsed.informasi || ''}`
+                const parsed = JSON.parse(rawData);
+                fotoUrl = parsed.foto_url || null;
+
+                if (habit === "Gemar Belajar") {
+                  note = `${parsed.materi || ""} - ${parsed.informasi || ""}`;
                 } else {
-                   note = parsed.keterangan || rawData
+                  note = parsed.keterangan || rawData;
                 }
-              } catch(e) {
-                note = rawData
+              } catch (e) {
+                note = rawData;
               }
             }
           }
         } else {
-          isComplete = false
-          if (habit === 'Beribadah') note = 'Belum Tuntas. Tidak ada data / ibadah yang dikerjakan.'
-          else if (habit === 'Makan sehat & Bergizi') note = 'Belum Tuntas. Tidak ada data komponen makanan.'
-          else note = 'Catatan tidak memenuhi syarat tuntas (misal: durasi kurang).'
+          isComplete = false;
+          if (habit === "Beribadah")
+            note = "Belum Tuntas. Tidak ada data / ibadah yang dikerjakan.";
+          else if (habit === "Makan sehat & Bergizi")
+            note = "Belum Tuntas. Tidak ada data komponen makanan.";
+          else
+            note =
+              "Catatan tidak memenuhi syarat tuntas (misal: durasi kurang).";
         }
       }
 
       // Tentukan apakah hari ini di masa depan
-      const isFuture = (currentYear > today.getFullYear()) || 
-                       (currentYear === today.getFullYear() && currentMonth > today.getMonth()) ||
-                       (currentYear === today.getFullYear() && currentMonth === today.getMonth() && i > today.getDate())
+      const isFuture =
+        currentYear > today.getFullYear() ||
+        (currentYear === today.getFullYear() &&
+          currentMonth > today.getMonth()) ||
+        (currentYear === today.getFullYear() &&
+          currentMonth === today.getMonth() &&
+          i > today.getDate());
 
       generatedDays.push({
         day: i,
@@ -809,81 +1213,96 @@ const openModal = async (habit) => {
         logData: logsMap[i] || null,
         isFuture,
         note,
-        fotoUrl
-      })
+        fotoUrl,
+      });
     }
-    
-    // Untuk tabel riwayat harian tetap menggunakan modalLogs (semua hari)
-    modalLogs.value = generatedDays
+
+    modalLogs.value = generatedDays;
 
     // Agregasi mingguan untuk grafik Line
-    const weeklyData = [0, 0, 0, 0] // M1, M2, M3, M4
-    generatedDays.forEach(d => {
+    const weeklyData = [0, 0, 0, 0]; // M1, M2, M3, M4
+    generatedDays.forEach((d) => {
       if (d.isComplete) {
-        if (d.day <= 7) weeklyData[0]++
-        else if (d.day <= 14) weeklyData[1]++
-        else if (d.day <= 21) weeklyData[2]++
-        else weeklyData[3]++
+        if (d.day <= 7) weeklyData[0]++;
+        else if (d.day <= 14) weeklyData[1]++;
+        else if (d.day <= 21) weeklyData[2]++;
+        else weeklyData[3]++;
       }
-    })
+    });
 
     // Siapkan data untuk grafik
     chartData.value = {
-      labels: ['Minggu 1 (Tgl 1-7)', 'Minggu 2 (Tgl 8-14)', 'Minggu 3 (Tgl 15-21)', 'Minggu 4 (Tgl 22+)'],
+      labels: [
+        "Minggu 1 (Tgl 1-7)",
+        "Minggu 2 (Tgl 8-14)",
+        "Minggu 3 (Tgl 15-21)",
+        "Minggu 4 (Tgl 22+)",
+      ],
       datasets: [
         {
-          label: 'Jumlah Tuntas',
+          label: "Jumlah Tuntas",
           data: weeklyData,
-          borderColor: '#2563eb', // blue
-          backgroundColor: 'rgba(37, 99, 235, 0.2)', // light blue fill
+          borderColor: "#2563eb", // blue
+          backgroundColor: "rgba(37, 99, 235, 0.2)", // light blue fill
           borderWidth: 3,
-          pointBackgroundColor: '#2563eb',
+          pointBackgroundColor: "#2563eb",
           pointRadius: 5,
           pointHoverRadius: 7,
           fill: true,
-          tension: 0.4 // Curved line
-        }
-      ]
-    }
+          tension: 0.4, // Curved line
+        },
+      ],
+    };
   }
-  
-  isModalLoading.value = false
-}
+
+  isModalLoading.value = false;
+};
 
 const closeModal = () => {
-  showModal.value = false
-}
+  showModal.value = false;
+};
 
-// Implementasi Logika Rule-Based Classification untuk Print Template
 const getClassifiedLevel = (daysCompleted) => {
-  if (daysCompleted >= 24 && daysCompleted <= 31) return 'sangat';
-  if (daysCompleted >= 16 && daysCompleted <= 23) return 'terbiasa';
-  if (daysCompleted >= 8 && daysCompleted <= 15) return 'mulai';
-  return 'belum';
-}
+  if (daysCompleted >= 24 && daysCompleted <= 31) return "sangat";
+  if (daysCompleted >= 16 && daysCompleted <= 23) return "terbiasa";
+  if (daysCompleted >= 8 && daysCompleted <= 15) return "mulai";
+  return "belum";
+};
 
 const kebiasaanData = ref([
-  { id: 1, nama: 'Bangun Pagi', daysCompleted: 0 },
-  { id: 2, nama: 'Beribadah', daysCompleted: 0 },
-  { id: 3, nama: 'Berolahraga', daysCompleted: 0 },
-  { id: 4, nama: 'Makan sehat & Bergizi', daysCompleted: 0 },
-  { id: 5, nama: 'Gemar Belajar', daysCompleted: 0 },
-  { id: 6, nama: 'Bermasyarakat', daysCompleted: 0 },
-  { id: 7, nama: 'Tidur tepat waktu', daysCompleted: 0 }
+  { id: 1, nama: "Bangun Pagi", daysCompleted: 0 },
+  { id: 2, nama: "Beribadah", daysCompleted: 0 },
+  { id: 3, nama: "Berolahraga", daysCompleted: 0 },
+  { id: 4, nama: "Makan sehat & Bergizi", daysCompleted: 0 },
+  { id: 5, nama: "Gemar Belajar", daysCompleted: 0 },
+  { id: 6, nama: "Bermasyarakat", daysCompleted: 0 },
+  { id: 7, nama: "Tidur tepat waktu", daysCompleted: 0 },
 ]);
 </script>
 
 <style scoped>
-@import url('https://fonts.googleapis.com/css2?family=Nunito:wght@400;500;600;700;800;900&display=swap');
+@import url("https://fonts.googleapis.com/css2?family=Nunito:wght@400;500;600;700;800;900&display=swap");
 
 .status-icon {
   font-size: 1.3rem;
 }
-.text-red-500 { color: #ef4444; }
-.text-yellow-500 { color: #f59e0b; }
-.text-blue-500 { color: #3b82f6; }
-.text-green-500 { color: #10b981; }
-.text-slate-300 { color: #cbd5e1; font-weight: 500; font-size: 1.2rem; }
+.text-red-500 {
+  color: #ef4444;
+}
+.text-yellow-500 {
+  color: #f59e0b;
+}
+.text-blue-500 {
+  color: #3b82f6;
+}
+.text-green-500 {
+  color: #10b981;
+}
+.text-slate-300 {
+  color: #cbd5e1;
+  font-weight: 500;
+  font-size: 1.2rem;
+}
 
 .print-template-container {
   display: none;
@@ -891,26 +1310,33 @@ const kebiasaanData = ref([
 
 @media print {
   /* Sembunyikan elemen web utama */
-  .page-header, .table-card, .feedback-section, .parent-notes-section, .modal-overlay {
+  .page-header,
+  .table-card,
+  .feedback-section,
+  .parent-notes-section,
+  .modal-overlay {
     display: none !important;
   }
-  
+
   @page {
     size: A4 portrait;
     margin: 0;
   }
-  
-  html, body, #__nuxt, #__layout {
+
+  html,
+  body,
+  #__nuxt,
+  #__layout {
     height: 100% !important;
     background: white !important;
   }
-  
+
   .detail-siswa-guru {
     padding: 0 !important;
     margin: 0 !important;
     max-width: none !important;
   }
-  
+
   /* Layout Khusus Cetak */
   .print-template-container {
     display: block !important;
@@ -919,7 +1345,7 @@ const kebiasaanData = ref([
     height: auto;
     padding: 0.8cm;
     box-sizing: border-box;
-    font-family: 'Comic Sans MS', 'Chalkboard SE', 'Nunito', sans-serif;
+    font-family: "Comic Sans MS", "Chalkboard SE", "Nunito", sans-serif;
   }
 
   .print-border-box {
@@ -974,7 +1400,8 @@ const kebiasaanData = ref([
     color: #000;
   }
 
-  .print-custom-table th, .print-custom-table td {
+  .print-custom-table th,
+  .print-custom-table td {
     border: 1px solid #000;
     padding: 0.6rem 0.4rem;
     font-size: 1rem;
@@ -996,7 +1423,7 @@ const kebiasaanData = ref([
   }
 
   .print-custom-table .check-mark {
-    font-family: 'Comic Sans MS', cursive;
+    font-family: "Comic Sans MS", cursive;
     font-weight: bold;
   }
 
@@ -1057,7 +1484,7 @@ const kebiasaanData = ref([
   display: none; /* Hidden on web, visible on PDF */
   margin-top: 3rem;
   color: #0f172a;
-  font-family: 'Nunito', sans-serif;
+  font-family: "Nunito", sans-serif;
 }
 
 .signatures {
@@ -1101,7 +1528,7 @@ const kebiasaanData = ref([
 }
 
 .detail-siswa-guru {
-  font-family: 'Nunito', sans-serif;
+  font-family: "Nunito", sans-serif;
   max-width: 1100px;
   margin: 0 auto;
   padding: 1.5rem 0 4rem 0;
@@ -1117,8 +1544,8 @@ const kebiasaanData = ref([
   background: linear-gradient(135deg, #ffffff 0%, #f8fafc 100%);
   padding: 2rem 2.5rem;
   border-radius: 24px;
-  box-shadow: 0 10px 30px -10px rgba(0,0,0,0.05);
-  border: 1px solid rgba(255,255,255,0.8);
+  box-shadow: 0 10px 30px -10px rgba(0, 0, 0, 0.05);
+  border: 1px solid rgba(255, 255, 255, 0.8);
   flex-wrap: wrap;
   gap: 1.5rem;
 }
@@ -1165,8 +1592,12 @@ const kebiasaanData = ref([
   font-size: 1.4rem;
 }
 
-.text-blue { color: #3b82f6; }
-.text-green { color: #10b981; }
+.text-blue {
+  color: #3b82f6;
+}
+.text-green {
+  color: #10b981;
+}
 
 .info-text {
   font-size: 0.95rem;
@@ -1205,7 +1636,7 @@ const kebiasaanData = ref([
   -moz-appearance: none;
   background: transparent;
   border: none;
-  font-family: 'Nunito', sans-serif;
+  font-family: "Nunito", sans-serif;
   font-weight: 800;
   font-size: 1rem;
   color: #334155;
@@ -1272,10 +1703,23 @@ const kebiasaanData = ref([
   line-height: 1.4;
 }
 
-.report-table thead .col-no { width: 5%; }
-.report-table thead .col-kegiatan { width: 35%; text-align: left; font-size: 1.1rem; padding-left: 1.5rem; }
-.report-table thead .col-penerapan { width: 60%; font-size: 1.1rem; padding-bottom: 0.5rem;}
-.report-table thead .col-opsi { width: 15%; }
+.report-table thead .col-no {
+  width: 5%;
+}
+.report-table thead .col-kegiatan {
+  width: 35%;
+  text-align: left;
+  font-size: 1.1rem;
+  padding-left: 1.5rem;
+}
+.report-table thead .col-penerapan {
+  width: 60%;
+  font-size: 1.1rem;
+  padding-bottom: 0.5rem;
+}
+.report-table thead .col-opsi {
+  width: 15%;
+}
 
 /* Row hover interaktif */
 .table-row {
@@ -1290,12 +1734,18 @@ const kebiasaanData = ref([
   background-color: #f0f9ff;
 }
 
-.text-center { text-align: center; }
-.text-number { font-weight: 800; color: #94a3b8; font-size: 1.2rem; }
+.text-center {
+  text-align: center;
+}
+.text-number {
+  font-weight: 800;
+  color: #94a3b8;
+  font-size: 1.2rem;
+}
 
-.kegiatan-label { 
-  font-weight: 700; 
-  color: #334155; 
+.kegiatan-label {
+  font-weight: 700;
+  color: #334155;
   font-size: 1.1rem;
   background: transparent;
   padding: 0.2rem 0;
@@ -1330,9 +1780,12 @@ const kebiasaanData = ref([
 }
 
 .feedback-section::before {
-  content: '';
+  content: "";
   position: absolute;
-  top: 0; left: 0; right: 0; height: 6px;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 6px;
   background: linear-gradient(90deg, #4f46e5, #0ea5e9);
 }
 
@@ -1391,7 +1844,7 @@ const kebiasaanData = ref([
   width: 100%;
   border: none;
   background: transparent;
-  font-family: 'Nunito', sans-serif;
+  font-family: "Nunito", sans-serif;
   font-size: 1.1rem;
   color: #334155;
   resize: vertical;
@@ -1422,7 +1875,7 @@ const kebiasaanData = ref([
   font-size: 1.05rem;
   cursor: pointer;
   transition: all 0.3s ease;
-  font-family: 'Nunito', sans-serif;
+  font-family: "Nunito", sans-serif;
   display: flex;
   align-items: center;
   gap: 0.5rem;
@@ -1445,7 +1898,7 @@ const kebiasaanData = ref([
   font-size: 1.1rem;
   cursor: pointer;
   transition: all 0.3s ease;
-  font-family: 'Nunito', sans-serif;
+  font-family: "Nunito", sans-serif;
   display: flex;
   align-items: center;
   gap: 0.5rem;
@@ -1503,7 +1956,7 @@ const kebiasaanData = ref([
 
 .note-card:hover {
   transform: translateY(-4px);
-  box-shadow: 0 10px 25px -5px rgba(0,0,0,0.05);
+  box-shadow: 0 10px 25px -5px rgba(0, 0, 0, 0.05);
   border-color: #cbd5e1;
 }
 
@@ -1568,8 +2021,12 @@ body.dark-theme .note-text {
 }
 
 @keyframes spin {
-  from { transform: rotate(0deg); }
-  to { transform: rotate(360deg); }
+  from {
+    transform: rotate(0deg);
+  }
+  to {
+    transform: rotate(360deg);
+  }
 }
 
 /* Responsiveness */
@@ -1579,35 +2036,37 @@ body.dark-theme .note-text {
     align-items: stretch;
     padding: 1.5rem;
   }
-  
+
   .header-right {
     width: 100%;
   }
-  
-  .filter-wrapper, .btn-month-select {
+
+  .filter-wrapper,
+  .btn-month-select {
     width: 100%;
   }
-  
+
   .report-table {
     min-width: 800px;
   }
-  
-  .report-table th, 
+
+  .report-table th,
   .report-table td {
     padding: 1rem 0.5rem;
     font-size: 0.95rem;
   }
-  
+
   .feedback-section {
     padding: 1.5rem;
   }
-  
+
   .action-footer {
     flex-direction: column;
     align-items: stretch;
   }
-  
-  .btn-save, .btn-secondary {
+
+  .btn-save,
+  .btn-secondary {
     justify-content: center;
   }
 }
@@ -1667,8 +2126,14 @@ body.dark-theme .note-text {
 }
 
 @keyframes modalIn {
-  from { opacity: 0; transform: translateY(20px) scale(0.95); }
-  to { opacity: 1; transform: translateY(0) scale(1); }
+  from {
+    opacity: 0;
+    transform: translateY(20px) scale(0.95);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0) scale(1);
+  }
 }
 
 .modal-header {
@@ -1776,7 +2241,7 @@ body.dark-theme .note-text {
   position: sticky;
   top: 0;
   z-index: 10;
-  box-shadow: 0 2px 4px rgba(0,0,0,0.02);
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.02);
 }
 
 .history-table td {
@@ -1795,8 +2260,12 @@ body.dark-theme .note-text {
   border-bottom: none;
 }
 
-.fw-bold { font-weight: 800; }
-.text-slate-700 { color: #334155; }
+.fw-bold {
+  font-weight: 800;
+}
+.text-slate-700 {
+  color: #334155;
+}
 
 .badge-status {
   padding: 0.4rem 1rem;
@@ -1808,15 +2277,24 @@ body.dark-theme .note-text {
   gap: 0.4rem;
 }
 
-.badge-status.success { background: #dcfce7; color: #166534; }
-.badge-status.danger { background: #fee2e2; color: #991b1b; }
+.badge-status.success {
+  background: #dcfce7;
+  color: #166534;
+}
+.badge-status.danger {
+  background: #fee2e2;
+  color: #991b1b;
+}
 
 .log-note {
   margin: 0;
   line-height: 1.5;
 }
 
-.text-danger { color: #dc2626; font-style: italic; }
+.text-danger {
+  color: #dc2626;
+  font-style: italic;
+}
 
 .btn-sm {
   margin-top: 0.5rem;
@@ -1842,12 +2320,26 @@ body.dark-theme .note-text {
 <style>
 @media print {
   /* Sembunyikan elemen bawaan dari Layout (Navbar, Sidebar, Footer, dll) */
-  header, nav, aside, footer, .sidebar, .navbar, .topbar, .app-header, .layout-sidebar, .layout-topbar, .page-subtitle {
+  header,
+  nav,
+  aside,
+  footer,
+  .sidebar,
+  .navbar,
+  .topbar,
+  .app-header,
+  .layout-sidebar,
+  .layout-topbar,
+  .page-subtitle {
     display: none !important;
   }
-  
+
   /* Pastikan kontainer utama memakan seluruh layar tanpa margin dari layout */
-  main, .main-content, .page-wrapper, .layout-main, .layout-main-container {
+  main,
+  .main-content,
+  .page-wrapper,
+  .layout-main,
+  .layout-main-container {
     margin: 0 !important;
     padding: 0 !important;
     width: 100% !important;
@@ -1894,7 +2386,7 @@ body.dark-theme .detail-siswa-guru {
 body.dark-theme .page-header {
   background: linear-gradient(135deg, #1e293b 0%, #0f172a 100%);
   border-color: #334155;
-  box-shadow: 0 10px 30px -10px rgba(0,0,0,0.5);
+  box-shadow: 0 10px 30px -10px rgba(0, 0, 0, 0.5);
 }
 
 body.dark-theme .page-title {

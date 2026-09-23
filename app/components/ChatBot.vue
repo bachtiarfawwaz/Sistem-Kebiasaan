@@ -1,8 +1,11 @@
 <template>
-  <div class="chatbot-wrapper" :style="{ transform: `translate(${position.x}px, ${position.y}px)` }">
+  <div
+    class="chatbot-wrapper"
+    :style="{ transform: `translate(${position.x}px, ${position.y}px)` }"
+  >
     <!-- Tombol Mengambang (FAB) -->
-    <button 
-      class="chatbot-fab" 
+    <button
+      class="chatbot-fab"
       @mousedown="startDrag"
       @touchstart="startDrag"
       @click="toggleChat"
@@ -24,9 +27,7 @@
             </div>
             <div>
               <h3 class="bot-name">Asisten KAIH</h3>
-              <p class="bot-status connected">
-                Asisten KAIH Online
-              </p>
+              <p class="bot-status connected">Asisten KAIH Online</p>
             </div>
           </div>
           <div class="header-actions">
@@ -39,14 +40,22 @@
         <!-- Body / Messages -->
         <div class="chat-body" ref="chatBody">
           <div class="message bot-message">
-            Halo Ayah/Bunda! Ada yang bisa saya bantu terkait perkembangan ananda atau penggunaan aplikasi KAIH hari ini?
+            Halo Ayah/Bunda! Ada yang bisa saya bantu terkait perkembangan
+            ananda atau penggunaan aplikasi KAIH hari ini?
           </div>
-          
-          <div v-for="(msg, index) in messages" :key="index" :class="['message', msg.sender === 'user' ? 'user-message' : 'bot-message']">
+
+          <div
+            v-for="(msg, index) in messages"
+            :key="index"
+            :class="[
+              'message',
+              msg.sender === 'user' ? 'user-message' : 'bot-message',
+            ]"
+          >
             <div class="message-content">{{ msg.text }}</div>
             <div class="message-meta">{{ msg.time }}</div>
           </div>
-          
+
           <div v-if="isTyping" class="message bot-message typing-indicator">
             <span>.</span><span>.</span><span>.</span>
           </div>
@@ -54,15 +63,19 @@
 
         <!-- Footer / Input -->
         <div class="chat-footer">
-          <input 
-            type="text" 
-            v-model="newMessage" 
+          <input
+            type="text"
+            v-model="newMessage"
             @keyup.enter="sendMessage"
-            placeholder="Ketik pesan Anda di sini..." 
+            placeholder="Ketik pesan Anda di sini..."
             class="chat-input"
             :disabled="isTyping"
           />
-          <button class="send-btn" @click="sendMessage" :disabled="!newMessage.trim() || isTyping">
+          <button
+            class="send-btn"
+            @click="sendMessage"
+            :disabled="!newMessage.trim() || isTyping"
+          >
             <Icon name="ph:paper-plane-right-fill" class="send-icon" />
           </button>
         </div>
@@ -72,134 +85,134 @@
 </template>
 
 <script setup>
-import { ref, onMounted, nextTick } from 'vue'
+import { ref, onMounted, nextTick } from "vue";
 
-const isOpen = ref(false)
-const newMessage = ref('')
-const isTyping = ref(false)
-const chatBody = ref(null)
+const isOpen = ref(false);
+const newMessage = ref("");
+const isTyping = ref(false);
+const chatBody = ref(null);
 
-const messages = ref([])
+const messages = ref([]);
 
 // Dragging logic
-const position = ref({ x: 0, y: 0 })
-const isDragging = ref(false)
-const dragStart = ref({ x: 0, y: 0 })
-const startPosition = ref({ x: 0, y: 0 })
-let draggedDistance = 0
+const position = ref({ x: 0, y: 0 });
+const isDragging = ref(false);
+const dragStart = ref({ x: 0, y: 0 });
+const startPosition = ref({ x: 0, y: 0 });
+let draggedDistance = 0;
 
 const startDrag = (e) => {
-  isDragging.value = true
-  draggedDistance = 0
-  
-  const clientX = e.type.includes('mouse') ? e.clientX : e.touches[0].clientX
-  const clientY = e.type.includes('mouse') ? e.clientY : e.touches[0].clientY
-  
-  dragStart.value = { x: clientX, y: clientY }
-  startPosition.value = { x: position.value.x, y: position.value.y }
-  
-  document.addEventListener('mousemove', onDrag)
-  document.addEventListener('mouseup', stopDrag)
-  document.addEventListener('touchmove', onDrag, { passive: false })
-  document.addEventListener('touchend', stopDrag)
-}
+  isDragging.value = true;
+  draggedDistance = 0;
+
+  const clientX = e.type.includes("mouse") ? e.clientX : e.touches[0].clientX;
+  const clientY = e.type.includes("mouse") ? e.clientY : e.touches[0].clientY;
+
+  dragStart.value = { x: clientX, y: clientY };
+  startPosition.value = { x: position.value.x, y: position.value.y };
+
+  document.addEventListener("mousemove", onDrag);
+  document.addEventListener("mouseup", stopDrag);
+  document.addEventListener("touchmove", onDrag, { passive: false });
+  document.addEventListener("touchend", stopDrag);
+};
 
 const onDrag = (e) => {
-  if (!isDragging.value) return
-  if (e.cancelable) e.preventDefault()
-  
-  const clientX = e.type.includes('mouse') ? e.clientX : e.touches[0].clientX
-  const clientY = e.type.includes('mouse') ? e.clientY : e.touches[0].clientY
-  
-  const dx = clientX - dragStart.value.x
-  const dy = clientY - dragStart.value.y
-  
-  draggedDistance = Math.abs(dx) + Math.abs(dy)
-  
-  position.value.x = startPosition.value.x + dx
-  position.value.y = startPosition.value.y + dy
-}
+  if (!isDragging.value) return;
+  if (e.cancelable) e.preventDefault();
+
+  const clientX = e.type.includes("mouse") ? e.clientX : e.touches[0].clientX;
+  const clientY = e.type.includes("mouse") ? e.clientY : e.touches[0].clientY;
+
+  const dx = clientX - dragStart.value.x;
+  const dy = clientY - dragStart.value.y;
+
+  draggedDistance = Math.abs(dx) + Math.abs(dy);
+
+  position.value.x = startPosition.value.x + dx;
+  position.value.y = startPosition.value.y + dy;
+};
 
 const stopDrag = () => {
-  isDragging.value = false
-  document.removeEventListener('mousemove', onDrag)
-  document.removeEventListener('mouseup', stopDrag)
-  document.removeEventListener('touchmove', onDrag)
-  document.removeEventListener('touchend', stopDrag)
-}
+  isDragging.value = false;
+  document.removeEventListener("mousemove", onDrag);
+  document.removeEventListener("mouseup", stopDrag);
+  document.removeEventListener("touchmove", onDrag);
+  document.removeEventListener("touchend", stopDrag);
+};
 
 const toggleChat = (e) => {
   if (draggedDistance > 5) {
-    if (e && e.preventDefault) e.preventDefault()
-    return
+    if (e && e.preventDefault) e.preventDefault();
+    return;
   }
-  isOpen.value = !isOpen.value
+  isOpen.value = !isOpen.value;
   if (isOpen.value) {
-    scrollToBottom()
+    scrollToBottom();
   }
-}
+};
 
 const formatTime = () => {
-  const now = new Date()
-  return now.toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' })
-}
+  const now = new Date();
+  return now.toLocaleTimeString([], { hour: "2-digit", minute: "2-digit" });
+};
 
 // Send message to AI
 const sendMessage = async () => {
-  if (!newMessage.value.trim() || isTyping.value) return
+  if (!newMessage.value.trim() || isTyping.value) return;
 
-  const userText = newMessage.value
-  const time = formatTime()
-  messages.value.push({ sender: 'user', text: userText, time })
-  newMessage.value = ''
-  scrollToBottom()
+  const userText = newMessage.value;
+  const time = formatTime();
+  messages.value.push({ sender: "user", text: userText, time });
+  newMessage.value = "";
+  scrollToBottom();
 
-  isTyping.value = true
-  
+  isTyping.value = true;
+
   try {
-    const response = await $fetch('/api/generate', {
-      method: 'POST',
+    const response = await $fetch("/api/generate", {
+      method: "POST",
       body: {
-        prompt: userText
-      }
-    })
-    
+        prompt: userText,
+      },
+    });
+
     if (response && response.response) {
       messages.value.push({
-        sender: 'bot',
+        sender: "bot",
         text: response.response,
-        time: formatTime()
-      })
+        time: formatTime(),
+      });
     } else {
-      throw new Error('Format respon tidak sesuai')
+      throw new Error("Format respon tidak sesuai");
     }
   } catch (error) {
-    console.error('Chat error:', error)
+    console.error("Chat error:", error);
     messages.value.push({
-      sender: 'bot',
+      sender: "bot",
       text: `Maaf Ayah/Bunda, saya gagal terhubung dengan AI. Pastikan koneksi internet stabil atau coba lagi nanti.`,
-      time: formatTime()
-    })
+      time: formatTime(),
+    });
   } finally {
-    isTyping.value = false
-    scrollToBottom()
+    isTyping.value = false;
+    scrollToBottom();
   }
-}
+};
 
 const scrollToBottom = () => {
   nextTick(() => {
     if (chatBody.value) {
-      chatBody.value.scrollTop = chatBody.value.scrollHeight
+      chatBody.value.scrollTop = chatBody.value.scrollHeight;
     }
-  })
-}
+  });
+};
 </script>
 
 <style scoped>
-@import url('https://fonts.googleapis.com/css2?family=Nunito:wght@400;500;600;700;800&display=swap');
+@import url("https://fonts.googleapis.com/css2?family=Nunito:wght@400;500;600;700;800&display=swap");
 
 .chatbot-wrapper {
-  font-family: 'Nunito', sans-serif;
+  font-family: "Nunito", sans-serif;
   position: fixed;
   bottom: 2rem;
   right: 2.5rem;
@@ -245,7 +258,7 @@ const scrollToBottom = () => {
   height: 520px;
   background: #ffffff;
   border-radius: 24px;
-  box-shadow: 0 20px 40px -10px rgba(0,0,0,0.15);
+  box-shadow: 0 20px 40px -10px rgba(0, 0, 0, 0.15);
   border: 1px solid #f1f5f9;
   display: flex;
   flex-direction: column;
@@ -301,7 +314,7 @@ const scrollToBottom = () => {
 }
 
 .bot-status::before {
-  content: '';
+  content: "";
   width: 8px;
   height: 8px;
   background: #ef4444; /* Default disconnected */
@@ -355,8 +368,14 @@ const scrollToBottom = () => {
 }
 
 @keyframes slideIn {
-  from { transform: translateY(10%); opacity: 0; }
-  to { transform: translateY(0); opacity: 1; }
+  from {
+    transform: translateY(10%);
+    opacity: 0;
+  }
+  to {
+    transform: translateY(0);
+    opacity: 1;
+  }
 }
 
 .settings-header {
@@ -470,8 +489,12 @@ const scrollToBottom = () => {
 }
 
 @keyframes spin {
-  from { transform: rotate(0deg); }
-  to { transform: rotate(360deg); }
+  from {
+    transform: rotate(0deg);
+  }
+  to {
+    transform: rotate(360deg);
+  }
 }
 
 .status-alert {
@@ -516,7 +539,7 @@ const scrollToBottom = () => {
   padding: 0.8rem 1.2rem;
   font-size: 0.95rem;
   line-height: 1.5;
-  box-shadow: 0 2px 5px rgba(0,0,0,0.02);
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.02);
   display: flex;
   flex-direction: column;
 }
@@ -562,12 +585,23 @@ const scrollToBottom = () => {
   font-size: 1.5rem;
   line-height: 0.5;
 }
-.typing-indicator span:nth-child(2) { animation-delay: 0.2s; }
-.typing-indicator span:nth-child(3) { animation-delay: 0.4s; }
+.typing-indicator span:nth-child(2) {
+  animation-delay: 0.2s;
+}
+.typing-indicator span:nth-child(3) {
+  animation-delay: 0.4s;
+}
 
 @keyframes typing {
-  0%, 100% { opacity: 0.2; transform: translateY(0); }
-  50% { opacity: 1; transform: translateY(-2px); }
+  0%,
+  100% {
+    opacity: 0.2;
+    transform: translateY(0);
+  }
+  50% {
+    opacity: 1;
+    transform: translateY(-2px);
+  }
 }
 
 /* Chat Footer */
