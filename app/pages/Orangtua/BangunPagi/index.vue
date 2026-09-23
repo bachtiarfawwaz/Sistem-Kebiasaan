@@ -868,7 +868,7 @@ const goToCurrentMonth = () => {
   border-color: #fde68a;
 }
 .success-badge.warning .success-icon {
-  color: #3b82f6;
+  color: #f59e0b;
 }
 .success-badge.warning .success-text {
   color: #92400e;
@@ -1054,7 +1054,7 @@ const goToCurrentMonth = () => {
 .day-label {
   font-size: 0.75rem;
   font-weight: 800;
-  background: #3b82f6;
+  background: #f59e0b;
   color: white;
   padding: 0.2rem 0.5rem;
   border-radius: 6px;
@@ -1118,7 +1118,7 @@ const goToCurrentMonth = () => {
   color: #10b981;
 }
 .status-paraf.warning {
-  color: #3b82f6;
+  color: #f59e0b;
 }
 .status-paraf.danger {
   color: #ef4444;
@@ -1131,7 +1131,7 @@ const goToCurrentMonth = () => {
   color: #10b981;
 }
 .status-icon.waiting {
-  color: #3b82f6;
+  color: #f59e0b;
 }
 .status-icon.missed {
   color: #ef4444;
@@ -1142,7 +1142,7 @@ const goToCurrentMonth = () => {
 
 /* Day Card Variants */
 .day-card.is-today {
-  border: 2px solid #3b82f6;
+  border: 2px solid #f59e0b;
   background: #fffbeb;
 }
 .day-card.is-today .day-number {
