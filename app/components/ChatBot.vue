@@ -57,7 +57,7 @@
           </div>
 
           <div v-if="isTyping" class="message bot-message typing-indicator">
-            <span>.</span><span>.</span><span>.</span>
+            Sedang mengetik<span>.</span><span>.</span><span>.</span>
           </div>
         </div>
 
