@@ -57,7 +57,7 @@
           </div>
 
           <div v-if="isTyping" class="message bot-message typing-indicator">
-            Sedang mengetik<span>.</span><span>.</span><span>.</span>
+            <div class="typing-text">Sedang mengetik<span class="dot">.</span><span class="dot">.</span><span class="dot">.</span></div>
           </div>
         </div>
 
@@ -602,16 +602,21 @@ const scrollToBottom = () => {
 }
 
 /* Typing Indicator */
-.typing-indicator span {
+.typing-text {
+  display: flex;
+  align-items: flex-end;
+  font-weight: 500;
+}
+.typing-indicator .dot {
   display: inline-block;
   animation: typing 1.4s infinite;
-  font-size: 1.5rem;
-  line-height: 0.5;
+  font-size: 1.2rem;
+  line-height: 1;
 }
-.typing-indicator span:nth-child(2) {
+.typing-indicator .dot:nth-child(2) {
   animation-delay: 0.2s;
 }
-.typing-indicator span:nth-child(3) {
+.typing-indicator .dot:nth-child(3) {
   animation-delay: 0.4s;
 }
 
