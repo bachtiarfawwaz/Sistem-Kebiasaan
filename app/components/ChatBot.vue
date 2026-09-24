@@ -69,12 +69,12 @@
             @keyup.enter="sendMessage"
             placeholder="Ketik pesan Anda di sini..."
             class="chat-input"
-            :disabled="isTyping"
+            :disabled="isInputDisabled"
           />
           <button
             class="send-btn"
             @click="sendMessage"
-            :disabled="!newMessage.trim() || isTyping"
+            :disabled="!newMessage.trim() || isInputDisabled"
           >
             <Icon name="ph:paper-plane-right-fill" class="send-icon" />
           </button>
@@ -91,6 +91,8 @@ const isOpen = ref(false);
 const newMessage = ref("");
 const isTyping = ref(false);
 const chatBody = ref(null);
+
+const isInputDisabled = ref(false);
 
 const messages = ref([]);
 
@@ -159,7 +161,7 @@ const formatTime = () => {
 
 // Send message to AI
 const sendMessage = async () => {
-  if (!newMessage.value.trim() || isTyping.value) return;
+  if (!newMessage.value.trim() || isInputDisabled.value) return;
 
   const userText = newMessage.value;
   const time = formatTime();
@@ -168,6 +170,7 @@ const sendMessage = async () => {
   scrollToBottom();
 
   isTyping.value = true;
+  isInputDisabled.value = true;
 
   try {
     const response = await $fetch("/api/generate", {
@@ -177,25 +180,45 @@ const sendMessage = async () => {
       },
     });
 
+    isTyping.value = false; // Matikan indikator "..."
+
     if (response && response.response) {
-      messages.value.push({
+      const botMsg = {
         sender: "bot",
-        text: response.response,
+        text: "",
         time: formatTime(),
-      });
+      };
+      messages.value.push(botMsg);
+      
+      const fullText = response.response;
+      let i = 0;
+      
+      // Fungsi rekursif untuk efek mengetik
+      const typeWriter = () => {
+        if (i < fullText.length) {
+          botMsg.text += fullText.charAt(i);
+          i++;
+          scrollToBottom();
+          setTimeout(typeWriter, 15); // Kecepatan mengetik 15ms per karakter
+        } else {
+          isInputDisabled.value = false; // Aktifkan input kembali setelah selesai mengetik
+        }
+      };
+      
+      typeWriter();
+      
     } else {
       throw new Error("Format respon tidak sesuai");
     }
   } catch (error) {
     console.error("Chat error:", error);
+    isTyping.value = false;
     messages.value.push({
       sender: "bot",
       text: `Maaf Ayah/Bunda, saya gagal terhubung dengan AI. Pastikan koneksi internet stabil atau coba lagi nanti.`,
       time: formatTime(),
     });
-  } finally {
-    isTyping.value = false;
-    scrollToBottom();
+    isInputDisabled.value = false;
   }
 };
 
