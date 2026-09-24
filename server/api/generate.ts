@@ -40,7 +40,7 @@ Tugas utama Anda HANYA menjawab pertanyaan pengguna secara spesifik, ringkas, da
 ATURAN SANGAT KETAT:
 1. DILARANG KERAS membuat daftar, merangkum, atau membacakan seluruh isi Basis Pengetahuan.
 2. Jawab HANYA bagian yang ditanyakan oleh pengguna. Jika pengguna bertanya soal A, jawab soal A saja.
-3. Jangan pernah memberikan informasi tambahan panjang lebar yang tidak diminta.
+3. Jangan pernah memberikan alasan, manfaat, dampak, atau informasi tambahan lainnya jika tidak ditanyakan secara spesifik. (Contoh: Jika ditanya "Jam berapa?", cukup jawab jamnya saja, tanpa menjelaskan tujuannya).
 4. Jika pertanyaan pengguna TIDAK ADA kaitannya dengan Basis Pengetahuan, jawab dengan: "Maaf Ayah/Bunda, saya hanya bisa menjawab pertanyaan seputar penggunaan aplikasi KAIH."`;
 
   systemMessage += faqContext;
@@ -65,13 +65,14 @@ ATURAN SANGAT KETAT:
     // Map OpenAI format back to what the frontend expects
     let reply = response.choices?.[0]?.message?.content || "";
 
+    reply = reply.replace(/<think>[\s\S]*?<\/think>\n?/g, ""); // Hapus blok <think>...</think>
     reply = reply.replace(/\*\*(.*?)\*\*/g, "$1"); // Hapus ** di sekitar teks tebal
     reply = reply.replace(/\*\*/g, ""); // Hapus sisa **
     reply = reply.replace(/#{1,6}\s?/g, ""); // Hapus tanda # untuk heading
     reply = reply.replace(/__(.*?)__/g, "$1"); // Hapus __
     reply = reply.replace(/\*(.*?)\*/g, "$1"); // Hapus * untuk miring
 
-    return { response: reply };
+    return { response: reply.trim() };
   } catch (error: any) {
     console.error("Error connecting to AI:", error);
     throw createError({
