@@ -23,6 +23,11 @@
   "devDependencies": {
     "@iconify-json/ph": "^1.2.2",
     "@nuxt/icon": "^2.2.1",
-    "prettier": "^3.9.9"
+    "@nuxt/test-utils": "^4.3.2",
+    "@types/node": "^26.6.2",
+    "@vue/test-utils": "^2.5.1",
+    "happy-dom": "^20.14.5",
+    "prettier": "^3.9.9",
+    "vitest": "^5.0.1"
   }
 }

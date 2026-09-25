@@ -1,7 +1,7 @@
 import { defineEventHandler, readBody, createError } from "h3";
 import { createClient } from "@supabase/supabase-js";
 
-export default defineEventHandler(async (event) => {
+export default defineEventHandler(async (event: any) => {
   const body = await readBody(event);
   const apiUrl = "https://qwen-api.maqwa.com";
   const apiKey = "1J74AN2AjGSOYKxwAu8bt4aWlgBfNrrT";
@@ -28,7 +28,7 @@ export default defineEventHandler(async (event) => {
   if (faqs && faqs.length > 0) {
     faqContext = "\n\nBerikut adalah Basis Pengetahuan (FAQ) sistem:\n";
     faqContext += faqs
-      .map((f) => `Q: ${f.pertanyaan}\nA: ${f.jawaban}`)
+      .map((f: any) => `Q: ${f.pertanyaan}\nA: ${f.jawaban}`)
       .join("\n\n");
   }
 
